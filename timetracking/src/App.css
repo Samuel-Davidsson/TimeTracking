@@ -9,6 +9,45 @@ body {
   text-align: center;
   margin: 0px auto;
 }
+.div-loginform {
+  margin: 5px;
+}
+.loginform-input-username {
+  margin: 0.5%;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #61dafb;
+  border-radius: 4px;
+  width: 12%;
+  font-size: 20px;
+}
+.loginform-input-password {
+  margin-right: 0.5%;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #61dafb;
+  border-radius: 4px;
+  width: 12%;
+  font-size: 20px;
+}
+.loginform-button {
+  width: 5%;
+  height: 36px;
+  font-size: 20px;
+  color: black;
+  text-align: center;
+  background: lightslategray;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: 0;
+}
+.loginform-button:hover {
+  background: #61dafb;
+}
 .test {
   color: red;
+}
+.test:hover {
+  color: #61dafb;
 }

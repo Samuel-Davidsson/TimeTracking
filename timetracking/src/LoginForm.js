@@ -1,27 +1,27 @@
 import React from "react";
 
 class LoginForm extends React.Component {
-  usernameRef = React.createRef();
+  loginRef = React.createRef();
   passwordRef = React.createRef();
 
-  tryLogin = event => {
+  handleSubmit = event => {
     event.preventDefault();
     const userLoginInfo = {
-      username: this.usernameRef.current.value,
+      login: this.loginRef.current.value,
       password: this.passwordRef.current.value
     };
     this.props.tryLogin(userLoginInfo);
-    //Osäker på om jag vill resetta efter en failed login..
     event.currentTarget.reset();
   };
   render() {
     return (
-      <div>
-        <form onSubmit={this.tryLogin}>
+      <div className="div-loginform">
+        <form onSubmit={this.handleSubmit}>
           <input
             name="username"
-            ref={this.usernameRef}
+            ref={this.loginRef}
             placeholder="Användarnamn.."
+            className="loginform-input-username"
             type="email"
             required
           />
@@ -29,10 +29,11 @@ class LoginForm extends React.Component {
             name="password"
             ref={this.passwordRef}
             placeholder="Lösenord.."
+            className="loginform-input-password"
             type="password"
             required
           />
-          <input type="submit" value="Logga in" />
+          <input className="loginform-button" type="submit" value="Logga in" />
         </form>
       </div>
     );

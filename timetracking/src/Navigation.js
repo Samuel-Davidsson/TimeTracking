@@ -4,9 +4,9 @@ import { NavLink } from "react-router-dom";
 const Navigation = () => {
   return (
     <div>
-      <p>Inte registrerad klicka på länken</p>
-      <NavLink className="test" to="register">
-        Register
+      <p>Inget konto?</p>
+      <NavLink className="test" value="Register" to="register">
+        Klicka här för att registera dig!
       </NavLink>
     </div>
   );
