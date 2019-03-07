@@ -1,20 +1,22 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Calender from "./Routes/Calender";
-import Login from "./Routes/Login";
+import AuthRoute from "./Helpers/AuthRoute";
+import Admin from "./Routes/Admin";
+import Login from "./Routes/LoginRoute/Login";
 import NotFound from "./Routes/NotFound";
-import Register from "./Routes/Register";
+import Register from "./Routes/RegisterRoute/Register";
+import Timereport from "./Routes/UserRoute/Timereport";
 
 const Router = () => (
   <BrowserRouter>
-    <div>
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/calender" component={Calender} />
-        <Route component={NotFound} />
-      </Switch>
-    </div>
+    <Switch>
+      <Route path="/Timetracker" exact component={Login} />
+      <Route path="/Timetracker/login" component={Login} />
+      <Route path="/Timetracker/register" component={Register} />
+      <AuthRoute path="/Timetracker/timereport" component={Timereport} />
+      <Route path="/Timetracker/admin" component={Admin} />
+      <Route component={NotFound} />
+    </Switch>
   </BrowserRouter>
 );
 

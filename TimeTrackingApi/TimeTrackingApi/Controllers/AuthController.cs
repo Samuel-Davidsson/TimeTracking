@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -16,43 +17,58 @@ namespace TimeTrackingApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        // GET api/values
-        [HttpPost, Route("login")]
-        public IActionResult Login(UserViewmodel user)
+        private readonly IUserService _userService;
+        public AuthController(IUserService userService)
         {
-            if (user == null)
-            {
-                return BadRequest("Invalid client request");
-            }
-
-            if (user.Login == "test@test.com" && user.Password == "123")
-            {
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
-                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-
-                // Setup calim routes later.
-
-                //var claims = new List<Claim>
-                //{
-                //    new Claim(ClaimTypes.Name, user.Login),
-                //    new Claim(ClaimTypes.Role, "Manager")
-                //};
-
-                var tokeOptions = new JwtSecurityToken(
-                    issuer: "http://localhost:5000",
-                    audience: "http://localhost:5000",
-                    claims: new List<Claim>(), //sätta claims här.
-                    expires: DateTime.Now.AddMinutes(5),
-                    signingCredentials: signinCredentials
-                );
-
-                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-                return Ok(new { Token = tokenString });
-            }
-            else
-            {
-                return Unauthorized();
-            }
+            _userService = userService;
         }
+
+        [HttpPost, Route("login")]
+        public IActionResult Login(UserViewmodel userViewModel)
+        {
+            var users = _userService.GetAll();
+            foreach (var user in users)
+            {
+                var userLogin = user.Login;
+                var userPassword = user.Password;
+                var userLoginTrimEnd = userLogin.TrimEnd();
+
+                if (userViewModel.Login.ToLower() == userLoginTrimEnd.ToLower() && userViewModel.Password == userPassword)
+                {
+
+                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
+                    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+                    // Setup claim routes later.
+
+                    //var claims = new List<Claim>
+                    //{
+                    //    new Claim(ClaimTypes.Name, user.Login),
+                    //    new Claim(ClaimTypes.Role, "Manager")
+                    //};
+
+                    var tokeOptions = new JwtSecurityToken(
+                        issuer: "http://localhost:5000",
+                        audience: "http://localhost:5000",
+                        claims: new List<Claim>(), //sätta claims här.
+                        expires: DateTime.Now.AddMinutes(5),
+                        signingCredentials: signinCredentials
+                    );
+                    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                    var AuthUser = new UserViewmodel
+                    {
+                        Id = user.Id,
+                        Firstname = user.FirstName,
+                        Lastname = user.LastName,
+                        IsAdmin = user.IsAdmin,
+                        Token = tokenString
+                    };
+                    return Ok(AuthUser);
+                  }
+            }
+            return BadRequest("Användarnamnet eller lösenordet är felaktigt.");
+        }
+
     }
-}
+ }
+

@@ -1,11 +1,13 @@
 {
   "name": "timetracking",
+  "homepage": "http://localhost/Timetracker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "react": "^16.8.3",
+    "react-day-picker": "^7.3.0",
     "react-dom": "^16.8.3",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",

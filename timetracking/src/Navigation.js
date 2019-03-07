@@ -1,11 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./Routes/LoginRoute/Login.css";
 
 const Navigation = () => {
   return (
     <div>
-      <p>Inget konto?</p>
-      <NavLink className="test" value="Register" to="register">
+      <NavLink
+        className="login-link"
+        value="Register"
+        to="timetracker/register"
+      >
         Klicka här för att registera dig!
       </NavLink>
     </div>
