@@ -46,6 +46,7 @@ namespace TimeTrackingApi
             services.AddCors();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<Crypt>();
 
             var connection = "Server = localhost; Database = TimeTrackingDB; Trusted_Connection = True";
             services.AddDbContext<TimeTrackingContext>

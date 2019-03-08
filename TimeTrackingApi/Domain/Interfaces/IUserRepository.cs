@@ -7,5 +7,7 @@ namespace Domain.Interfaces
     {
         IEnumerable<User> GetAll();
         User GetUserById(int id);
+        void Add(User user);
+        void Update(User user);
     }
 }

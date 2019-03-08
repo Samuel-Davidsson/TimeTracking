@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import "./Login.css";
 
 class LoginForm extends React.Component {
   loginRef = React.createRef();
@@ -18,12 +19,13 @@ class LoginForm extends React.Component {
       <div className="div-loginform">
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
-            <Label>Email</Label>
+            <Label>Användarnamn</Label>
             <Input
               name="username"
-              ref={this.loginRef}
+              innerRef={this.loginRef}
               placeholder="Användarnamn.."
               type="email"
+              className="login-input"
               required
             />
           </FormGroup>
@@ -31,13 +33,13 @@ class LoginForm extends React.Component {
             <Label>Lösenord</Label>
             <Input
               name="password"
-              ref={this.passwordRef}
+              innerRef={this.passwordRef}
               placeholder="Lösenord.."
               type="password"
+              className="login-input"
               required
             />
           </FormGroup>
-
           <Button color="info" type="submit">
             Logga in
           </Button>

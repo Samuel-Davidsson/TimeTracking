@@ -7,11 +7,7 @@ import "./Login.css";
 import LoginForm from "./LoginForm";
 
 class Login extends React.Component {
-  loginRef = React.createRef();
-  passwordRef = React.createRef();
-
   tryLogin = userLoginInfo => {
-    console.log(userLoginInfo);
     axios
       .post(`${Api_Url}/auth/login`, {
         login: userLoginInfo.login,

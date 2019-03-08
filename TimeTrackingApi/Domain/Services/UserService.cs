@@ -14,19 +14,24 @@ namespace Domain.Services
             _userRepository = userRepository;
         }
 
+        public void Add(User user)
+        {
+            _userRepository.Add(user);
+        }
+
         public IEnumerable<User> GetAll()
         {
             return _userRepository.GetAll();
         }
 
-        public User GetTimereportUserById(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public User GetUserById(int id)
         {
             return _userRepository.GetUserById(id);
+        }
+
+        public void Update(User user)
+        {
+            _userRepository.Update(user);
         }
     }
 }

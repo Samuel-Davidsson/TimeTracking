@@ -1,19 +1,48 @@
+import axios from "axios";
 import React from "react";
-import {
-  Button,
-  Col,
-  CustomInput,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Row
-} from "reactstrap";
 import Header from "../../Header";
+import Api_Url from "../../Helpers/Api_Url";
 import "./Register.css";
+import RegisterForm from "./RegisterForm";
 
 export default class Register extends React.Component {
-  handleBackwardsClick = () => {
+  state = {
+    error: "",
+    success: ""
+  };
+
+  addUser = userRegisterInfo => {
+    axios
+      .post(`${Api_Url}/auth/register`, {
+        login: userRegisterInfo.login,
+        password: userRegisterInfo.password,
+        firstname: userRegisterInfo.firstname,
+        lastname: userRegisterInfo.lastname,
+        department: userRegisterInfo.department
+      })
+      .then(res => {
+        console.log(res);
+        this.setState({
+          success: res.data,
+          error: ""
+        });
+        return setTimeout(() => {
+          this.handleClickOnBackButton();
+        }, 5000);
+      })
+
+      .catch(error => {
+        this.setState({ error: error.response.data, success: "" });
+        setTimeout(() => {
+          debugger;
+          this.setState({
+            error: ""
+          });
+        }, 2500);
+      });
+  };
+  handleClickOnBackButton = userRegisterInfo => {
+    userRegisterInfo = 0;
     this.props.history.push("/timetracker");
   };
 
@@ -21,51 +50,12 @@ export default class Register extends React.Component {
     return (
       <div className="register-div">
         <Header />
-        <Form>
-          <FormGroup inline>
-            <Row form>
-              <Col md={6}>
-                <Label>Email</Label>
-                <Input placeholder="Email.." />
-              </Col>
-              <Col md={6}>
-                <Label>Lösenord</Label>
-                <Input placeholder="Lösenord.." />
-              </Col>
-            </Row>
-          </FormGroup>
-          <FormGroup>
-            <Row form>
-              <Col md={6}>
-                <Label>Förnamn</Label>
-                <Input placeholder="Förnamn.." />
-              </Col>
-              <Col md={6}>
-                <Label>Efternamn</Label>
-                <Input placeholder="Efternamn.." />
-              </Col>
-            </Row>
-          </FormGroup>
-          <FormGroup>
-            <Label>Avdelning</Label>
-            <CustomInput type="select" id="something">
-              <option>Välj avdelning..</option>
-              <option>Ekonomi</option>
-              <option>IT</option>
-              <option>Sälj</option>
-              <option>Kundtjänst</option>
-            </CustomInput>
-          </FormGroup>
-          <div>
-            <Button
-              className="button-register-div"
-              onClick={this.handleBackwardsClick}
-            >
-              Tillbaka
-            </Button>
-            <Button color="success">Skicka in</Button>
-          </div>
-        </Form>
+        <RegisterForm
+          handleClickOnBackButton={this.handleClickOnBackButton}
+          addUser={this.addUser}
+        />
+        <p className="test">{this.state.error}</p>
+        <p className="test2">{this.state.success}</p>
       </div>
     );
   }

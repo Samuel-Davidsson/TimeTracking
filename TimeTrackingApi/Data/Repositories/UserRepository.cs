@@ -24,5 +24,17 @@ namespace Data.Repositories
         {
             return _context.Users.ToList();
         }
+
+        public void Add(User user)
+        {
+            _context.Add(user);
+            _context.SaveChanges();
+        }
+
+        public void Update(User user)
+        {
+            _context.Add(user);
+            _context.SaveChanges();
+        }
     }
 }

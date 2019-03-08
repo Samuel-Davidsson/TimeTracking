@@ -5,7 +5,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -18,11 +20,36 @@ namespace TimeTrackingApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUserService _userService;
-        public AuthController(IUserService userService)
+        private readonly Crypt _crypt;
+        public AuthController(IUserService userService, Crypt crypt)
         {
             _userService = userService;
+            _crypt = crypt;
         }
 
+        [HttpPost, Route("register")]
+        public IActionResult RegisterUser(UserViewmodel userViewModel)
+        {
+            var userpassword = _crypt.Encrypt(userViewModel.Password);
+            var users = _userService.GetAll();
+            foreach (var userLogin in users)
+            {
+                if(userLogin.Login.ToLower() == userViewModel.Login.ToLower())
+                {
+                    return BadRequest("Emailen är redan registerad.");
+                }
+            }
+            var user = new User
+            {
+                Login = userViewModel.Login,
+                Password = userpassword,
+                FirstName = userViewModel.Firstname,
+                LastName = userViewModel.Lastname,
+                Department = userViewModel.Department,
+            };
+            _userService.Add(user);
+            return Ok("Användaren har sparats, du skickas till login sidan inom 5 sekunder!");
+        }
         [HttpPost, Route("login")]
         public IActionResult Login(UserViewmodel userViewModel)
         {
