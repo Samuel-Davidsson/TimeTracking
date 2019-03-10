@@ -2,8 +2,8 @@ import React from "react";
 import Capitalize from "../../Helpers/Capitalize";
 
 export default class MainInfo extends React.Component {
-  firstName = localStorage.getItem("firstname");
-  lastName = localStorage.getItem("lastname");
+  firstname = localStorage.getItem("firstname");
+  lastname = localStorage.getItem("lastname");
 
   render() {
     return (

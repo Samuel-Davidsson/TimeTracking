@@ -37,10 +37,11 @@ export default class RegisterForm extends React.Component {
           <FormGroup inline>
             <Row form>
               <Col md={6}>
-                <Label>Email</Label>
+                <Label>Mail</Label>
                 <Input
-                  placeholder="Email.."
+                  placeholder="Mail.."
                   innerRef={this.loginRef}
+                  className="register-input"
                   type="email"
                   required
                 />
@@ -50,6 +51,7 @@ export default class RegisterForm extends React.Component {
                 <Input
                   placeholder="Lösenord.."
                   innerRef={this.passwordRef}
+                  className="register-input"
                   type="password"
                   required
                 />
@@ -63,6 +65,7 @@ export default class RegisterForm extends React.Component {
                 <Input
                   placeholder="Förnamn.."
                   innerRef={this.firstnameRef}
+                  className="register-input"
                   required
                 />
               </Col>
@@ -71,24 +74,28 @@ export default class RegisterForm extends React.Component {
                 <Input
                   placeholder="Efternamn.."
                   innerRef={this.lastnameRef}
+                  className="register-input"
                   required
                 />
               </Col>
             </Row>
           </FormGroup>
           <FormGroup>
-            <Label>Avdelning</Label>
-            <CustomInput
-              type="select"
-              id="something"
-              innerRef={this.departmentRef}
-              required
-            >
-              <option>Ekonomi</option>
-              <option>IT</option>
-              <option>Sälj</option>
-              <option>Kundtjänst</option>
-            </CustomInput>
+            <Col md={6}>
+              <Label className="register-department-label">Avdelning</Label>
+              <CustomInput
+                type="select"
+                id="something"
+                innerRef={this.departmentRef}
+                className="register-input-deparment"
+                required
+              >
+                <option>Ekonomi</option>
+                <option>IT</option>
+                <option>Sälj</option>
+                <option>Kundtjänst</option>
+              </CustomInput>
+            </Col>
           </FormGroup>
           <div>
             <Button

@@ -16,3 +16,6 @@
 .login-input {
   text-align: center;
 }
+.login-errormsg {
+  color: red;
+}

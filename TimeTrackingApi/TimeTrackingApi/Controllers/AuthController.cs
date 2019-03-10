@@ -36,7 +36,7 @@ namespace TimeTrackingApi.Controllers
             {
                 if(userLogin.Login.ToLower() == userViewModel.Login.ToLower())
                 {
-                    return BadRequest("Emailen är redan registerad.");
+                    return BadRequest("Mailadressen är redan registerad.");
                 }
             }
             var user = new User
@@ -57,10 +57,10 @@ namespace TimeTrackingApi.Controllers
             foreach (var user in users)
             {
                 var userLogin = user.Login;
-                var userPassword = user.Password;
+                var userPassword = _crypt.Encrypt(userViewModel.Password) ;
                 var userLoginTrimEnd = userLogin.TrimEnd();
 
-                if (userViewModel.Login.ToLower() == userLoginTrimEnd.ToLower() && userViewModel.Password == userPassword)
+                if (userViewModel.Login.ToLower() == userLoginTrimEnd.ToLower() && user.Password == userPassword)
                 {
 
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));

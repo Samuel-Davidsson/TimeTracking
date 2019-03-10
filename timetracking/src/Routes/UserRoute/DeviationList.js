@@ -1,39 +1,33 @@
 import React from "react";
+import "./UserRoute.css";
 
 export default class DeviationList extends React.Component {
+  hoursRef = React.createRef();
+  descriptionRef = React.createRef();
   render() {
     return (
-      <div className="deviation-main">
-        <form className="form-center" onSubmit={this.props.handleSubmit}>
-          <div className="create-input-headers">
-            <p>Timmar Anledning</p>
-          </div>
+      <div className="deviationlist-main-div">
+        <form>
           {this.props.deviationItems.map(deviationItem => (
             <div
-              className="createList"
+              className="deviationlist-div"
               key={deviationItem.absenceDate.toLocaleDateString("sv")}
             >
               {deviationItem.absenceDate.toLocaleDateString("sv")}
               <input
-                className="create-input-hours"
+                className="deviationlist-hours"
                 type="number"
-                value={deviationItem.hours}
-                required
                 min={0.5}
                 max={8}
                 step="any"
-                disabled={!this.props.isAdmin}
-                onChange={e => this.props.handleHoursChange(e, deviationItem)}
+                required
               />
               <input
-                className="create-input-description"
+                className="deviationlist-description"
                 type="text"
-                value={deviationItem.description}
-                disabled={!this.props.isAdmin}
+                maxLength={30}
+                minLength={2}
                 required
-                onChange={e =>
-                  this.props.handleDescriptionChange(e, deviationItem)
-                }
               />
             </div>
           ))}

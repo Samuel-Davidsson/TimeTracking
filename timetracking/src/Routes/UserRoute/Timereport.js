@@ -44,7 +44,7 @@ class Timereport extends React.Component {
   }
   logout() {
     localStorage.clear();
-    window.location.href = "/login";
+    window.location.href = "/timetracker";
   }
 
   render() {

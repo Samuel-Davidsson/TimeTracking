@@ -5,9 +5,20 @@
 .button-register-div {
   margin: 1.5%;
 }
-.test {
+.register-input {
+  text-align: center;
+}
+.register-input-deparment {
+  text-align: center;
+  margin: 0px 60%;
+}
+.register-department-label {
+  text-align: center;
+  margin: 1.5% 95%;
+}
+.register-errormsg {
   color: red;
 }
-.test2 {
+.register-successmsg {
   color: green;
 }

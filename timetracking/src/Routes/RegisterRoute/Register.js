@@ -8,7 +8,9 @@ import RegisterForm from "./RegisterForm";
 export default class Register extends React.Component {
   state = {
     error: "",
-    success: ""
+    success: "",
+    title: "Registering",
+    subtitle: "Registera dig för att kunna logga in"
   };
 
   addUser = userRegisterInfo => {
@@ -21,7 +23,6 @@ export default class Register extends React.Component {
         department: userRegisterInfo.department
       })
       .then(res => {
-        console.log(res);
         this.setState({
           success: res.data,
           error: ""
@@ -30,11 +31,9 @@ export default class Register extends React.Component {
           this.handleClickOnBackButton();
         }, 5000);
       })
-
       .catch(error => {
         this.setState({ error: error.response.data, success: "" });
         setTimeout(() => {
-          debugger;
           this.setState({
             error: ""
           });
@@ -42,20 +41,20 @@ export default class Register extends React.Component {
       });
   };
   handleClickOnBackButton = userRegisterInfo => {
-    userRegisterInfo = 0;
+    userRegisterInfo = "";
     this.props.history.push("/timetracker");
   };
 
   render() {
     return (
       <div className="register-div">
-        <Header />
+        <Header title={this.state.title} subtitle={this.state.subtitle} />
         <RegisterForm
           handleClickOnBackButton={this.handleClickOnBackButton}
           addUser={this.addUser}
         />
-        <p className="test">{this.state.error}</p>
-        <p className="test2">{this.state.success}</p>
+        <p className="register-errormsg">{this.state.error}</p>
+        <p className="register-successmsg">{this.state.success}</p>
       </div>
     );
   }

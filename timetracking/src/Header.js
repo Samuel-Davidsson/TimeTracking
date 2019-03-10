@@ -1,11 +1,13 @@
 import React from "react";
 
-const Header = () => {
-  return (
-    <div>
-      <h1>Välkommen till Tidsrapporten</h1>
-      <p>Ett lätt sätt att fylla i månadens tidsrapport</p>
-    </div>
-  );
-};
+class Header extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>{this.props.title}</h1>
+        <p>{this.props.subtitle}</p>
+      </div>
+    );
+  }
+}
 export default Header;
