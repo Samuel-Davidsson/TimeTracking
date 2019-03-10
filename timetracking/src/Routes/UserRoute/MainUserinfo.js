@@ -1,7 +1,7 @@
 import React from "react";
 import Capitalize from "../../Helpers/Capitalize";
 
-export default class MainInfo extends React.Component {
+class MainInfo extends React.Component {
   firstname = localStorage.getItem("firstname");
   lastname = localStorage.getItem("lastname");
 
@@ -11,8 +11,10 @@ export default class MainInfo extends React.Component {
         <p>
           {Capitalize(this.firstname)} {Capitalize(this.lastname)}
         </p>
-        <p>Hours: 0</p>
+        <p>Hours: {this.props.totalHours}</p>
+        <p>Godkänd: attest.status checkbox</p>
       </div>
     );
   }
 }
+export default MainInfo;

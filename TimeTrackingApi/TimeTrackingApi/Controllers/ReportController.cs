@@ -1,6 +1,10 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Controllers
 {
@@ -17,5 +21,32 @@ namespace TimeTrackingApi.Controllers
             _reportService = reportService;
             _deviationService = deviationService;
         }
+        // Adda mapping här istället.
+        // Fixa Authorize här check mot token.
+
+        [HttpPost, Route("addreport")]
+        public IActionResult AddReport(ReportViewmodel reportViewmodel)
+        {
+            if (reportViewmodel.Id == 0)
+            {
+                var report = new Report
+                {
+                    Id = reportViewmodel.Id,
+                    UserId = reportViewmodel.UserId,
+                    Accepted = reportViewmodel.Accepted,
+                    Attest = reportViewmodel.Attest,
+                    CreatedDate = DateTime.Now,
+                    DeviationItems = reportViewmodel.DeviationItems,
+                    UpdatedDate = DateTime.Now,
+                };
+                _reportService.Add(report);
+                return Ok(report);
+
+            }
+            else
+            {
+                return Ok("Update");
+            }
+           }
+        }
     }
-}
