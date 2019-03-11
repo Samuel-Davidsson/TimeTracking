@@ -16,6 +16,7 @@ export default class DeviationList extends React.Component {
               <input
                 className="deviationlist-hours"
                 type="number"
+                value={deviationItem.hours}
                 onChange={e => this.props.handleHoursChange(e, deviationItem)}
                 min={0.5}
                 max={8}
@@ -25,6 +26,7 @@ export default class DeviationList extends React.Component {
               <input
                 className="deviationlist-description"
                 type="text"
+                value={deviationItem.description}
                 onChange={e =>
                   this.props.handleDescriptionChange(e, deviationItem)
                 }

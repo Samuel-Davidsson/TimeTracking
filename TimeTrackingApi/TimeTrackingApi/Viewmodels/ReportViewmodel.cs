@@ -17,6 +17,7 @@ namespace TimeTrackingApi.Viewmodels
         public DateTime Date { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public string CurrentMonth { get; set; }
         public ICollection<Deviation> DeviationItems { get; set; }
     }
 }

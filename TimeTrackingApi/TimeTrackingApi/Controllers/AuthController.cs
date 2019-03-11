@@ -74,14 +74,14 @@ namespace TimeTrackingApi.Controllers
                     //    new Claim(ClaimTypes.Role, "Manager")
                     //};
 
-                    var tokeOptions = new JwtSecurityToken(
-                        issuer: "http://localhost:5000",
-                        audience: "http://localhost:5000",
-                        claims: new List<Claim>(), //sätta claims här.
-                        expires: DateTime.Now.AddMinutes(5),
+                    var tokenOptions = new JwtSecurityToken(
+                        issuer: "samuel",
+                        audience: "readers",
+                        //claims: new List<Claim>(), //sätta claims här.
+                        expires: DateTime.Now.AddMinutes(15),
                         signingCredentials: signinCredentials
                     );
-                    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
                     var AuthUser = new UserViewmodel
                     {
                         Id = user.Id,

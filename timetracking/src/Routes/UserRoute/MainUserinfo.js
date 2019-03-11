@@ -1,4 +1,5 @@
 import React from "react";
+import { ListGroup, ListGroupItem } from "reactstrap";
 import Capitalize from "../../Helpers/Capitalize";
 
 class MainInfo extends React.Component {
@@ -7,12 +8,26 @@ class MainInfo extends React.Component {
 
   render() {
     return (
-      <div className="MainUserinfo-div">
-        <p>
-          {Capitalize(this.firstname)} {Capitalize(this.lastname)}
-        </p>
-        <p>Hours: {this.props.totalHours}</p>
-        <p>Godkänd: attest.status checkbox</p>
+      <div className="MainUserInfo-div">
+        <ListGroup className="bg-dark">
+          <ListGroupItem className="bg-dark">
+            {Capitalize(this.firstname)} {Capitalize(this.lastname)}
+          </ListGroupItem>
+          <ListGroupItem className="bg-dark">
+            Totala timmar : {this.props.totalHours}
+          </ListGroupItem>
+          <ListGroupItem className="bg-dark">
+            Godkänd :
+            <input
+              className="maininfo-checkbox"
+              readOnly
+              checked={this.props.attest}
+              onChange={this.props.handleCheck}
+              disabled={!this.props.isAdmin}
+              type="checkbox"
+            />
+          </ListGroupItem>
+        </ListGroup>
       </div>
     );
   }

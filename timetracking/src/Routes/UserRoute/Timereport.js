@@ -4,6 +4,7 @@ import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import Header from "../../Header";
 import Api_Url from "../../Helpers/Api_Url";
+import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
 import DeviationList from "./DeviationList";
 import MainUserinfo from "./MainUserinfo";
@@ -12,11 +13,37 @@ class Timereport extends React.Component {
   state = {
     report: [],
     deviationItems: [],
-    title: "Rapport",
-    subtitle: "Här kan vi rapportera"
+    currentMonth: new Date(),
+    title: "Månadens Rapport",
+    subtitle: "Fyll i din frånvaro här senast den sista dagen varje månad"
   };
 
   handleDayClick = this.handleDayClick.bind(this);
+
+  componentDidMount = () => {
+    const userId = localStorage.getItem("id");
+
+    axios
+      .get(`${Api_Url}/user/` + userId, { headers: GenerateHeaderData() })
+
+      .then(res => {
+        const deviationItems = res.data.deviationItems;
+        this.totalHours = res.data.hours;
+
+        deviationItems.forEach(element => {
+          element.absenceDate = new Date(element.absenceDate);
+        });
+
+        this.totalHours = TotalHoursCount(
+          deviationItems.map(x => Number(x.hours))
+        );
+
+        this.setState({
+          deviationItems: deviationItems,
+          report: res.data
+        });
+      });
+  };
 
   handleDayClick(absenceDate, { selected, disabled }) {
     if (disabled) {
@@ -73,7 +100,8 @@ class Timereport extends React.Component {
         deviationItems: this.state.deviationItems,
         firstname: localStorage.getItem("firstname"),
         lastname: localStorage.getItem("lastname"),
-        userId: localStorage.getItem("id")
+        userId: localStorage.getItem("id"),
+        currentMonth: this.state.currentMonth
       })
       .then(res => {
         console.log(res);
@@ -89,14 +117,16 @@ class Timereport extends React.Component {
     return (
       <div>
         <Header title={this.state.title} subtitle={this.state.subtitle} />
-        <MainUserinfo totalHours={this.totalHours} />
+        <MainUserinfo
+          totalHours={this.totalHours}
+          attest={this.state.report.attest}
+        />
         <DayPicker
           selectedDays={this.state.deviationItems.map(x => x.absenceDate)}
           onDayClick={this.handleDayClick}
         />
         <DeviationList
           deviationItems={this.state.deviationItems}
-          addDeviations={this.addDeviations}
           handleDescriptionChange={this.handleDescriptionChange}
           handleHoursChange={this.handleHoursChange}
           handleSubmit={this.handleSubmit}

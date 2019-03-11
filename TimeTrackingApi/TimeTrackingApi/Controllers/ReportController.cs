@@ -10,6 +10,7 @@ namespace TimeTrackingApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReportController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -21,14 +22,17 @@ namespace TimeTrackingApi.Controllers
             _reportService = reportService;
             _deviationService = deviationService;
         }
+
         // Adda mapping här istället.
-        // Fixa Authorize här check mot token.
 
         [HttpPost, Route("addreport")]
         public IActionResult AddReport(ReportViewmodel reportViewmodel)
         {
             if (reportViewmodel.Id == 0)
             {
+                DateTime currentMonthParsed = DateTime.Parse(reportViewmodel.CurrentMonth);
+                var currentMonth = currentMonthParsed.ToString("yyyy-MM");
+                DateTime finalcurrentMonthParsed = DateTime.Parse(currentMonth);
                 var report = new Report
                 {
                     Id = reportViewmodel.Id,
@@ -38,11 +42,13 @@ namespace TimeTrackingApi.Controllers
                     CreatedDate = DateTime.Now,
                     DeviationItems = reportViewmodel.DeviationItems,
                     UpdatedDate = DateTime.Now,
+                    Date = finalcurrentMonthParsed
                 };
                 _reportService.Add(report);
                 return Ok(report);
 
             }
+            // Fixa till uppdatera rapport om den redan finns.
             else
             {
                 return Ok("Update");

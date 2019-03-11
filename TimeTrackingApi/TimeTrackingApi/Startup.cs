@@ -36,9 +36,8 @@ namespace TimeTrackingApi
                ValidateAudience = true,
                ValidateLifetime = true,
                ValidateIssuerSigningKey = true,
-
-               ValidIssuer = "http://localhost:44338",
-               ValidAudience = "http://localhost:44338",
+               ValidIssuer = "samuel",
+               ValidAudience = "readers",
                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
            };
            });
