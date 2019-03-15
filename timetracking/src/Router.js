@@ -5,7 +5,7 @@ import Admin from "./Routes/Admin";
 import Login from "./Routes/LoginRoute/Login";
 import NotFound from "./Routes/NotFound";
 import Register from "./Routes/RegisterRoute/Register";
-import Timereport from "./Routes/UserRoute/Timereport";
+import UserPage from "./Routes/UserRoute/UserPage";
 
 const Router = () => (
   <BrowserRouter>
@@ -13,7 +13,7 @@ const Router = () => (
       <Route path="/Timetracker" exact component={Login} />
       <Route path="/Timetracker/login" component={Login} />
       <Route path="/Timetracker/register" component={Register} />
-      <AuthRoute path="/Timetracker/timereport" component={Timereport} />
+      <AuthRoute path="/Timetracker/timereport" component={UserPage} />
       <Route path="/Timetracker/admin" component={Admin} />
       <Route component={NotFound} />
     </Switch>

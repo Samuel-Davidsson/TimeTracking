@@ -51,7 +51,7 @@ namespace TimeTrackingApi
             services.AddScoped<IDeviationService, DeviationService>();
             services.AddScoped<Crypt>();
 
-            var connection = "Server = localhost; Database = TimeTrackingDB; Trusted_Connection = True";
+            var connection = "Server = localhost; Database = TimeTrackingDB; Trusted_Connection = true; MultipleActiveResultSets=true;";
             services.AddDbContext<TimeTrackingContext>
                 (options => options.UseSqlServer(connection));
 

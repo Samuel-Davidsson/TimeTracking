@@ -20,12 +20,12 @@ class Login extends React.Component {
       })
       .then(res => {
         const data = res.data;
-        const { id, token, firstname, lastname } = data;
+        const { id, token, firstname, lastname, expirationTime } = data;
         localStorage.setItem("id", id);
         localStorage.setItem("token", token);
         localStorage.setItem("firstname", firstname);
         localStorage.setItem("lastname", lastname);
-        console.log(data);
+        localStorage.setItem("expirationTime", expirationTime);
         if (res.status === 200 && res.data.isAdmin === true) {
           this.props.history.push("/timetracker/admin");
           return;

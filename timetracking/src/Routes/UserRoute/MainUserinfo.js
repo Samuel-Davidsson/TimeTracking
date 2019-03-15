@@ -8,7 +8,7 @@ class MainInfo extends React.Component {
 
   render() {
     return (
-      <div className="MainUserInfo-div">
+      <div className="mainUserInfo-div">
         <ListGroup className="bg-dark">
           <ListGroupItem className="bg-dark">
             {Capitalize(this.firstname)} {Capitalize(this.lastname)}
@@ -20,11 +20,11 @@ class MainInfo extends React.Component {
             Godkänd :
             <input
               className="maininfo-checkbox"
+              disabled
               readOnly
-              checked={this.props.attest}
-              onChange={this.props.handleCheck}
-              disabled={!this.props.isAdmin}
-              type="checkbox"
+              style={{
+                backgroundColor: this.props.attest ? "Green" : "IndianRed"
+              }}
             />
           </ListGroupItem>
         </ListGroup>

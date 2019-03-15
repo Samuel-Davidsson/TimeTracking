@@ -8,10 +8,7 @@ export default class DeviationList extends React.Component {
       <div className="deviationlist-main-div">
         <form onSubmit={this.props.handleSubmit}>
           {this.props.deviationItems.map(deviationItem => (
-            <div
-              className="deviationlist-div"
-              key={deviationItem.absenceDate.toLocaleDateString("sv")}
-            >
+            <div key={deviationItem.absenceDate.toLocaleDateString("sv")}>
               {deviationItem.absenceDate.toLocaleDateString("sv")}
               <input
                 className="deviationlist-hours"
@@ -30,14 +27,14 @@ export default class DeviationList extends React.Component {
                 onChange={e =>
                   this.props.handleDescriptionChange(e, deviationItem)
                 }
-                maxLength={30}
+                maxLength={40}
                 minLength={2}
                 required
               />
             </div>
           ))}
           <Button color="info" type="submit">
-            Spara
+            Skicka in
           </Button>
         </form>
       </div>

@@ -25,6 +25,11 @@ namespace Domain.Services
             return _deviationRepository.GetDeviationsByReportId(id);
         }
 
+        public void Remove(Deviation deviation)
+        {
+            _deviationRepository.Remove(deviation);
+        }
+
         public void Update(Deviation deviation)
         {
             _deviationRepository.Update(deviation);

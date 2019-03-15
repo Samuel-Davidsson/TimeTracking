@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
-import Header from "../../Header";
+import { Button } from "reactstrap";
 import Api_Url from "../../Helpers/Api_Url";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
@@ -13,9 +13,9 @@ class Timereport extends React.Component {
   state = {
     report: [],
     deviationItems: [],
+    existingDevitations: [],
     currentMonth: new Date(),
-    title: "Månadens Rapport",
-    subtitle: "Fyll i din frånvaro här senast den sista dagen varje månad"
+    sucess: ""
   };
 
   handleDayClick = this.handleDayClick.bind(this);
@@ -25,15 +25,14 @@ class Timereport extends React.Component {
 
     axios
       .get(`${Api_Url}/user/` + userId, { headers: GenerateHeaderData() })
-
       .then(res => {
         const deviationItems = res.data.deviationItems;
+        const { id } = res.data;
+        localStorage.setItem("reportId", id);
         this.totalHours = res.data.hours;
-
         deviationItems.forEach(element => {
           element.absenceDate = new Date(element.absenceDate);
         });
-
         this.totalHours = TotalHoursCount(
           deviationItems.map(x => Number(x.hours))
         );
@@ -95,16 +94,39 @@ class Timereport extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     axios
-      .post(`${Api_Url}/report/addreport`, {
-        report: this.state.report,
-        deviationItems: this.state.deviationItems,
-        firstname: localStorage.getItem("firstname"),
-        lastname: localStorage.getItem("lastname"),
-        userId: localStorage.getItem("id"),
-        currentMonth: this.state.currentMonth
-      })
+      .post(
+        `${Api_Url}/report/addreport`,
+        {
+          id: this.state.report.id,
+          deviationItems: this.state.deviationItems,
+          userId: localStorage.getItem("id"),
+          currentMonth: this.state.currentMonth
+        },
+        { headers: GenerateHeaderData() }
+      )
       .then(res => {
-        console.log(res);
+        const data = res.data;
+        const deviationItems = data.deviationItems;
+        const existingDevitations = [];
+        if (res.status === 200)
+          deviationItems.forEach(element => {
+            element.absenceDate = new Date(element.absenceDate);
+          });
+        data.deviationItems.forEach(element => {
+          existingDevitations.push({
+            reportId: element.reportId,
+            id: element.id,
+            hours: element.hours,
+            absenceDate: element.absenceDate,
+            description: element.description
+          });
+        });
+        this.setState({
+          success: "Uppgifterna har sparats/updaterats.",
+          deviationItems: deviationItems,
+          report: data,
+          existingDevitations: existingDevitations
+        });
       });
   };
 
@@ -116,7 +138,6 @@ class Timereport extends React.Component {
   render() {
     return (
       <div>
-        <Header title={this.state.title} subtitle={this.state.subtitle} />
         <MainUserinfo
           totalHours={this.totalHours}
           attest={this.state.report.attest}
@@ -131,8 +152,10 @@ class Timereport extends React.Component {
           handleHoursChange={this.handleHoursChange}
           handleSubmit={this.handleSubmit}
         />
-        <div>
-          <button onClick={this.logout}>Logga ut</button>
+        <div className="timereport-logout-button-div">
+          <Button color="secondary" onClick={this.logout}>
+            Logga ut
+          </Button>
         </div>
       </div>
     );

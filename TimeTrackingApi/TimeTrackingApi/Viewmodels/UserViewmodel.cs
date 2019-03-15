@@ -1,4 +1,6 @@
-﻿namespace TimeTrackingApi.Viewmodels
+﻿using System;
+
+namespace TimeTrackingApi.Viewmodels
 {
     public class UserViewmodel
     {
@@ -11,5 +13,6 @@
         public bool Attest { get; set; }
         public bool IsAdmin { get; set; }
         public string Token { get; set; }
+        public DateTime ExpirationTime { get; set; }
     }
 }

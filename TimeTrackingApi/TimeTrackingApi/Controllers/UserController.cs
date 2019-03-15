@@ -28,8 +28,14 @@ namespace TimeTrackingApi.Controllers
         {
             var date = DateTime.Now.ToString("yyyy-MM");
             var reports = _reportService.GetReportsByUserId(id);
+
+            if(reports == null)
+            {
+                return Ok("No Reports");
+            }
+
             var user = _userService.GetUserById(id);
-            //For loop här istället för pre maybe.
+
             foreach (var report in reports)
             {
                 if (report.Date.ToString("yyyy-MM") == date)

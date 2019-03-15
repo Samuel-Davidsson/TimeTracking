@@ -1,6 +1,7 @@
 ﻿using Data.DataContext;
 using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace Data.Repositories
 
         public Report GetReportById(int id)
         {
-            var report = _context.Reports.SingleOrDefault(x => x.Id == id);
+            var report = _context.Reports.SingleOrDefault(r => r.Id == id);
             return report;
         }
 
@@ -41,7 +42,7 @@ namespace Data.Repositories
 
         public void Update(Report report)
         {
-            _context.Add(report);
+            _context.Update(report);
             _context.SaveChanges();
         }
     }

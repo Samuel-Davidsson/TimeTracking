@@ -30,6 +30,11 @@ namespace Data.Repositories
             return deviations;
         }
 
+        public void Remove(Deviation deviation)
+        {
+            _context.Remove(deviation);
+        }
+
         public void Update(Deviation deviation)
         {
             _context.Update(deviation);

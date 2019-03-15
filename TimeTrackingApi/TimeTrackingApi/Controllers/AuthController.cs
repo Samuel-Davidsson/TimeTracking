@@ -88,7 +88,8 @@ namespace TimeTrackingApi.Controllers
                         Firstname = user.FirstName,
                         Lastname = user.LastName,
                         IsAdmin = user.IsAdmin,
-                        Token = tokenString
+                        Token = tokenString,
+                        ExpirationTime = DateTime.Now.AddMinutes(15)
                     };
                     return Ok(AuthUser);
                   }
