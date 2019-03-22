@@ -6,6 +6,7 @@ import { Button } from "reactstrap";
 import Api_Url from "../../Helpers/Api_Url";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
+import ChangeYearMonthForm from "./ChangeYearMonthForm";
 import DeviationList from "./DeviationList";
 import MainUserinfo from "./MainUserinfo";
 
@@ -14,7 +15,7 @@ class Timereport extends React.Component {
     report: [],
     deviationItems: [],
     existingDevitations: [],
-    currentMonth: new Date(),
+    month: new Date(),
     sucess: ""
   };
 
@@ -100,7 +101,7 @@ class Timereport extends React.Component {
           id: this.state.report.id,
           deviationItems: this.state.deviationItems,
           userId: localStorage.getItem("id"),
-          currentMonth: this.state.currentMonth
+          currentMonth: this.state.month
         },
         { headers: GenerateHeaderData() }
       )
@@ -130,11 +131,67 @@ class Timereport extends React.Component {
       });
   };
 
+  handleYearMonthChange = month => {
+    this.setState({ month });
+    axios
+      .post(
+        `${Api_Url}/report/getuserreport`,
+        { currentMonth: month, userId: localStorage.getItem("id") },
+        { headers: GenerateHeaderData() }
+      )
+      .then(res => {
+        if (res.data === "Nothing")
+          this.setState({
+            isLoading: false
+          });
+
+        const data = res.data;
+        this.totalHours = data.hours;
+        const deviationItems = data.deviationItems;
+
+        if (deviationItems === undefined)
+          this.setState({
+            deviationItems: []
+          });
+
+        if (deviationItems === undefined) return false;
+
+        deviationItems.forEach(element => {
+          element.absenceDate = new Date(element.absenceDate);
+        });
+
+        this.setState({
+          report: data,
+          deviationItems: deviationItems
+        });
+      })
+      .catch(error => {
+        if (error.response === undefined)
+          return this.setState({
+            error: ""
+          });
+        this.setState({
+          error: error.response.data
+        });
+        if (
+          error.response.data === "Token has expired logging you out in 5sec.."
+        )
+          return setTimeout(() => {
+            this.logout();
+          }, 5000);
+        setTimeout(() => {
+          this.setState({
+            error: false
+          });
+        }, 5000);
+      });
+  };
+
   logout() {
     localStorage.clear();
     window.location.href = "/timetracker";
   }
-
+  locale = "sv";
   render() {
     return (
       <div>
@@ -142,10 +199,28 @@ class Timereport extends React.Component {
           totalHours={this.totalHours}
           attest={this.state.report.attest}
         />
-        <DayPicker
-          selectedDays={this.state.deviationItems.map(x => x.absenceDate)}
-          onDayClick={this.handleDayClick}
-        />
+        <div className="YearNavigation">
+          <DayPicker
+            selectedDays={this.state.deviationItems.map(x => x.absenceDate)}
+            onDayClick={this.handleDayClick}
+            month={new Date(this.state.month)}
+            keepFocus={true}
+            disabledDays={[
+              {
+                before: new Date(this.currentYear, this.currentMonth - 1, 1),
+                after: new Date(this.currentYear, this.currentMonth + 1, 0)
+              },
+              { daysOfWeek: [0, 6] }
+            ]}
+            captionElement={({ date, localeUtils }) => (
+              <ChangeYearMonthForm
+                date={date}
+                localeUtils={localeUtils}
+                onChange={this.handleYearMonthChange}
+              />
+            )}
+          />
+        </div>
         <DeviationList
           deviationItems={this.state.deviationItems}
           handleDescriptionChange={this.handleDescriptionChange}

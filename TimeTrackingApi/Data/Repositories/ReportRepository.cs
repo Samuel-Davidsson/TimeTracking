@@ -30,7 +30,7 @@ namespace Data.Repositories
 
         public Report GetReportById(int id)
         {
-            var report = _context.Reports.SingleOrDefault(r => r.Id == id);
+            var report = _context.Reports.Include(x => x.DeviationItems).SingleOrDefault(x =>x.Id == id);
             return report;
         }
 

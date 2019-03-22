@@ -19,22 +19,40 @@ namespace TimeTrackingApi.Controllers
         private readonly IUserService _userService;
         private readonly IReportService _reportService;
         private readonly IDeviationService _deviationService;
-        private readonly TimeTrackingContext _context;
-        public ReportController(IUserService userService, IReportService reportService, IDeviationService deviationService, TimeTrackingContext context)
+
+        public ReportController(IUserService userService, IReportService reportService, IDeviationService deviationService)
         {
             _userService = userService;
             _reportService = reportService;
             _deviationService = deviationService;
-            _context = context;
         }
-        //ReportViewModelToArticle
+
+        [HttpPost, Route("getuserreport")]
+        public IActionResult GetUserReportByMonth(ReportViewmodel reportViewmodel)
+        {
+            var reports = _reportService.GetReportsByUserId(reportViewmodel.UserId);
+            DateTime currentMonthParsed = DateTime.Parse(reportViewmodel.CurrentMonth);
+            var currentMonth = currentMonthParsed.ToString("yyyy-MM");
+            foreach (var report in reports)
+            {
+                var reportDate = report.Date.ToString("yyyy-MM");
+                if (reportDate == currentMonth)
+                {
+                    _reportService.GetReportById(report.Id);
+                    var sortDeviations = report.DeviationItems.OrderByDescending(x => x.AbsenceDate);
+                    report.DeviationItems = sortDeviations.ToList();
+                    return Ok(report);
+                }
+            }
+            return Ok("Finns ingen rapport för denna period");
+        }
+
         [HttpPost, Route("addreport")]
         public IActionResult AddReport(ReportViewmodel reportViewmodel)
         {
             var reports = _reportService.GetReportsByUserId(reportViewmodel.UserId);
 
-            var report = _context.Reports.Where(x => x.Id == reportViewmodel.Id).Include(p => p.DeviationItems).SingleOrDefault();
-
+            var report = _reportService.GetReportById(reportViewmodel.Id);
             if (report == null)
             {
                 DateTime currentMonthParsed = DateTime.Parse(reportViewmodel.CurrentMonth);
@@ -58,11 +76,11 @@ namespace TimeTrackingApi.Controllers
             {
                 if (report == null)
                 {
-                    report = _context.Reports.Where(x => x.Id == report.Id).Include(p => p.DeviationItems).SingleOrDefault();
+                    report = _reportService.GetReportById(reportViewmodel.Id);
                 }
                 foreach (var deviation in report.DeviationItems)
                 {
-                    _context.Deviations.Remove(deviation);
+                    _deviationService.Remove(deviation);
                 }
                 report.DeviationItems = reportViewmodel.DeviationItems;
                 report.UpdatedDate = DateTime.Now;
