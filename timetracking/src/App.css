@@ -8,3 +8,12 @@ body {
   background: #2d2d2d;
   zoom: 90%;
 }
+.navbar-color {
+  color: #61dafb;
+  background: #2d2d2d;
+}
+.navbar-main-color {
+  color: #61dafb;
+  background: #2d2d2d;
+  border-bottom: 1px solid lightgray;
+}

@@ -59,14 +59,24 @@ const ChangeYearMonthForm = ({ date, localeUtils, onChange }) => {
 
   return (
     <form className="DayPicker-Caption">
-      <select name="month" onChange={handleChange} value={date.getMonth()}>
+      <select
+        className="month-dropdown"
+        name="month"
+        onChange={handleChange}
+        value={date.getMonth()}
+      >
         {months.map((month, i) => (
           <option key={month} value={i}>
             {month}
           </option>
         ))}
       </select>
-      <select name="year" onChange={handleChange} value={date.getFullYear()}>
+      <select
+        className="year-dropdown"
+        name="year"
+        onChange={handleChange}
+        value={date.getFullYear()}
+      >
         {years.map(year => (
           <option key={year} value={year}>
             {year}

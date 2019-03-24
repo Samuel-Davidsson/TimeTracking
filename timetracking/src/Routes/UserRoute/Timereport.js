@@ -2,7 +2,6 @@ import axios from "axios";
 import React from "react";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
-import { Button } from "reactstrap";
 import Api_Url from "../../Helpers/Api_Url";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
@@ -164,34 +163,9 @@ class Timereport extends React.Component {
           report: data,
           deviationItems: deviationItems
         });
-      })
-      .catch(error => {
-        if (error.response === undefined)
-          return this.setState({
-            error: ""
-          });
-        this.setState({
-          error: error.response.data
-        });
-        if (
-          error.response.data === "Token has expired logging you out in 5sec.."
-        )
-          return setTimeout(() => {
-            this.logout();
-          }, 5000);
-        setTimeout(() => {
-          this.setState({
-            error: false
-          });
-        }, 5000);
       });
   };
 
-  logout() {
-    localStorage.clear();
-    window.location.href = "/timetracker";
-  }
-  locale = "sv";
   render() {
     return (
       <div>
@@ -205,13 +179,8 @@ class Timereport extends React.Component {
             onDayClick={this.handleDayClick}
             month={new Date(this.state.month)}
             keepFocus={true}
-            disabledDays={[
-              {
-                before: new Date(this.currentYear, this.currentMonth - 1, 1),
-                after: new Date(this.currentYear, this.currentMonth + 1, 0)
-              },
-              { daysOfWeek: [0, 6] }
-            ]}
+            canChangeMonth={false}
+            disabledDays={{ daysOfWeek: [0, 6] }}
             captionElement={({ date, localeUtils }) => (
               <ChangeYearMonthForm
                 date={date}
@@ -221,16 +190,19 @@ class Timereport extends React.Component {
             )}
           />
         </div>
-        <DeviationList
-          deviationItems={this.state.deviationItems}
-          handleDescriptionChange={this.handleDescriptionChange}
-          handleHoursChange={this.handleHoursChange}
-          handleSubmit={this.handleSubmit}
-        />
-        <div className="timereport-logout-button-div">
-          <Button color="secondary" onClick={this.logout}>
-            Logga ut
-          </Button>
+        <div className="infoToggleBox">
+          <p>
+            En toggleInfoBox här, info blir dock egen comp Får fundera på layout
+            samt resten på denna sidan
+          </p>
+        </div>
+        <div className="deviationList">
+          <DeviationList
+            deviationItems={this.state.deviationItems}
+            handleDescriptionChange={this.handleDescriptionChange}
+            handleHoursChange={this.handleHoursChange}
+            handleSubmit={this.handleSubmit}
+          />
         </div>
       </div>
     );

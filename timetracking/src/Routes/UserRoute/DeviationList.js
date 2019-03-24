@@ -27,7 +27,7 @@ export default class DeviationList extends React.Component {
                 onChange={e =>
                   this.props.handleDescriptionChange(e, deviationItem)
                 }
-                maxLength={40}
+                maxLength={30}
                 minLength={2}
                 required
               />
