@@ -35,7 +35,6 @@ class Login extends React.Component {
         }
       })
       .catch(error => {
-        console.log(error);
         if (error.response === undefined)
           return this.setState({
             error: "Servern är otillgänglig"

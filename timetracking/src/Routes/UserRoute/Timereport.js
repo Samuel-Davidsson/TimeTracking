@@ -3,6 +3,7 @@ import React from "react";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import Api_Url from "../../Helpers/Api_Url";
+import Error from "../../Helpers/Error";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
 import ChangeYearMonthForm from "./ChangeYearMonthForm";
@@ -15,19 +16,33 @@ class Timereport extends React.Component {
     deviationItems: [],
     existingDevitations: [],
     month: new Date(),
-    sucess: ""
+    isValidMonth: true,
+    sucess: "",
+    error: ""
   };
 
   handleDayClick = this.handleDayClick.bind(this);
 
   componentDidMount = () => {
     const userId = localStorage.getItem("id");
-
     axios
       .get(`${Api_Url}/user/` + userId, { headers: GenerateHeaderData() })
       .then(res => {
         const deviationItems = res.data.deviationItems;
         const { id } = res.data;
+        const existingDevitations = [];
+        res.data.deviationItems.forEach(element => {
+          existingDevitations.push({
+            reportId: element.reportId,
+            id: element.id,
+            hours: element.hours,
+            absenceDate: element.absenceDate,
+            description: element.description
+          });
+        });
+        existingDevitations.forEach(element => {
+          element.absenceDate = new Date(element.absenceDate);
+        });
         localStorage.setItem("reportId", id);
         this.totalHours = res.data.hours;
         deviationItems.forEach(element => {
@@ -39,13 +54,21 @@ class Timereport extends React.Component {
 
         this.setState({
           deviationItems: deviationItems,
-          report: res.data
+          existingDevitations: existingDevitations,
+          report: res.data,
+          isLoading: false
         });
       });
   };
 
   handleDayClick(absenceDate, { selected, disabled }) {
     if (disabled) {
+      return;
+    }
+    if (this.state.isValidMonth === false) {
+      this.setState({
+        error: "Tiden för att uppdatera har gått ut!"
+      });
       return;
     }
     if (selected) {
@@ -63,20 +86,62 @@ class Timereport extends React.Component {
         deviationItems: filteredDeviationItems
       });
     } else {
-      this.state.deviationItems.push({
-        absenceDate: absenceDate,
-        hours: "",
-        description: ""
-      });
-      let sortDeviationItems = this.state.deviationItems;
+      if (this.state.report.deviationItems === undefined) {
+        this.state.deviationItems.push({
+          absenceDate: absenceDate,
+          hours: "",
+          description: ""
+        });
+        let sortDeviationItems = this.state.deviationItems;
 
-      let sortedDeviationItems = sortDeviationItems.sort(
-        (a, b) => b.absenceDate.getDate() - a.absenceDate.getDate()
-      );
+        let sortedDeviationItems = sortDeviationItems.sort(
+          (a, b) => b.absenceDate.getDate() - a.absenceDate.getDate()
+        );
 
-      this.setState({
-        deviationItems: sortedDeviationItems
-      });
+        let totalHours = TotalHoursCount(
+          sortedDeviationItems.map(x => Number(x.hours))
+        );
+        this.totalHours = totalHours;
+
+        this.setState({
+          deviationItems: sortedDeviationItems
+        });
+      } else {
+        const deviationsExist = this.state.existingDevitations
+          .map(x => x.absenceDate.toDateString())
+          .includes(absenceDate.toDateString());
+        if (deviationsExist === false) {
+          this.state.deviationItems.push({
+            absenceDate: absenceDate,
+            hours: "",
+            description: ""
+          });
+        }
+        this.state.existingDevitations.forEach(element => {
+          if (
+            element.absenceDate.toDateString() === absenceDate.toDateString() &&
+            deviationsExist === true
+          ) {
+            this.state.deviationItems.push({
+              hours: element.hours,
+              absenceDate: absenceDate,
+              description: element.description
+            });
+          }
+        });
+        let sortDeviationItems = this.state.deviationItems;
+        let sortedDeviationItems = sortDeviationItems.sort(
+          (a, b) => b.absenceDate.getDate() - a.absenceDate.getDate()
+        );
+        let totalHours = TotalHoursCount(
+          sortedDeviationItems.map(x => Number(x.hours))
+        );
+        this.totalHours = totalHours;
+
+        this.setState({
+          deviationItems: sortedDeviationItems
+        });
+      }
     }
   }
 
@@ -90,6 +155,20 @@ class Timereport extends React.Component {
       this.state.deviationItems.map(x => Number(x.hours))
     );
   };
+
+  canSubmit() {
+    let selectedMonth = this.state.month.getMonth();
+    let selectedYear = this.state.month.getFullYear();
+    let activeDate = new Date(Date.now());
+    let activeMonth = activeDate.getMonth();
+    let activeYear = new Date().getFullYear();
+    if (selectedMonth !== activeMonth || selectedYear !== activeYear) {
+      this.setState({
+        isValidMonth: false,
+        error: "Tiden för att uppdatera har gått ut"
+      });
+    }
+  }
 
   handleSubmit = event => {
     event.preventDefault();
@@ -147,10 +226,13 @@ class Timereport extends React.Component {
         const data = res.data;
         this.totalHours = data.hours;
         const deviationItems = data.deviationItems;
+        const existingDevitations = [];
 
+        this.canSubmit();
         if (deviationItems === undefined)
           this.setState({
-            deviationItems: []
+            deviationItems: [],
+            existingDevitations: []
           });
 
         if (deviationItems === undefined) return false;
@@ -158,14 +240,31 @@ class Timereport extends React.Component {
         deviationItems.forEach(element => {
           element.absenceDate = new Date(element.absenceDate);
         });
-
+        data.deviationItems.forEach(element => {
+          existingDevitations.push({
+            reportId: element.reportId,
+            id: element.id,
+            hours: element.hours,
+            absenceDate: element.absenceDate,
+            description: element.description
+          });
+        });
+        existingDevitations.forEach(element => {
+          element.absenceDate = new Date(element.absenceDate);
+        });
+        this.totalHours = TotalHoursCount(
+          deviationItems.map(x => Number(x.hours))
+        );
         this.setState({
           report: data,
-          deviationItems: deviationItems
+          deviationItems: deviationItems,
+          existingDevitations: existingDevitations,
+          isValidMonth: true,
+          error: ""
         });
+        this.canSubmit();
       });
   };
-
   render() {
     return (
       <div>
@@ -190,18 +289,14 @@ class Timereport extends React.Component {
             )}
           />
         </div>
-        <div className="infoToggleBox">
-          <p>
-            En toggleInfoBox här, info blir dock egen comp Får fundera på layout
-            samt resten på denna sidan
-          </p>
-        </div>
+        <Error errormsg={this.state.error} />
         <div className="deviationList">
           <DeviationList
             deviationItems={this.state.deviationItems}
             handleDescriptionChange={this.handleDescriptionChange}
             handleHoursChange={this.handleHoursChange}
             handleSubmit={this.handleSubmit}
+            isValidMonth={this.state.isValidMonth}
           />
         </div>
       </div>

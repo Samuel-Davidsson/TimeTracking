@@ -33,9 +33,16 @@ export default class DeviationList extends React.Component {
               />
             </div>
           ))}
-          <Button color="info" type="submit">
-            Skicka in
-          </Button>
+          <div>
+            <Button
+              hidden={!this.props.isValidMonth}
+              className="deviation-button"
+              color="info"
+              type="submit"
+            >
+              Skicka in
+            </Button>
+          </div>
         </form>
       </div>
     );

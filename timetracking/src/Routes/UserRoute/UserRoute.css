@@ -58,19 +58,18 @@
   color: #61dafb;
 }
 .YearNavigation {
-  display: inline-block;
   border: 1px solid lightslategrey;
-  position: absolute;
-  right: 60%;
-
+  width: 14%;
+  margin: 0px auto;
+  margin-top: 0.2%;
 }
 .deviationList {
+  margin-left: -3.8%;
   margin-top: 0.5%;
 }
-.infoToggleBox {
-  display: inline-block;
-  border: 1px solid lightslategrey;
-  position: absolute;
-  right: 61%;
-  margin-top: 15%;
+.deviation-button {
+  margin-left: 3%;
+}
+.error-msg {
+  color: red;
 }
