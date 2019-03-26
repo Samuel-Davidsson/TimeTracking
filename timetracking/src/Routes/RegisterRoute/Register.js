@@ -10,7 +10,7 @@ export default class Register extends React.Component {
     error: "",
     success: "",
     title: "Registering",
-    subtitle: "Registera dig för att kunna logga in"
+    subtitle: "Registera dig för att kunna logga in."
   };
 
   addUser = userRegisterInfo => {

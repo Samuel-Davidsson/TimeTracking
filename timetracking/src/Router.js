@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import AuthRoute from "./Helpers/AuthRoute";
-import Admin from "./Routes/Admin";
+import AdminPage from "./Routes/AdminRoute/AdminPage";
 import Login from "./Routes/LoginRoute/Login";
 import NotFound from "./Routes/NotFound";
 import Register from "./Routes/RegisterRoute/Register";
@@ -14,7 +14,7 @@ const Router = () => (
       <Route path="/Timetracker/login" component={Login} />
       <Route path="/Timetracker/register" component={Register} />
       <AuthRoute path="/Timetracker/timereport" component={UserPage} />
-      <Route path="/Timetracker/admin" component={Admin} />
+      <Route path="/Timetracker/admin" component={AdminPage} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>

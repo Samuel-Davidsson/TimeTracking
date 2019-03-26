@@ -10,7 +10,7 @@ class Login extends React.Component {
   state = {
     error: "",
     title: "Välkommen till Tidsrapporten",
-    subtitle: "Ett lätt sätt att fylla i månadens tidsrapport"
+    subtitle: "Ett lätt sätt att fylla i månadens tidsrapport."
   };
   tryLogin = userLoginInfo => {
     axios
