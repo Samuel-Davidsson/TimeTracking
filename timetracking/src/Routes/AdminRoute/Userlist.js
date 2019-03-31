@@ -1,12 +1,22 @@
 import React from "react";
-import { Button, Table } from "reactstrap";
+import { Button, Input, Table } from "reactstrap";
+
 export default class Userlist extends React.Component {
-  handleAddChangeReportClick = () => {
-    console.log("💝");
+  handleReportClick = user => {
+    const userInfo = {
+      user: user,
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      attest: user.attest
+    };
+    this.props.reportUserInfo(userInfo);
   };
+
   handleHistoryClick = () => {
     console.log("👻");
   };
+
   render() {
     return (
       <div className="userlist-main-div">
@@ -18,8 +28,9 @@ export default class Userlist extends React.Component {
               <th>Förnamn</th>
               <th>Efternamn</th>
               <th>Avdelning</th>
-              <th>Editera</th>
+              <th>Rapport</th>
               <th>Historik</th>
+              <th>Godkänd</th>
             </tr>
           </thead>
           <tbody>
@@ -30,11 +41,24 @@ export default class Userlist extends React.Component {
                 <td>{user.lastName}</td>
                 <td>{user.department}</td>
                 <td>
+                  <input
+                    className="userlist-checkbox"
+                    readOnly
+                    checked={user.attest}
+                    style={{
+                      backgroundColor: user.attest
+                        ? "DarkSeaGreen"
+                        : "IndianRed"
+                    }}
+                  />
+                </td>
+
+                <td>
                   <Button
                     className="userlist-buttons"
-                    onClick={() => this.handleAddChangeReportClick(user)}
+                    onClick={() => this.handleReportClick(user)}
                   >
-                    Editera
+                    Rapport
                   </Button>
                 </td>
                 <td>
@@ -44,6 +68,17 @@ export default class Userlist extends React.Component {
                   >
                     Historik
                   </Button>
+                </td>
+                <td>
+                  <Input
+                    readOnly
+                    checked={user.attest}
+                    style={{
+                      backgroundColor: user.attest
+                        ? "DarkSeaGreen"
+                        : "IndianRed"
+                    }}
+                  />
                 </td>
               </tr>
             ))}

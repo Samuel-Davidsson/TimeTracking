@@ -8,7 +8,7 @@ import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
 import ChangeYearMonthForm from "./ChangeYearMonthForm";
 import DeviationList from "./DeviationList";
-import MainUserinfo from "./MainUserinfo";
+import MainUserInfo from "./MainUserInfo";
 
 class Timereport extends React.Component {
   state = {
@@ -265,12 +265,16 @@ class Timereport extends React.Component {
         this.canSubmit();
       });
   };
+  firstName = localStorage.getItem("firstname");
+  lastName = localStorage.getItem("lastname");
   render() {
     return (
       <div>
-        <MainUserinfo
+        <MainUserInfo
           totalHours={this.totalHours}
           attest={this.state.report.attest}
+          firstName={this.firstName}
+          lastName={this.lastName}
         />
         <div className="YearNavigation">
           <DayPicker

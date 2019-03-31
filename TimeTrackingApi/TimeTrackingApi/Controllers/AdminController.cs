@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Domain.Entities;
+﻿using System.Linq;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Controllers
 {
@@ -21,7 +17,8 @@ namespace TimeTrackingApi.Controllers
         public IActionResult GetUsersByAdminId(int id)
         {
             var adminUser = _userService.GetUserById(id);
-            var users = _userService.GetAll().Where(x => x.Department == adminUser.Department);/* && x.IsAdmin == false);*/ //Add this later
+            var users = _userService.GetAll().Where(x => x.Department == adminUser.Department && x.IsAdmin == false);
+            // Bygga om skicka upp vymodeller istället med attest etc.. ta bort sånt som ej skall med.
             return Ok(users);
         }
     }

@@ -3,7 +3,8 @@
   width: 25%;
 }
 .userlist-main-div {
-  width: 15%;
+  margin: 2%;
+  position: absolute;
 }
 .userlist-buttons {
   color: #61dafb;
@@ -11,6 +12,8 @@
 }
 .userlist-title {
   margin: 2%;
-  margin-left: 55%;
   color: #61dafb;
+}
+.useractivereport-main-div {
+  margin: 0% auto;
 }

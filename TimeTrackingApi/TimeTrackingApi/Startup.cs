@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using TimeTrackingApi.Helpers;
 
 namespace TimeTrackingApi
 {
@@ -27,6 +28,22 @@ namespace TimeTrackingApi
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddCors();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<IDeviationRepository, DeviationRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<IDeviationService, DeviationService>();
+            services.AddSingleton(Configuration);
+            services.AddScoped<Crypt>();
+
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<Appsettings>(appSettingsSection);
+
+            var appSettings = appSettingsSection.Get<Appsettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
            {
@@ -38,22 +55,12 @@ namespace TimeTrackingApi
                ValidateIssuerSigningKey = true,
                ValidIssuer = "samuel",
                ValidAudience = "readers",
-               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+               IssuerSigningKey = new SymmetricSecurityKey(key)
            };
            });
 
-            services.AddCors();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IReportRepository, ReportRepository>();
-            services.AddScoped<IDeviationRepository, DeviationRepository>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IReportService, ReportService>();
-            services.AddScoped<IDeviationService, DeviationService>();
-            services.AddScoped<Crypt>();
-
-            var connection = "Server = localhost; Database = TimeTrackingDB; Trusted_Connection = true; MultipleActiveResultSets=true;";
             services.AddDbContext<TimeTrackingContext>
-                (options => options.UseSqlServer(connection));
+                (options => options.UseSqlServer(Configuration.GetConnectionString("TimeTracker")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -7,6 +8,7 @@ namespace Domain.Services
 {
     public class Crypt
     {
+
         readonly string PasswordHash = "523g98uP";
 
         readonly string SaltKey = "SoLTgtEY";

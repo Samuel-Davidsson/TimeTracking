@@ -10,7 +10,9 @@ using Domain.Interfaces;
 using Domain.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using TimeTrackingApi.Helpers;
 using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Controllers
@@ -21,10 +23,12 @@ namespace TimeTrackingApi.Controllers
     {
         private readonly IUserService _userService;
         private readonly Crypt _crypt;
-        public AuthController(IUserService userService, Crypt crypt)
+        private readonly IConfiguration _configuration;
+        public AuthController(IUserService userService, Crypt crypt, IConfiguration configuration)
         {
             _userService = userService;
             _crypt = crypt;
+            _configuration = configuration;
         }
 
         [HttpPost, Route("register")]
@@ -62,24 +66,18 @@ namespace TimeTrackingApi.Controllers
 
                 if (userViewModel.Login.ToLower() == userLoginTrimEnd.ToLower() && user.Password == userPassword)
                 {
+                    var appSettingsSection = _configuration.GetSection("AppSettings");
 
-                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
+                    var appSettings = appSettingsSection.Get<Appsettings>();
+
+                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.Secret));
                     var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-
-                    // Setup claim routes later.
-
-                    //var claims = new List<Claim>
-                    //{
-                    //    new Claim(ClaimTypes.Name, user.Login),
-                    //    new Claim(ClaimTypes.Role, "Manager")
-                    //};
 
                     var tokenOptions = new JwtSecurityToken(
                         issuer: "samuel",
                         audience: "readers",
-                        //claims: new List<Claim>(), //sätta claims här.
                         expires: DateTime.Now.AddMinutes(15),
-                        signingCredentials: signinCredentials
+                        signingCredentials: signinCredentials                      
                     );
                     var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
                     var AuthUser = new UserViewmodel

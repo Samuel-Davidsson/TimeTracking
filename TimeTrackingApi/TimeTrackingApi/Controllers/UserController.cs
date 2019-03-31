@@ -60,7 +60,14 @@ namespace TimeTrackingApi.Controllers
                     return Ok(reportviewmodel);
                 };
             }
-            return BadRequest("Existerar ingen rapport!");
+            var reportviewmodel2 = new ReportViewmodel
+            {
+                UserId = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Attest = false,
+            };
+            return Ok(reportviewmodel2);
         }
     }
 }
