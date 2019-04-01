@@ -1,11 +1,12 @@
 ﻿using Domain.Entities;
+using System;
 using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Services
 {
     internal class ViewModelToModelMapper
     {
-        public Report ReportViewModelToArticle(ReportViewmodel model)
+        public Report ReportViewModelToReport(ReportViewmodel model)
         {
             return new Report
             {
@@ -14,15 +15,10 @@ namespace TimeTrackingApi.Services
                 Accepted = model.Accepted,
                 Attest = model.Attest,
                 DeviationItems = model.DeviationItems,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
             };
         }
 
-        public Report ReportViewModelToEditArticle(ReportViewmodel model, Report report)
-        {
-            return new Report
-            {
-                DeviationItems = model.DeviationItems,
-            };
-        }
     }
 }

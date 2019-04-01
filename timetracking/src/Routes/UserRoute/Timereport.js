@@ -31,6 +31,7 @@ class Timereport extends React.Component {
         const deviationItems = res.data.deviationItems;
         const { id } = res.data;
         const existingDevitations = [];
+        if (deviationItems === null) return false;
         res.data.deviationItems.forEach(element => {
           existingDevitations.push({
             reportId: element.reportId,

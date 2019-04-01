@@ -1,12 +1,10 @@
-﻿using Data.DataContext;
-using Domain.Entities;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using TimeTrackingApi.Services;
 using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Controllers
@@ -55,20 +53,13 @@ namespace TimeTrackingApi.Controllers
             var report = _reportService.GetReportById(reportViewmodel.Id);
             if (report == null)
             {
+
                 DateTime currentMonthParsed = DateTime.Parse(reportViewmodel.CurrentMonth);
                 var currentMonth = currentMonthParsed.ToString("yyyy-MM");
                 DateTime finalcurrentMonthParsed = DateTime.Parse(currentMonth);
-                report = new Report
-                {
-                    Id = reportViewmodel.Id,
-                    UserId = reportViewmodel.UserId,
-                    Accepted = reportViewmodel.Accepted,
-                    Attest = reportViewmodel.Attest,
-                    CreatedDate = DateTime.Now,
-                    DeviationItems = reportViewmodel.DeviationItems,
-                    UpdatedDate = DateTime.Now,
-                    Date = finalcurrentMonthParsed
-                };
+
+                report = Mapper.ViewModelToModelMapping.ReportViewModelToReport(reportViewmodel);
+                report.Date = finalcurrentMonthParsed;
                 _reportService.Add(report);
                 return Ok(report);
             }
