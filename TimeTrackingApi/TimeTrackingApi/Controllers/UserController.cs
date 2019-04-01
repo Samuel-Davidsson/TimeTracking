@@ -4,6 +4,7 @@ using Domain.Interfaces;
 using Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TimeTrackingApi.Services;
 using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Controllers
@@ -34,8 +35,6 @@ namespace TimeTrackingApi.Controllers
                 return Ok("No Reports");
             }
 
-            var user = _userService.GetUserById(id);
-
             foreach (var report in reports)
             {
                 if (report.Date.ToString("yyyy-MM") == date)
@@ -44,30 +43,10 @@ namespace TimeTrackingApi.Controllers
                     report.DeviationItems = deviations.ToList();
                     var sortDeviations = report.DeviationItems.OrderByDescending(x => x.AbsenceDate);
                     report.DeviationItems = sortDeviations.ToList();
-                    var reportviewmodel = new ReportViewmodel
-                    {
-                        Id = report.Id,
-                        UserId = report.UserId,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        DeviationItems = report.DeviationItems,
-                        Accepted = report.Accepted,
-                        Attest = report.Attest,
-                        CreatedDate = report.CreatedDate,
-                        Date = report.Date,
-                        UpdatedDate = report.UpdatedDate,
-                    };
-                    return Ok(reportviewmodel);
-                };
+                    var reportViewmodel = Mapper.ModelToViewModelMapping.ReportViewmodel(report);
+                    return Ok(reportViewmodel);
+                }
             }
-            //var reportviewmodel2 = new ReportViewmodel
-            //{
-            //    UserId = user.Id,
-            //    FirstName = user.FirstName,
-            //    LastName = user.LastName,
-            //    Attest = false,
-            //};
-            //return Ok(reportviewmodel2);
             return BadRequest("Finns ingen rapport");
         }
     }
