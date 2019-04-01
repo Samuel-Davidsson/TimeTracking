@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using TimeTrackingApi.Helpers;
+using TimeTrackingApi.Services;
 using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Controllers
@@ -24,6 +19,7 @@ namespace TimeTrackingApi.Controllers
         private readonly IUserService _userService;
         private readonly Crypt _crypt;
         private readonly IConfiguration _configuration;
+
         public AuthController(IUserService userService, Crypt crypt, IConfiguration configuration)
         {
             _userService = userService;
@@ -43,14 +39,9 @@ namespace TimeTrackingApi.Controllers
                     return BadRequest("Mailadressen är redan registerad.");
                 }
             }
-            var user = new User
-            {
-                Login = userViewModel.Login,
-                Password = userpassword,
-                FirstName = userViewModel.Firstname,
-                LastName = userViewModel.Lastname,
-                Department = userViewModel.Department,
-            };
+            var user = Mapper.ViewModelToModelMapping.UserViewModelToUser(userViewModel);
+            user.Password = userpassword;
+
             _userService.Add(user);
             return Ok("Användaren har sparats, du skickas till login sidan inom 5 sekunder!");
         }
@@ -80,15 +71,9 @@ namespace TimeTrackingApi.Controllers
                         signingCredentials: signinCredentials                      
                     );
                     var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                    var AuthUser = new UserViewmodel
-                    {
-                        Id = user.Id,
-                        Firstname = user.FirstName,
-                        Lastname = user.LastName,
-                        IsAdmin = user.IsAdmin,
-                        Token = tokenString,
-                        ExpirationTime = DateTime.Now.AddMinutes(15)
-                    };
+                    var AuthUser = Mapper.ModelToViewModelMapping.UserViewmodel(user);
+                    AuthUser.Token = tokenString;
+
                     return Ok(AuthUser);
                   }
             }

@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using System;
 using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Services
@@ -28,6 +29,16 @@ namespace TimeTrackingApi.Services
                 UserId = report.UserId
             };
         }
-
+        public UserViewmodel UserViewmodel(User user)
+        {
+            return new UserViewmodel
+            {
+                Id = user.Id,
+                Firstname = user.FirstName,
+                Lastname = user.LastName,
+                IsAdmin = user.IsAdmin,
+                ExpirationTime = DateTime.Now.AddMinutes(15)
+            };
+        }
     }
 }

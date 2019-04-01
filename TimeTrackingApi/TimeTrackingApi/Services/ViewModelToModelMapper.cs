@@ -19,6 +19,16 @@ namespace TimeTrackingApi.Services
                 UpdatedDate = DateTime.Now
             };
         }
+        public User UserViewModelToUser(UserViewmodel userViewmodel)
+        {
+            return new User
+            {
+                Login = userViewmodel.Login,
+                FirstName = userViewmodel.Firstname,
+                LastName = userViewmodel.Lastname,
+                Department = userViewmodel.Department,
+            };
+        }
 
     }
 }

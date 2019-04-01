@@ -60,14 +60,15 @@ namespace TimeTrackingApi.Controllers
                     return Ok(reportviewmodel);
                 };
             }
-            var reportviewmodel2 = new ReportViewmodel
-            {
-                UserId = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Attest = false,
-            };
-            return Ok(reportviewmodel2);
+            //var reportviewmodel2 = new ReportViewmodel
+            //{
+            //    UserId = user.Id,
+            //    FirstName = user.FirstName,
+            //    LastName = user.LastName,
+            //    Attest = false,
+            //};
+            //return Ok(reportviewmodel2);
+            return BadRequest("Finns ingen rapport");
         }
     }
 }
