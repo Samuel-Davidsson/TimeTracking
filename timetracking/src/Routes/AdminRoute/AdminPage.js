@@ -14,7 +14,8 @@ export default class AdminPage extends React.Component {
     title: "Admin sidan",
     subtitle: "",
     users: [],
-    report: ""
+    report: "",
+    isAuthorized: true
   };
 
   handleCheckBoxClicked = event => {
@@ -74,7 +75,7 @@ export default class AdminPage extends React.Component {
   render() {
     return (
       <div>
-        <HomePageNavBar />
+        <HomePageNavBar isAuthorized={this.state.isAuthorized} />
         <Header title={this.state.title} />
         <Userlist
           users={this.state.users}

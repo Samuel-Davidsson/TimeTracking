@@ -5,6 +5,7 @@ import "react-day-picker/lib/style.css";
 import Api_Url from "../../Helpers/Api_Url";
 import Error from "../../Helpers/Error";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
+import Success from "../../Helpers/Success";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
 import ChangeYearMonthForm from "./ChangeYearMonthForm";
 import DeviationList from "./DeviationList";
@@ -17,7 +18,8 @@ class Timereport extends React.Component {
     existingDevitations: [],
     month: new Date(),
     isValidMonth: true,
-    sucess: "",
+    isAdmin: false,
+    success: "",
     error: ""
   };
 
@@ -31,7 +33,7 @@ class Timereport extends React.Component {
         const deviationItems = res.data.deviationItems;
         const { id } = res.data;
         const existingDevitations = [];
-        if (deviationItems === null) return false;
+        if (deviationItems === undefined) return false;
         res.data.deviationItems.forEach(element => {
           existingDevitations.push({
             reportId: element.reportId,
@@ -207,6 +209,11 @@ class Timereport extends React.Component {
           report: data,
           existingDevitations: existingDevitations
         });
+        setTimeout(() => {
+          this.setState({
+            success: false
+          });
+        }, 5000);
       });
   };
 
@@ -276,6 +283,7 @@ class Timereport extends React.Component {
           attest={this.state.report.attest}
           firstName={this.firstName}
           lastName={this.lastName}
+          isAdmin={this.state.isAdmin}
         />
         <div className="YearNavigation">
           <DayPicker
@@ -295,6 +303,7 @@ class Timereport extends React.Component {
           />
         </div>
         <Error errormsg={this.state.error} />
+        <Success successmsg={this.state.success} />
         <div className="deviationList">
           <DeviationList
             deviationItems={this.state.deviationItems}

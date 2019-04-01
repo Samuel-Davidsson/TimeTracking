@@ -5,7 +5,6 @@ using Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TimeTrackingApi.Services;
-using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Controllers
 {
@@ -29,7 +28,7 @@ namespace TimeTrackingApi.Controllers
         {
             var date = DateTime.Now.ToString("yyyy-MM");
             var reports = _reportService.GetReportsByUserId(id);
-
+            var user = _userService.GetUserById(id);
             if(reports == null)
             {
                 return Ok("No Reports");
@@ -44,10 +43,11 @@ namespace TimeTrackingApi.Controllers
                     var sortDeviations = report.DeviationItems.OrderByDescending(x => x.AbsenceDate);
                     report.DeviationItems = sortDeviations.ToList();
                     var reportViewmodel = Mapper.ModelToViewModelMapping.ReportViewmodel(report);
+
                     return Ok(reportViewmodel);
                 }
             }
-            return BadRequest("Finns ingen rapport");
+            return Ok(user);
         }
     }
 }

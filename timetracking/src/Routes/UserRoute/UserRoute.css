@@ -24,13 +24,6 @@
   display: inline-block;
   margin-bottom: 0.2%;
 }
-.maininfo-checkbox {
-  text-align: center;
-  width: 15px;
-  height: 15px;
-  border: 1px solid #61dafb;
-  margin-left: 3%;
-}
 .timereport-logout-button-div {
   margin-top: 0.4%;
 }
@@ -54,7 +47,7 @@
 }
 .year-dropdown {
   margin: 0.1%;
-  background: #2d2d2d;
+  background: #443232;
   color: #61dafb;
 }
 .YearNavigation {
@@ -62,6 +55,7 @@
   width: 14%;
   margin: 0px auto;
   margin-top: 0.2%;
+  background: #252525;
 }
 .deviationList {
   margin-left: -3.8%;
@@ -72,4 +66,15 @@
 }
 .error-msg {
   color: red;
+}
+.success-msg {
+  color: green;
+}
+.mainInfo-checkbox-status {
+  width: 15px;
+  height: 15px;
+  margin-left: 3%;
+}
+.listGroupItem {
+  background: #252525;
 }

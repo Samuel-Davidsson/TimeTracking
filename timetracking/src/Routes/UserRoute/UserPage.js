@@ -7,13 +7,14 @@ import Timereport from "./Timereport";
 
 export default class UserPage extends React.Component {
   state = {
-    title: "Månadens Rapport",
-    subtitle: "Fyll i din frånvaro här senast den sista dagen varje månad"
+    title: "Rapport",
+    subtitle: "Fyll i din frånvaro här senast den sista dagen varje månad",
+    isAuthorized: true
   };
   render() {
     return (
       <div>
-        <HomePageNavBar />
+        <HomePageNavBar isAuthorized={this.state.isAuthorized} />
         <Header title={this.state.title} subtitle={this.state.subtitle} />
         <Timereport />
       </div>

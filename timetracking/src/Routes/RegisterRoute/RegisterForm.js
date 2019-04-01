@@ -33,7 +33,7 @@ export default class RegisterForm extends React.Component {
   render() {
     return (
       <div>
-        <Form onSubmit={this.handleSubmit}>
+        <Form className="register-form" onSubmit={this.handleSubmit}>
           <FormGroup inline>
             <Row form>
               <Col md={6}>

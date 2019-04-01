@@ -24,11 +24,12 @@ export default class HomePageNavBar extends React.Component {
       <div>
         <Navbar className="navbar-main-color" expand="md">
           <Collapse navbar>
-            <NavItem>
-              <NavbarBrand className="mr-auto">
-                <CountDown />
-              </NavbarBrand>
-            </NavItem>
+            <NavbarBrand>
+              <h3>{this.props.title}</h3>
+            </NavbarBrand>
+            <NavbarBrand hidden={!this.props.isAuthorized}>
+              <CountDown />
+            </NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink
@@ -38,7 +39,11 @@ export default class HomePageNavBar extends React.Component {
                   Github
                 </NavLink>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
+              <UncontrolledDropdown
+                hidden={!this.props.isAuthorized}
+                nav
+                inNavbar
+              >
                 <DropdownToggle className="navbar-color" nav caret>
                   Settings
                 </DropdownToggle>

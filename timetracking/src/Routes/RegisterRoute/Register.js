@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import Header from "../../Header";
 import Api_Url from "../../Helpers/Api_Url";
+import HomePageNavBar from "../../HomePageNavbar";
 import "./Register.css";
 import RegisterForm from "./RegisterForm";
 
@@ -10,6 +11,7 @@ export default class Register extends React.Component {
     error: "",
     success: "",
     title: "Registering",
+    isAuthorized: false,
     subtitle: "Registera dig för att kunna logga in."
   };
 
@@ -47,14 +49,20 @@ export default class Register extends React.Component {
 
   render() {
     return (
-      <div className="register-div">
-        <Header title={this.state.title} subtitle={this.state.subtitle} />
-        <RegisterForm
-          handleClickOnBackButton={this.handleClickOnBackButton}
-          addUser={this.addUser}
+      <div>
+        <HomePageNavBar
+          isAuthorized={this.state.isAuthorized}
+          title={this.state.title}
         />
-        <p className="register-errormsg">{this.state.error}</p>
-        <p className="register-successmsg">{this.state.success}</p>
+        <div className="register-div">
+          <Header subtitle={this.state.subtitle} />
+          <RegisterForm
+            handleClickOnBackButton={this.handleClickOnBackButton}
+            addUser={this.addUser}
+          />
+          <p className="register-errormsg">{this.state.error}</p>
+          <p className="register-successmsg">{this.state.success}</p>
+        </div>
       </div>
     );
   }

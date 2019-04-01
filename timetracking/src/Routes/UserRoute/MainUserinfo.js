@@ -6,19 +6,24 @@ class MainUserInfo extends React.Component {
   render() {
     return (
       <div className="mainUserInfo-div">
-        <ListGroup className="bg-dark">
-          <ListGroupItem className="bg-dark">
+        <ListGroup>
+          <ListGroupItem className="listGroupItem">
             {Capitalize(this.props.firstName)} {Capitalize(this.props.lastName)}
           </ListGroupItem>
-          <ListGroupItem className="bg-dark">
-            Totala timmar : {this.props.totalHours}
+          <ListGroupItem className="listGroupItem">
+            Totala timmar: {this.props.totalHours}
           </ListGroupItem>
-          <ListGroupItem className="bg-dark">
-            Godkänd :
+          <ListGroupItem className="listGroupItem">
+            Godkänd:
             <input
+              className="mainInfo-checkbox-status"
+              readOnly
               checked={this.props.attest}
-              type="checkbox"
-              onChange={this.props.handleCheckBoxClicked}
+              style={{
+                backgroundColor: this.props.attest
+                  ? "DarkSeaGreen"
+                  : "IndianRed"
+              }}
             />
           </ListGroupItem>
         </ListGroup>
