@@ -29,6 +29,5 @@ namespace TimeTrackingApi.Services
                 Department = userViewmodel.Department,
             };
         }
-
     }
 }

@@ -31,7 +31,7 @@ class Login extends React.Component {
           return;
         }
         if (res.status === 200) {
-          this.props.history.push("/timetracker/timereport");
+          this.props.history.push("/timetracker/report");
         }
       })
       .catch(error => {

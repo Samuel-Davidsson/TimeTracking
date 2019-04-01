@@ -37,22 +37,9 @@ export default class Userlist extends React.Component {
             {this.props.users.map(user => (
               <tr key={user.id}>
                 <th scope="row">{user.id}</th>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
+                <td>{user.firstname}</td>
+                <td>{user.lastname}</td>
                 <td>{user.department}</td>
-                <td>
-                  <input
-                    className="userlist-checkbox"
-                    readOnly
-                    checked={user.attest}
-                    style={{
-                      backgroundColor: user.attest
-                        ? "DarkSeaGreen"
-                        : "IndianRed"
-                    }}
-                  />
-                </td>
-
                 <td>
                   <Button
                     className="userlist-buttons"

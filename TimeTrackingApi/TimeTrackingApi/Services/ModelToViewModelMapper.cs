@@ -40,5 +40,15 @@ namespace TimeTrackingApi.Services
                 ExpirationTime = DateTime.Now.AddMinutes(15)
             };
         }
+        public UserViewmodelList UserViewmodelList(User user)
+        {
+            return new UserViewmodelList
+            {
+                Id = user.Id,
+                Firstname = user.FirstName,
+                Lastname = user.LastName,
+                Department = user.Department
+            };
+        }
     }
 }

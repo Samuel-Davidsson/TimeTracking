@@ -13,7 +13,7 @@ const Router = () => (
       <Route path="/Timetracker" exact component={Login} />
       <Route path="/Timetracker/login" component={Login} />
       <Route path="/Timetracker/register" component={Register} />
-      <AuthRoute path="/Timetracker/timereport" component={UserPage} />
+      <AuthRoute path="/Timetracker/report" component={UserPage} />
       <Route path="/Timetracker/admin" component={AdminPage} />
       <Route component={NotFound} />
     </Switch>
