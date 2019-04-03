@@ -37,7 +37,7 @@ namespace TimeTrackingApi
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IDeviationService, DeviationService>();
             services.AddSingleton(Configuration);
-            services.AddScoped<Crypt>();
+            services.AddScoped<HashPassword>();
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<Appsettings>(appSettingsSection);

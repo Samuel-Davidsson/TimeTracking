@@ -40,9 +40,9 @@ class LoginForm extends React.Component {
               required
             />
           </FormGroup>
-          <Button color="info" type="submit">
+          <Button color="info" size="lg" type="submit">
             Logga in
-          </Button>
+          </Button>{" "}
         </Form>
       </div>
     );
