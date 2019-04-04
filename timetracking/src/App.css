@@ -10,7 +10,10 @@ body {
   border-bottom: 2px gainsboro solid;
 }
 .jumbotron-border {
-  border: 2px gainsboro solid;
+  border-bottom: 2px gainsboro solid;
+  opacity: 0.9;
+  filter: alpha(opacity=60);
+  height: 180px;
 }
 .header-title {
   color: lightslategray;
@@ -20,3 +23,7 @@ body {
   color: lightslategray;
   font-style: italic;
 }
+.wrapper {
+  background: url("Image/office.jpg") center no-repeat;
+}
+

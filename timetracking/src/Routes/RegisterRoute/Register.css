@@ -1,18 +1,65 @@
 .register-form {
-  margin: 0.3% auto;
-  width: 95%;
+  width: 40%;
+  margin: 0% auto;
+  background-color: #e9ecef;
+  border: 2px solid gainsboro;
+  opacity: 0.9;
+  filter: alpha(opacity=60);
+  margin-top: 2%;
+}
+.register-form-label-firstname {
+  color: lightslategray;
+  font-style: italic;
+  text-align: center;
+  margin-left: 25%;
+}
+.register-form-label-lastname {
+  color: lightslategray;
+  font-style: italic;
+  text-align: center;
+  margin-left: 30%;
+}
+.register-form-label-email {
+  color: lightslategray;
+  font-style: italic;
+  text-align: center;
+  margin-left: 43.5%;
+  margin-top: 2%;
+}
+.register-form-label-password {
+  color: lightslategray;
+  font-style: italic;
+  text-align: center;
+  margin-left: 26%;
+}
+.register-form-label-department {
+  color: lightslategray;
+  font-style: italic;
+  text-align: center;
+  margin-left: 34%;
+  margin-top: 2%;
+}
+.register-form-input-department {
+  text-align: center;
+  margin-left: 50%;
+}
+.register-form-input-image {
+  text-align: center;
+  margin-left: 50%;
+  background-color: #e9ecef;
+  opacity: 0.9;
+  filter: alpha(opacity=60);
+  height: 38%;
+  margin-top: 1%;
+}
+.register-input-right {
+  text-align: center;
+  margin-left: 50%;
+}
+.register-input-left {
+  text-align: center;
+  margin-left: 50%;
 }
 .button-register-div {
   margin: 1.5%;
-}
-.register-input {
-  text-align: center;
-}
-.register-input-deparment {
-  text-align: center;
-  margin: 0px 60%;
-}
-.register-department-label {
-  text-align: center;
-  margin: 1.5% 95%;
 }

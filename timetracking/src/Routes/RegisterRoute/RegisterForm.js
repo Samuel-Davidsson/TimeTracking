@@ -32,27 +32,60 @@ export default class RegisterForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="register-div">
         <Form className="register-form" onSubmit={this.handleSubmit}>
           <FormGroup inline>
             <Row form>
-              <Col md={6}>
-                <Label>Mail</Label>
+              <Col md={4}>
+                <Label className="register-form-label-email">
+                  Användarnamn
+                </Label>
                 <Input
                   placeholder="Mail.."
                   innerRef={this.loginRef}
-                  className="register-input"
+                  className="register-input-left"
                   type="email"
                   required
                 />
               </Col>
-              <Col md={6}>
-                <Label>Lösenord</Label>
+              <Col md={4}>
+                <Label className="register-form-label-department">
+                  Avdelning
+                </Label>
+                <CustomInput
+                  type="select"
+                  id="something"
+                  innerRef={this.departmentRef}
+                  required
+                  className="register-form-input-department"
+                >
+                  <option>Ekonomi</option>
+                  <option>IT</option>
+                  <option>Sälj</option>
+                  <option>Kundtjänst</option>
+                </CustomInput>
+              </Col>
+            </Row>
+          </FormGroup>
+          <FormGroup>
+            <Row form>
+              <Col md={4}>
+                <Label className="register-form-label-firstname">Förnamn</Label>
                 <Input
-                  placeholder="Lösenord.."
-                  innerRef={this.passwordRef}
-                  className="register-input"
-                  type="password"
+                  placeholder="Förnamn.."
+                  innerRef={this.firstnameRef}
+                  className="register-input-left"
+                  required
+                />
+              </Col>
+              <Col md={4}>
+                <Label className="register-form-label-lastname">
+                  Efternamn
+                </Label>
+                <Input
+                  placeholder="Efternamn.."
+                  innerRef={this.lastnameRef}
+                  className="register-input-right"
                   required
                 />
               </Col>
@@ -60,43 +93,28 @@ export default class RegisterForm extends React.Component {
           </FormGroup>
           <FormGroup>
             <Row form>
-              <Col md={6}>
-                <Label>Förnamn</Label>
+              <Col md={4}>
+                <Label className="register-form-label-password">Lösenord</Label>
                 <Input
-                  placeholder="Förnamn.."
-                  innerRef={this.firstnameRef}
-                  className="register-input"
+                  placeholder="Lösenord.."
+                  innerRef={this.passwordRef}
+                  className="register-input-right"
+                  type="password"
                   required
                 />
               </Col>
-              <Col md={6}>
-                <Label>Efternamn</Label>
+              <Col md={4}>
+                <Label className="register-form-label-password">Bekräfta</Label>
                 <Input
-                  placeholder="Efternamn.."
-                  innerRef={this.lastnameRef}
-                  className="register-input"
-                  required
+                  placeholder="Lösenord.."
+                  innerRef={this.passwordRef}
+                  className="register-input-right"
+                  type="password"
                 />
               </Col>
             </Row>
           </FormGroup>
-          <FormGroup>
-            <Col md={6}>
-              <Label className="register-department-label">Avdelning</Label>
-              <CustomInput
-                type="select"
-                id="something"
-                innerRef={this.departmentRef}
-                className="register-input-deparment"
-                required
-              >
-                <option>Ekonomi</option>
-                <option>IT</option>
-                <option>Sälj</option>
-                <option>Kundtjänst</option>
-              </CustomInput>
-            </Col>
-          </FormGroup>
+
           <div>
             <Button
               className="button-register-div"

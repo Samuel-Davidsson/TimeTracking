@@ -41,7 +41,7 @@ class LoginForm extends React.Component {
             />
           </FormGroup>
           <div className="login-button-div">
-            <Button color="secondary" type="submit">
+            <Button color="info" type="submit">
               Logga in
             </Button>
           </div>
