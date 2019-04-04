@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import Header from "../../Header";
 import Api_Url from "../../Helpers/Api_Url";
+import Error from "../../Helpers/Error";
 import HomePageNavBar from "../../HomePageNavbar";
 import Navigation from "../../Navigation";
 import "./Login.css";
@@ -10,7 +11,7 @@ import LoginForm from "./LoginForm";
 class Login extends React.Component {
   state = {
     error: "",
-    title: "Välkommen till Tidsrapporten",
+    title: "Välkommen till Timetrackern!",
     subtitle: "Ett lätt sätt att fylla i månadens tidsrapport.",
     isAuthorized: false
   };
@@ -58,11 +59,11 @@ class Login extends React.Component {
         <HomePageNavBar isAuthorized={this.state.isAuthorized} />
         <div>
           <Header title={this.state.title} subtitle={this.state.subtitle} />
-          <LoginForm tryLogin={this.tryLogin} />
-          <div className="navlink-div">
+          <div className="login-div" color="light">
+            <LoginForm tryLogin={this.tryLogin} />
             <Navigation />
+            <Error errormsg={this.state.error} />
           </div>
-          <p className="login-errormsg">{this.state.error}</p>
         </div>
       </div>
     );

@@ -3,7 +3,7 @@ export default class Error extends React.Component {
   render() {
     return (
       <div>
-        <p className="error-msg">{this.props.errormsg}</p>
+        <p className="text-danger">{this.props.errormsg}</p>
       </div>
     );
   }

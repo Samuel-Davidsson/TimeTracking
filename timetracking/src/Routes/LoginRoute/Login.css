@@ -1,14 +1,5 @@
-.div-loginform {
-  margin: 10px;
-  margin: 0px auto;
-  width: 15%;
-  text-align: center;
-}
 .login-link {
-  color: red;
-}
-.login-link {
-  color: #61dafb;
+  color: lightslategrey;
 }
 .navlink-div {
   margin-top: 0.5%;
@@ -16,7 +7,25 @@
 .login-input {
   text-align: center;
 }
-.login-errormsg {
-  color: red;
+.login-div {
+  width: 25%;
+  margin: 0px auto;
+  background-color: #e9ecef;
+  border: 2px solid gainsboro;
 }
-
+¨ .login-button-div {
+  margin-bottom: 1%;
+}
+.login-form {
+  margin: 3.5%;
+}
+.username-password {
+  text-align: center;
+}
+.username-username {
+  text-align: center;
+}
+.login-form-label {
+  color: lightslategray;
+  font-style: italic;
+}

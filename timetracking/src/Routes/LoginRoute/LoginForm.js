@@ -16,33 +16,35 @@ class LoginForm extends React.Component {
   };
   render() {
     return (
-      <div className="div-loginform">
-        <Form onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <Label>Användarnamn</Label>
+      <div className="row justify-content-center">
+        <Form className="login-form" onSubmit={this.handleSubmit}>
+          <FormGroup row>
+            <Label className="login-form-label">Användarnamn</Label>
             <Input
               name="username"
               innerRef={this.loginRef}
               placeholder="Användarnamn.."
               type="email"
-              className="login-input"
               required
+              className="username-username"
             />
           </FormGroup>
-          <FormGroup>
-            <Label>Lösenord</Label>
+          <FormGroup row>
+            <Label className="login-form-label">Lösenord</Label>
             <Input
               name="password"
               innerRef={this.passwordRef}
               placeholder="Lösenord.."
               type="password"
-              className="login-input"
               required
+              className="username-password"
             />
           </FormGroup>
-          <Button color="info" size="lg" type="submit">
-            Logga in
-          </Button>{" "}
+          <div className="login-button-div">
+            <Button color="secondary" type="submit">
+              Logga in
+            </Button>
+          </div>
         </Form>
       </div>
     );

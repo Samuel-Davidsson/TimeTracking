@@ -50,12 +50,9 @@ export default class Register extends React.Component {
   render() {
     return (
       <div>
-        <HomePageNavBar
-          isAuthorized={this.state.isAuthorized}
-          title={this.state.title}
-        />
+        <HomePageNavBar isAuthorized={this.state.isAuthorized} />
         <div className="register-div">
-          <Header subtitle={this.state.subtitle} />
+          <Header title={this.state.title} subtitle={this.state.subtitle} />
           <RegisterForm
             handleClickOnBackButton={this.handleClickOnBackButton}
             addUser={this.addUser}

@@ -4,17 +4,19 @@ body {
   touch-action: manipulation;
   text-align: center;
   margin: 0px auto;
-  color: #61dafb;
-  background: #2d2d2d;
   zoom: 100%;
 }
-.navbar-color {
-  color: #61dafb;
-  background: #2d2d2d;
+.navbar-border {
+  border-bottom: 2px gainsboro solid;
 }
-.navbar-main-color {
-  color: #61dafb;
-  background: #2d2d2d;
-  border-bottom: 1px solid lightgray;
-  width: 100%;
+.jumbotron-border {
+  border: 2px gainsboro solid;
+}
+.header-title {
+  color: lightslategray;
+  font-style: italic;
+}
+.header-subtitle {
+  color: lightslategray;
+  font-style: italic;
 }

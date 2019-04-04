@@ -170,6 +170,11 @@ class Timereport extends React.Component {
         isValidMonth: false,
         error: "Tiden för att uppdatera har gått ut"
       });
+    } else if (selectedMonth === activeMonth) {
+      this.setState({
+        isValidMonth: true,
+        error: ""
+      });
     }
   }
 
@@ -242,9 +247,10 @@ class Timereport extends React.Component {
             deviationItems: [],
             existingDevitations: []
           });
-
-        if (deviationItems === undefined) return false;
-
+        if (deviationItems === undefined) {
+          this.canSubmit();
+          return false;
+        }
         deviationItems.forEach(element => {
           element.absenceDate = new Date(element.absenceDate);
         });

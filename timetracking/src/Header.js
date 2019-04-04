@@ -1,12 +1,13 @@
 import React from "react";
+import { Jumbotron } from "reactstrap";
 
 class Header extends React.Component {
   render() {
     return (
-      <div>
-        <h1>{this.props.title}</h1>
-        <h4>{this.props.subtitle}</h4>
-      </div>
+      <Jumbotron className="jumbotron-border">
+        <h1 className="header-title">{this.props.title}</h1>
+        <h4 className="header-subtitle">{this.props.subtitle}</h4>
+      </Jumbotron>
     );
   }
 }

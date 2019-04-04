@@ -7,6 +7,7 @@ import {
   Nav,
   Navbar,
   NavbarBrand,
+  NavbarToggler,
   NavItem,
   NavLink,
   UncontrolledDropdown
@@ -22,38 +23,28 @@ export default class HomePageNavBar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar className="navbar-main-color" expand="md">
+        <Navbar className="navbar-border" color="light" light expand="md">
+          <NavbarBrand>Timetracker</NavbarBrand>
+          <NavbarBrand hidden={!this.props.isAuthorized}>
+            <CountDown />
+          </NavbarBrand>
+          <NavbarToggler />
           <Collapse navbar>
-            <NavbarBrand>
-              <h3>{this.props.title}</h3>
-            </NavbarBrand>
-            <NavbarBrand hidden={!this.props.isAuthorized}>
-              <CountDown />
-            </NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink
-                  className="navbar-color"
-                  href="https://github.com/Samuel-Davidsson"
-                >
-                  Github
+                <NavLink href="https://github.com/Samuel-Davidsson">
+                  GitHub
                 </NavLink>
               </NavItem>
-              <UncontrolledDropdown
-                hidden={!this.props.isAuthorized}
-                nav
-                inNavbar
-              >
-                <DropdownToggle className="navbar-color" nav caret>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
                   Settings
                 </DropdownToggle>
-                <DropdownMenu className="bg-dark" right>
-                  <DropdownItem className="navbar-color">Profil</DropdownItem>
-                  <DropdownItem className="navbar-color">Historik</DropdownItem>
-                  <DropdownItem className="navbar-color" divider />
-                  <DropdownItem onClick={Logout} className="navbar-color">
-                    Logga ut
-                  </DropdownItem>
+                <DropdownMenu right>
+                  <DropdownItem>Profil</DropdownItem>
+                  <DropdownItem>Historik</DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={Logout}>Logga ut</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>

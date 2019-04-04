@@ -1,11 +1,11 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using TimeTrackingApi.Helpers;
 using TimeTrackingApi.Services;
 using TimeTrackingApi.Viewmodels;

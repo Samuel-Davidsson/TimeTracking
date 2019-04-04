@@ -64,12 +64,6 @@
 .deviation-button {
   margin-left: 3%;
 }
-.error-msg {
-  color: red;
-}
-.success-msg {
-  color: green;
-}
 .mainInfo-checkbox-status {
   width: 15px;
   height: 15px;
