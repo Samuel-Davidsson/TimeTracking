@@ -3,7 +3,7 @@ export default class Success extends React.Component {
   render() {
     return (
       <div>
-        <p className="success-msg">{this.props.successmsg}</p>
+        <p className="text-success">{this.props.success}</p>
       </div>
     );
   }

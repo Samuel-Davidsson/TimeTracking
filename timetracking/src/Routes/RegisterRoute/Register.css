@@ -7,59 +7,28 @@
   filter: alpha(opacity=60);
   margin-top: 2%;
 }
-.register-form-label-firstname {
-  color: lightslategray;
-  font-style: italic;
-  text-align: center;
-  margin-left: 25%;
-}
-.register-form-label-lastname {
-  color: lightslategray;
-  font-style: italic;
-  text-align: center;
-  margin-left: 30%;
-}
-.register-form-label-email {
-  color: lightslategray;
-  font-style: italic;
-  text-align: center;
-  margin-left: 43.5%;
-  margin-top: 2%;
-}
-.register-form-label-password {
-  color: lightslategray;
-  font-style: italic;
-  text-align: center;
-  margin-left: 26%;
-}
-.register-form-label-department {
-  color: lightslategray;
-  font-style: italic;
-  text-align: center;
-  margin-left: 34%;
-  margin-top: 2%;
-}
-.register-form-input-department {
-  text-align: center;
-  margin-left: 50%;
-}
-.register-form-input-image {
-  text-align: center;
-  margin-left: 50%;
-  background-color: #e9ecef;
-  opacity: 0.9;
-  filter: alpha(opacity=60);
-  height: 38%;
-  margin-top: 1%;
-}
-.register-input-right {
-  text-align: center;
-  margin-left: 50%;
-}
-.register-input-left {
-  text-align: center;
-  margin-left: 50%;
-}
+
 .button-register-div {
   margin: 1.5%;
+}
+.register-formgroup {
+  margin-left: 15%;
+  margin-top: 2%;
+}
+.register-label {
+  color: lightslategray;
+  font-style: italic;
+  font-weight: bold;
+}
+.register-input {
+  text-align: center;
+}
+.register-department-label {
+  color: lightslategray;
+  font-style: italic;
+  font-weight: bold;
+  margin-right: 19.5%;
+}
+.register-department-input {
+  margin-left: 90%;
 }

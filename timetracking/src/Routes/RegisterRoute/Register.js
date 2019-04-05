@@ -16,10 +16,12 @@ export default class Register extends React.Component {
   };
 
   addUser = userRegisterInfo => {
+    console.log(userRegisterInfo);
     axios
       .post(`${Api_Url}/auth/register`, {
         login: userRegisterInfo.login,
         password: userRegisterInfo.password,
+        confirmpassword: userRegisterInfo.confirmpassword,
         firstname: userRegisterInfo.firstname,
         lastname: userRegisterInfo.lastname,
         department: userRegisterInfo.department
@@ -56,9 +58,9 @@ export default class Register extends React.Component {
           <RegisterForm
             handleClickOnBackButton={this.handleClickOnBackButton}
             addUser={this.addUser}
+            errormsg={this.state.error}
+            success={this.state.success}
           />
-          <p className="register-errormsg">{this.state.error}</p>
-          <p className="register-successmsg">{this.state.success}</p>
         </div>
       </div>
     );

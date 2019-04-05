@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Text;
 using TimeTrackingApi.Helpers;
 using TimeTrackingApi.Services;
@@ -31,6 +32,12 @@ namespace TimeTrackingApi.Controllers
         public IActionResult RegisterUser(UserViewmodel userViewModel)
         {
             var users = _userService.GetAll();
+
+            if (userViewModel.Password != userViewModel.ConfirmPassword)
+            {
+                return BadRequest("Dina password matchar inte.");
+            }
+
             foreach (var userLogin in users)
             {
                 if (userLogin.Login.ToLower() == userViewModel.Login.ToLower())
@@ -38,6 +45,7 @@ namespace TimeTrackingApi.Controllers
                     return BadRequest("Mailadressen är redan registerad.");
                 }
             }
+
             var user = Mapper.ViewModelToModelMapping.UserViewModelToUser(userViewModel);
             var userPassword = _hashPassword.Hash(userViewModel.Password);
             user.Password = userPassword;

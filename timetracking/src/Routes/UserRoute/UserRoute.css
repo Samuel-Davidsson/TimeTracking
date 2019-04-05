@@ -42,20 +42,18 @@
 }
 .month-dropdown {
   margin: 0.1%;
-  background: #443232;
-  color: #61dafb;
+  background: gainsboro;
 }
 .year-dropdown {
   margin: 0.1%;
-  background: #443232;
-  color: #61dafb;
+  background: gainsboro;
 }
 .YearNavigation {
-  border: 1px solid lightslategrey;
+  border: 1px dotted grey;
   width: 14%;
   margin: 0px auto;
   margin-top: 0.2%;
-  background: #252525;
+  background: gainsboro;
 }
 .deviationList {
   margin-left: -3.8%;
@@ -70,5 +68,6 @@
   margin-left: 3%;
 }
 .listGroupItem {
-  background: #252525;
+  border: 1px dotted grey;
+  background: gainsboro;
 }

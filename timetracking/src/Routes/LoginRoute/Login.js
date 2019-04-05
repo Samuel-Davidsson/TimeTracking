@@ -6,6 +6,7 @@ import Error from "../../Helpers/Error";
 import HomePageNavBar from "../../HomePageNavbar";
 import Navigation from "../../Navigation";
 import "./Login.css";
+import "../../App.css";
 import LoginForm from "./LoginForm";
 
 class Login extends React.Component {

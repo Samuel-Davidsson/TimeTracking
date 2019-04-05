@@ -6,14 +6,16 @@ import {
   Form,
   FormGroup,
   Input,
-  Label,
-  Row
+  Label
 } from "reactstrap";
+import Error from "../../Helpers/Error";
+import Success from "../../Helpers/Success";
 import "./Register.css";
 
 export default class RegisterForm extends React.Component {
   loginRef = React.createRef();
   passwordRef = React.createRef();
+  confirmpasswordRef = React.createRef();
   firstnameRef = React.createRef();
   lastnameRef = React.createRef();
   departmentRef = React.createRef();
@@ -23,6 +25,7 @@ export default class RegisterForm extends React.Component {
     const userRegisterInfo = {
       login: this.loginRef.current.value,
       password: this.passwordRef.current.value,
+      confirmpassword: this.confirmpasswordRef.current.value,
       firstname: this.firstnameRef.current.value,
       lastname: this.lastnameRef.current.value,
       department: this.departmentRef.current.value
@@ -32,87 +35,93 @@ export default class RegisterForm extends React.Component {
 
   render() {
     return (
-      <div className="register-div">
+      <div>
         <Form className="register-form" onSubmit={this.handleSubmit}>
-          <FormGroup inline>
-            <Row form>
-              <Col md={4}>
-                <Label className="register-form-label-email">
-                  Användarnamn
-                </Label>
-                <Input
-                  placeholder="Mail.."
-                  innerRef={this.loginRef}
-                  className="register-input-left"
-                  type="email"
-                  required
-                />
-              </Col>
-              <Col md={4}>
-                <Label className="register-form-label-department">
-                  Avdelning
-                </Label>
-                <CustomInput
-                  type="select"
-                  id="something"
-                  innerRef={this.departmentRef}
-                  required
-                  className="register-form-input-department"
-                >
-                  <option>Ekonomi</option>
-                  <option>IT</option>
-                  <option>Sälj</option>
-                  <option>Kundtjänst</option>
-                </CustomInput>
-              </Col>
-            </Row>
+          <FormGroup className="register-formgroup" row>
+            <Label className="register-label" sm={2}>
+              Inlogg:
+            </Label>
+            <Col md={6}>
+              <Input
+                placeholder="Användarnamn(email).."
+                innerRef={this.loginRef}
+                type="email"
+                required
+                className="register-input"
+              />
+            </Col>
           </FormGroup>
-          <FormGroup>
-            <Row form>
-              <Col md={4}>
-                <Label className="register-form-label-firstname">Förnamn</Label>
-                <Input
-                  placeholder="Förnamn.."
-                  innerRef={this.firstnameRef}
-                  className="register-input-left"
-                  required
-                />
-              </Col>
-              <Col md={4}>
-                <Label className="register-form-label-lastname">
-                  Efternamn
-                </Label>
-                <Input
-                  placeholder="Efternamn.."
-                  innerRef={this.lastnameRef}
-                  className="register-input-right"
-                  required
-                />
-              </Col>
-            </Row>
+          <FormGroup className="register-formgroup" row>
+            <Label className="register-label" sm={2}>
+              Förnamn:
+            </Label>
+            <Col md={6}>
+              <Input
+                placeholder="Förnamn.."
+                innerRef={this.firstnameRef}
+                required
+                className="register-input"
+              />
+            </Col>
           </FormGroup>
-          <FormGroup>
-            <Row form>
-              <Col md={4}>
-                <Label className="register-form-label-password">Lösenord</Label>
-                <Input
-                  placeholder="Lösenord.."
-                  innerRef={this.passwordRef}
-                  className="register-input-right"
-                  type="password"
-                  required
-                />
-              </Col>
-              <Col md={4}>
-                <Label className="register-form-label-password">Bekräfta</Label>
-                <Input
-                  placeholder="Lösenord.."
-                  innerRef={this.passwordRef}
-                  className="register-input-right"
-                  type="password"
-                />
-              </Col>
-            </Row>
+          <FormGroup className="register-formgroup" row>
+            <Label className="register-label" sm={2}>
+              Efternamn:
+            </Label>
+            <Col md={6}>
+              <Input
+                placeholder="Efternamn.."
+                innerRef={this.lastnameRef}
+                required
+                className="register-input"
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup className="register-formgroup" row>
+            <Label className="register-label" sm={2}>
+              Lösenord:
+            </Label>
+            <Col md={6}>
+              <Input
+                placeholder="Lösenord.."
+                innerRef={this.passwordRef}
+                type="password"
+                required
+                className="register-input"
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup className="register-formgroup" row>
+            <Label className="register-label" sm={2}>
+              Bekräfta:
+            </Label>
+            <Col md={6}>
+              <Input
+                placeholder="Bekräfta lösenord.."
+                innerRef={this.confirmpasswordRef}
+                type="password"
+                className="register-input"
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup className="register-formgroup">
+            <Label className="register-department-label" sm={2}>
+              Avdelning:
+            </Label>
+            <Col sm={4}>
+              <CustomInput
+                type="select"
+                innerRef={this.departmentRef}
+                id="justgottahaveone"
+                required
+                className="register-department-input"
+              >
+                <option>Ekonomi</option>
+                <option>IT</option>
+                <option>Sälj</option>
+                <option>Kundtjänst</option>
+              </CustomInput>
+            </Col>
           </FormGroup>
 
           <div>
@@ -123,6 +132,8 @@ export default class RegisterForm extends React.Component {
               Tillbaka
             </Button>
             <Button color="info">Skicka in</Button>
+            <Success success={this.props.success} />
+            <Error errormsg={this.props.errormsg} />
           </div>
         </Form>
       </div>

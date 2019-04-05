@@ -13,7 +13,7 @@ body {
   border-bottom: 2px gainsboro solid;
   opacity: 0.9;
   filter: alpha(opacity=60);
-  height: 180px;
+  height: 160px;
 }
 .header-title {
   color: lightslategray;
