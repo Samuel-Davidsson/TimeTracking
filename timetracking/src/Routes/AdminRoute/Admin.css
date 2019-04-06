@@ -1,19 +1,22 @@
 .userlist-main {
-  color: #61dafb;
+  color: lightslategray;
   width: 25%;
+  background: gainsboro;
 }
 .userlist-main-div {
   margin: 2%;
+  margin-top: 2.1%;
   position: absolute;
 }
 .userlist-buttons {
-  color: #61dafb;
+  color: gainsboro;
   border-radius: 5%;
-}
-.userlist-title {
-  margin: 2%;
-  color: #61dafb;
 }
 .useractivereport-main-div {
   margin: 0% auto;
+}
+.useractivereport-secondary-div {
+  width: 33%;
+  margin: 0px auto;
+  height: 800px;
 }

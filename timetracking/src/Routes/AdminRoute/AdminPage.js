@@ -5,21 +5,20 @@ import Api_Url from "../../Helpers/Api_Url";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
 import HomePageNavBar from "../../HomePageNavbar";
+import DeviationList from "../../Routes/UserRoute/DeviationList";
 import "./Admin.css";
 import UserActiveReport from "./UserActiveReport";
 import Userlist from "./Userlist";
 
 export default class AdminPage extends React.Component {
   state = {
-    title: "Admin sidan",
-    subtitle: "",
     users: [],
     report: "",
-    isAuthorized: true
-  };
-
-  handleCheckBoxClicked = event => {
-    this.setState({ attest: event.target.checked });
+    isAuthorized: true,
+    deviationItems: [],
+    firstName: "",
+    lastName: "",
+    totalHours: 0
   };
 
   reportUserInfo = userInfo => {
@@ -28,31 +27,35 @@ export default class AdminPage extends React.Component {
         headers: GenerateHeaderData()
       })
       .then(res => {
-        const data = res.data;
-        console.log(data);
-        const deviationItems = data.deviationItems;
-        const totalHours = 0;
-        if (deviationItems !== null) {
+        const deviationItems = res.data.deviationItems;
+        const existingDevitations = [];
+        if (deviationItems === undefined) return false;
+        if (deviationItems === null) {
+          this.setState({
+            deviationItems: [],
+            existingDevitations: existingDevitations,
+            report: res.data,
+            isLoading: false,
+            totalHours: 0,
+            firstName: res.data.firstName,
+            lastName: res.data.lastName
+          });
+        } else {
+          this.totalHours = res.data.hours;
           deviationItems.forEach(element => {
             element.absenceDate = new Date(element.absenceDate);
           });
-          const totalHours = TotalHoursCount(
+          this.totalHours = TotalHoursCount(
             deviationItems.map(x => Number(x.hours))
           );
           this.setState({
-            report: data,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            attest: data.attest,
-            totalHours: totalHours
-          });
-        } else {
-          this.setState({
-            report: data,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            attest: data.attest,
-            totalHours: totalHours
+            deviationItems: deviationItems,
+            existingDevitations: existingDevitations,
+            report: res.data,
+            isLoading: false,
+            totalHours: this.totalHours,
+            firstName: res.data.firstName,
+            lastName: res.data.lastName
           });
         }
       });
@@ -67,28 +70,35 @@ export default class AdminPage extends React.Component {
         });
       });
   };
-
   handleCheckBoxClicked = event => {
     this.setState({ attest: event.target.checked });
   };
 
+  currentYear = new Date().getFullYear();
+  currentMonth = new Date().getMonth();
+  activeReportDate = new Date(this.currentYear, this.currentMonth);
+  month = this.activeReportDate.toLocaleString(this.locale, { month: "long" });
   render() {
     return (
       <div>
         <HomePageNavBar isAuthorized={this.state.isAuthorized} />
-        <Header title={this.state.title} />
-        <Userlist
-          users={this.state.users}
-          reportUserInfo={this.reportUserInfo}
-        />
-        <UserActiveReport
-          month={this.monthName}
-          firstName={this.state.firstName}
-          lastName={this.state.lastName}
-          totalHours={this.state.totalHours}
-          attest={this.state.attest}
-          handleCheckBoxClicked={this.handleCheckBoxClicked}
-        />
+        <Header month={this.month} />
+        <div>
+          <Userlist
+            users={this.state.users}
+            reportUserInfo={this.reportUserInfo}
+          />
+          <div className="useractivereport-secondary-div">
+            <UserActiveReport
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+              totalHours={this.state.totalHours}
+              attest={this.state.attest}
+              handleCheckBoxClicked={this.handleCheckBoxClicked}
+            />
+            <DeviationList deviationItems={this.state.deviationItems} />
+          </div>
+        </div>
       </div>
     );
   }

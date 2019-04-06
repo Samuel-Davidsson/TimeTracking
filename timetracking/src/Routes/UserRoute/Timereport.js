@@ -1,7 +1,9 @@
 import axios from "axios";
+import "moment/locale/sv";
 import React from "react";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
+import MomentLocaleUtils from "react-day-picker/moment";
 import Api_Url from "../../Helpers/Api_Url";
 import Error from "../../Helpers/Error";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
@@ -11,7 +13,6 @@ import MainUserInfo from "../UserRoute/MainUserInfo";
 import ChangeYearMonthForm from "./ChangeYearMonthForm";
 import DeviationList from "./DeviationList";
 import "./UserRoute.css";
-
 class Timereport extends React.Component {
   state = {
     report: [],
@@ -21,7 +22,8 @@ class Timereport extends React.Component {
     isValidMonth: true,
     isAdmin: false,
     success: "",
-    error: ""
+    error: "",
+    locale: "sv"
   };
 
   handleDayClick = this.handleDayClick.bind(this);
@@ -240,13 +242,11 @@ class Timereport extends React.Component {
         const data = res.data;
         this.totalHours = data.hours;
         const deviationItems = data.deviationItems;
-        const existingDevitations = [];
 
         this.canSubmit();
         if (deviationItems === undefined)
           this.setState({
-            deviationItems: [],
-            existingDevitations: []
+            deviationItems: []
           });
         if (deviationItems === undefined) {
           this.canSubmit();
@@ -255,25 +255,12 @@ class Timereport extends React.Component {
         deviationItems.forEach(element => {
           element.absenceDate = new Date(element.absenceDate);
         });
-        data.deviationItems.forEach(element => {
-          existingDevitations.push({
-            reportId: element.reportId,
-            id: element.id,
-            hours: element.hours,
-            absenceDate: element.absenceDate,
-            description: element.description
-          });
-        });
-        existingDevitations.forEach(element => {
-          element.absenceDate = new Date(element.absenceDate);
-        });
         this.totalHours = TotalHoursCount(
           deviationItems.map(x => Number(x.hours))
         );
         this.setState({
           report: data,
           deviationItems: deviationItems,
-          existingDevitations: existingDevitations,
           isValidMonth: true,
           error: ""
         });
@@ -285,14 +272,14 @@ class Timereport extends React.Component {
   render() {
     return (
       <div>
-        <MainUserInfo
-          firstName={this.firstName}
-          lastName={this.lastName}
-          totalHours={this.totalHours}
-          attest={this.state.attest}
-          handleCheckBoxClicked={this.state.handleCheckBoxClicked}
-        />
-        <div>
+        <div className="timereport-main-div">
+          <MainUserInfo
+            firstName={this.firstName}
+            lastName={this.lastName}
+            totalHours={this.totalHours}
+            attest={this.state.attest}
+            handleCheckBoxClicked={this.state.handleCheckBoxClicked}
+          />
           <DeviationList
             deviationItems={this.state.deviationItems}
             handleDescriptionChange={this.handleDescriptionChange}
@@ -302,10 +289,13 @@ class Timereport extends React.Component {
           />
         </div>
         <div className="YearNavigation">
+          <p>Klicka på ett datum för att fylla i datum.</p>
           <DayPicker
             selectedDays={this.state.deviationItems.map(x => x.absenceDate)}
             onDayClick={this.handleDayClick}
             month={new Date(this.state.month)}
+            localeUtils={MomentLocaleUtils}
+            locale={this.state.locale}
             keepFocus={true}
             canChangeMonth={false}
             disabledDays={{ daysOfWeek: [0, 6] }}

@@ -1,15 +1,14 @@
 import React from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import Capitalize from "../../Helpers/Capitalize";
 import "./UserRoute.css";
 
 class MainUserInfo extends React.Component {
   render() {
     return (
-      <div className="mainUserInfo-div">
+      <div hidden={this.props.firstName === ""} className="mainUserInfo-div">
         <ListGroup>
           <ListGroupItem className="mainInfo-listgroupitem">
-            {Capitalize(this.props.firstName)} {Capitalize(this.props.lastName)}
+            {this.props.firstName} {this.props.lastName}
           </ListGroupItem>
           <ListGroupItem className="mainInfo-listgroupitem">
             Totala timmar: {this.props.totalHours}

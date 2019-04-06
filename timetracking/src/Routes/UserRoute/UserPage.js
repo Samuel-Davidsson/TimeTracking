@@ -8,15 +8,18 @@ import "./UserRoute.css";
 
 export default class UserPage extends React.Component {
   state = {
-    title: "Rapport",
     subtitle: "Fyll i din frånvaro här senast den sista dagen varje månad",
     isAuthorized: true
   };
+  currentYear = new Date().getFullYear();
+  currentMonth = new Date().getMonth();
+  activeReportDate = new Date(this.currentYear, this.currentMonth);
+  month = this.activeReportDate.toLocaleString(this.locale, { month: "long" });
   render() {
     return (
       <div>
         <HomePageNavBar isAuthorized={this.state.isAuthorized} />
-        <Header title={this.state.title} subtitle={this.state.subtitle} />
+        <Header month={this.month} subtitle={this.state.subtitle} />
         <Timereport />
       </div>
     );

@@ -20,7 +20,6 @@ export default class Userlist extends React.Component {
   render() {
     return (
       <div className="userlist-main-div">
-        <h1 className="userlist-title">Anställda</h1>
         <Table striped className="userlist-main">
           <thead>
             <tr>

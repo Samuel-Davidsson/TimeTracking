@@ -6,6 +6,17 @@ export default class DeviationList extends React.Component {
   render() {
     return (
       <div className="deviationlist-main-div">
+        <div
+          className="deviation-list-header"
+          hidden={
+            !this.props.isValidMonth || !this.props.deviationItems.length > 0
+          }
+        >
+          <h4>Lista med avvikelser</h4>
+          <div className="deviation-list-titles">
+            <p>Timmar Anledning</p>
+          </div>
+        </div>
         <form onSubmit={this.props.handleSubmit}>
           {this.props.deviationItems.map(deviationItem => (
             <div

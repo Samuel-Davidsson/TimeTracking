@@ -7,14 +7,15 @@
   border-color: #61dafb;
 }
 .deviationlist-description {
-  width: 60%;
+  width: 61%;
   margin-left: 0.2%;
 }
 .deviationlist-description:hover {
   border-color: #61dafb;
 }
 .DayPicker-Day--today {
-  color: coral;
+  background-color: salmon;
+  color: white;
 }
 .DayPicker-Day--disabled {
   color: red;
@@ -23,32 +24,39 @@
   text-align: center;
   margin-left: 20%;
 }
+.DayPicker-wrapper {
+  border: 1px solid black;
+  margin-top: 0.1%;
+  background: white;
+}
 .month-dropdown {
   margin: 0.1%;
-  background: gainsboro;
+  background: whitesmoke;
 }
 .year-dropdown {
   margin: 0.1%;
-  background: gainsboro;
+  background: whitesmoke;
 }
 .YearNavigation {
   border: 1px solid lightslategrey;
-  width: 15%;
+  width: 20%;
+  height: 40%;
   margin: 0px auto;
-  margin-top: 20%;
-  background: gainsboro;
+  margin-top: 12.6%;
+  background: white;
   position: absolute;
-  right: 80%;
+  right: 70%;
   text-align: center;
   top: 0;
   opacity: 0.9;
   filter: alpha(opacity=60);
+  background: gainsboro;
+  color: lightslategray;
 }
 .deviationlist-main-div {
   margin: 0% auto;
-  width: 18.5%;
-  height: 750px;
-  margin-left: -3.8%;
+  width: 65%;
+  height: 830px;
   margin-top: 0.5%;
   display: inline-block;
   position: relative;
@@ -57,17 +65,17 @@
 }
 .deviation-button {
   margin-left: 5%;
+  margin-top: 2%;
 }
 .mainUserInfo-div {
   text-align: center;
-  width: 11%;
-  margin-top: -1%;
-  position: absolute;
-  right: 82%;
+  width: 35%;
+  margin: 0px auto;
   border: 1px lightslategrey solid;
   opacity: 0.9;
   filter: alpha(opacity=60);
-  background: gainsboro;
+  background: white;
+  margin-top: 1%;
 }
 .mainInfo-checkbox-status {
   width: 15px;
@@ -76,11 +84,30 @@
   border: 0.2px solid lightslategrey;
 }
 .mainInfo-listgroupitem {
-  background: gainsboro;
+  background: white;
 }
 .deviationlist-div {
   background: gainsboro;
   color: lightslategray;
-  outline-style: solid;
-  outline-color: lightslategray;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.deviation-list-header {
+  color: lightslategrey;
+  border: 1px solid black;
+  background-color: white;
+}
+.deviation-list-titles {
+  text-align: center;
+  word-spacing: 61px;
+  font-style: oblique;
+}
+.timereport-main-div {
+  width: 30%;
+  border: 1px solid black;
+  background-color: gainsboro;
+  margin: 0px auto;
+  opacity: 0.9;
+  filter: alpha(opacity=60);
 }
