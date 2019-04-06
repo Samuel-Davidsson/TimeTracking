@@ -7,11 +7,11 @@ import {
   Nav,
   Navbar,
   NavbarBrand,
-  NavbarToggler,
   NavItem,
   NavLink,
   UncontrolledDropdown
 } from "reactstrap";
+import "./App.css";
 import CountDown from "./Helpers/CountDown";
 import Logout from "./Helpers/Logout";
 
@@ -28,7 +28,6 @@ export default class HomePageNavBar extends React.Component {
           <NavbarBrand hidden={!this.props.isAuthorized}>
             <CountDown />
           </NavbarBrand>
-          <NavbarToggler />
           <Collapse navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>

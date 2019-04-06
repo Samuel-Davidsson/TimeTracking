@@ -13,7 +13,7 @@ body {
   border-bottom: 2px gainsboro solid;
   opacity: 0.9;
   filter: alpha(opacity=60);
-  height: 160px;
+  height: 150px;
 }
 .header-title {
   color: lightslategray;
@@ -26,4 +26,3 @@ body {
 .wrapper {
   background: url("Image/office.jpg") center no-repeat;
 }
-

@@ -8,7 +8,10 @@ export default class DeviationList extends React.Component {
       <div className="deviationlist-main-div">
         <form onSubmit={this.props.handleSubmit}>
           {this.props.deviationItems.map(deviationItem => (
-            <div key={deviationItem.absenceDate.toLocaleDateString("sv")}>
+            <div
+              className="deviationlist-div"
+              key={deviationItem.absenceDate.toLocaleDateString("sv")}
+            >
               {deviationItem.absenceDate.toLocaleDateString("sv")}
               <input
                 className="deviationlist-hours"
@@ -35,7 +38,10 @@ export default class DeviationList extends React.Component {
           ))}
           <div>
             <Button
-              hidden={!this.props.isValidMonth}
+              hidden={
+                !this.props.isValidMonth ||
+                !this.props.deviationItems.length > 0
+              }
               className="deviation-button"
               color="info"
               type="submit"

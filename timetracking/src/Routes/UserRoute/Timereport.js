@@ -7,9 +7,10 @@ import Error from "../../Helpers/Error";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import Success from "../../Helpers/Success";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
+import MainUserInfo from "../UserRoute/MainUserInfo";
 import ChangeYearMonthForm from "./ChangeYearMonthForm";
 import DeviationList from "./DeviationList";
-import MainUserInfo from "./MainUserInfo";
+import "./UserRoute.css";
 
 class Timereport extends React.Component {
   state = {
@@ -285,12 +286,21 @@ class Timereport extends React.Component {
     return (
       <div>
         <MainUserInfo
-          totalHours={this.totalHours}
-          attest={this.state.report.attest}
           firstName={this.firstName}
           lastName={this.lastName}
-          isAdmin={this.state.isAdmin}
+          totalHours={this.totalHours}
+          attest={this.state.attest}
+          handleCheckBoxClicked={this.state.handleCheckBoxClicked}
         />
+        <div>
+          <DeviationList
+            deviationItems={this.state.deviationItems}
+            handleDescriptionChange={this.handleDescriptionChange}
+            handleHoursChange={this.handleHoursChange}
+            handleSubmit={this.handleSubmit}
+            isValidMonth={this.state.isValidMonth}
+          />
+        </div>
         <div className="YearNavigation">
           <DayPicker
             selectedDays={this.state.deviationItems.map(x => x.absenceDate)}
@@ -310,15 +320,6 @@ class Timereport extends React.Component {
         </div>
         <Error errormsg={this.state.error} />
         <Success successmsg={this.state.success} />
-        <div className="deviationList">
-          <DeviationList
-            deviationItems={this.state.deviationItems}
-            handleDescriptionChange={this.handleDescriptionChange}
-            handleHoursChange={this.handleHoursChange}
-            handleSubmit={this.handleSubmit}
-            isValidMonth={this.state.isValidMonth}
-          />
-        </div>
       </div>
     );
   }

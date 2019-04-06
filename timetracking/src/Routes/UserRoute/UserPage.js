@@ -4,6 +4,7 @@ import "react-day-picker/lib/style.css";
 import Header from "../../Header";
 import HomePageNavBar from "../../HomePageNavbar";
 import Timereport from "./Timereport";
+import "./UserRoute.css";
 
 export default class UserPage extends React.Component {
   state = {
