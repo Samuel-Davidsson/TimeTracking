@@ -272,22 +272,6 @@ class Timereport extends React.Component {
   render() {
     return (
       <div>
-        <div className="timereport-main-div">
-          <MainUserInfo
-            firstName={this.firstName}
-            lastName={this.lastName}
-            totalHours={this.totalHours}
-            attest={this.state.attest}
-            handleCheckBoxClicked={this.state.handleCheckBoxClicked}
-          />
-          <DeviationList
-            deviationItems={this.state.deviationItems}
-            handleDescriptionChange={this.handleDescriptionChange}
-            handleHoursChange={this.handleHoursChange}
-            handleSubmit={this.handleSubmit}
-            isValidMonth={this.state.isValidMonth}
-          />
-        </div>
         <div className="YearNavigation">
           <p>Klicka på ett datum för att fylla i datum.</p>
           <DayPicker
@@ -308,6 +292,23 @@ class Timereport extends React.Component {
             )}
           />
         </div>
+        <div className="timereport-main-div">
+          <MainUserInfo
+            firstName={this.firstName}
+            lastName={this.lastName}
+            totalHours={this.totalHours}
+            attest={this.state.attest}
+            handleCheckBoxClicked={this.state.handleCheckBoxClicked}
+          />
+          <DeviationList
+            deviationItems={this.state.deviationItems}
+            handleDescriptionChange={this.handleDescriptionChange}
+            handleHoursChange={this.handleHoursChange}
+            handleSubmit={this.handleSubmit}
+            isValidMonth={this.state.isValidMonth}
+          />
+        </div>
+
         <Error errormsg={this.state.error} />
         <Success successmsg={this.state.success} />
       </div>

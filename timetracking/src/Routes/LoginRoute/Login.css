@@ -10,6 +10,11 @@
 }
 .login-form {
   margin: 1%;
+  width: 95%;
+}
+.login-form-div {
+  margin: 0 auto;
+  width: 55%;
 }
 .login-form-label {
   color: lightslategray;

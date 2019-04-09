@@ -16,7 +16,7 @@ class LoginForm extends React.Component {
   };
   render() {
     return (
-      <div className="row justify-content-center">
+      <div className="login-form-div">
         <Form className="login-form" onSubmit={this.handleSubmit}>
           <FormGroup row>
             <Label className="login-form-label">Användarnamn</Label>

@@ -1,13 +1,13 @@
 .deviationlist-hours {
   margin-left: 0.5%;
   margin-bottom: 0.25%;
-  width: 15%;
+  width: 10%;
 }
 .deviationlist-hours:hover {
   border-color: #61dafb;
 }
 .deviationlist-description {
-  width: 61%;
+  width: 60%;
   margin-left: 0.2%;
 }
 .deviationlist-description:hover {
@@ -26,7 +26,7 @@
 }
 .DayPicker-wrapper {
   border: 1px solid black;
-  margin-top: 0.1%;
+  margin-bottom: 5%;
   background: white;
 }
 .month-dropdown {
@@ -39,15 +39,12 @@
 }
 .YearNavigation {
   border: 1px solid lightslategrey;
-  width: 20%;
-  height: 40%;
   margin: 0px auto;
-  margin-top: 12.6%;
   background: white;
   position: absolute;
-  right: 70%;
+  right: 75%;
+  width: 16%;
   text-align: center;
-  top: 0;
   opacity: 0.9;
   filter: alpha(opacity=60);
   background: gainsboro;

@@ -1,12 +1,12 @@
 import axios from "axios";
 import React from "react";
+import "../../App.css";
 import Header from "../../Header";
 import Api_Url from "../../Helpers/Api_Url";
 import Error from "../../Helpers/Error";
 import HomePageNavBar from "../../HomePageNavbar";
 import Navigation from "../../Navigation";
 import "./Login.css";
-import "../../App.css";
 import LoginForm from "./LoginForm";
 
 class Login extends React.Component {
@@ -59,7 +59,11 @@ class Login extends React.Component {
       <div>
         <HomePageNavBar isAuthorized={this.state.isAuthorized} />
         <div>
-          <Header title={this.state.title} subtitle={this.state.subtitle} />
+          <Header
+            title={this.state.title}
+            subtitle={this.state.subtitle}
+            isAuthorized={this.state.isAuthorized}
+          />
           <div className="login-div" color="light">
             <LoginForm tryLogin={this.tryLogin} />
             <Navigation />
