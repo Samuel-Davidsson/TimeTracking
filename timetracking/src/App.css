@@ -24,5 +24,5 @@ body {
   font-style: italic;
 }
 .wrapper {
-  background: url("Image/office.jpg") center no-repeat;
+  background: url("Image/office.jpg") center fixed;
 }

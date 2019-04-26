@@ -5,6 +5,7 @@ import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import MomentLocaleUtils from "react-day-picker/moment";
 import Api_Url from "../../Helpers/Api_Url";
+import CanSubmit from "../../Helpers/CanSubmit";
 import Error from "../../Helpers/Error";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import Success from "../../Helpers/Success";
@@ -163,25 +164,6 @@ class Timereport extends React.Component {
     );
   };
 
-  canSubmit() {
-    let selectedMonth = this.state.month.getMonth();
-    let selectedYear = this.state.month.getFullYear();
-    let activeDate = new Date(Date.now());
-    let activeMonth = activeDate.getMonth();
-    let activeYear = new Date().getFullYear();
-    if (selectedMonth !== activeMonth || selectedYear !== activeYear) {
-      this.setState({
-        isValidMonth: false,
-        error: "Tiden för att uppdatera har gått ut"
-      });
-    } else if (selectedMonth === activeMonth) {
-      this.setState({
-        isValidMonth: true,
-        error: ""
-      });
-    }
-  }
-
   handleSubmit = event => {
     event.preventDefault();
     axios
@@ -220,7 +202,7 @@ class Timereport extends React.Component {
         });
         setTimeout(() => {
           this.setState({
-            success: false
+            success: ""
           });
         }, 5000);
       });
@@ -243,14 +225,18 @@ class Timereport extends React.Component {
         const data = res.data;
         this.totalHours = data.hours;
         const deviationItems = data.deviationItems;
-
-        this.canSubmit();
-        if (deviationItems === undefined)
+        const validMonth = data.currentMonth;
+        const parsedValidMonth = new Date(validMonth);
+        const isValidMonth = CanSubmit(parsedValidMonth);
+        this.setState({
+          isValidMonth: isValidMonth
+        });
+        debugger;
+        if (deviationItems === null)
           this.setState({
             deviationItems: []
           });
-        if (deviationItems === undefined) {
-          this.canSubmit();
+        if (deviationItems === null) {
           return false;
         }
         deviationItems.forEach(element => {
@@ -265,7 +251,6 @@ class Timereport extends React.Component {
           isValidMonth: true,
           error: ""
         });
-        this.canSubmit();
       });
   };
   firstName = localStorage.getItem("firstname");
@@ -303,6 +288,10 @@ class Timereport extends React.Component {
             attest={this.state.attest}
             handleCheckBoxClicked={this.state.handleCheckBoxClicked}
           />
+          <div>
+            <Error error={this.state.error} />
+            <Success success={this.state.success} />
+          </div>
           <DeviationList
             deviationItems={this.state.deviationItems}
             handleDescriptionChange={this.handleDescriptionChange}
@@ -311,9 +300,6 @@ class Timereport extends React.Component {
             isValidMonth={this.state.isValidMonth}
           />
         </div>
-
-        <Error errormsg={this.state.error} />
-        <Success successmsg={this.state.success} />
       </div>
     );
   }

@@ -67,7 +67,7 @@ class Login extends React.Component {
           <div className="login-div" color="light">
             <LoginForm tryLogin={this.tryLogin} />
             <Navigation />
-            <Error errormsg={this.state.error} />
+            <Error error={this.state.error} />
           </div>
         </div>
       </div>

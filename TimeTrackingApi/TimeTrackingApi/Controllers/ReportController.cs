@@ -42,7 +42,7 @@ namespace TimeTrackingApi.Controllers
                     return Ok(report);
                 }
             }
-            return Ok("Finns ingen rapport för denna period");
+            return Ok(reportViewmodel);
         }
 
         [HttpPost, Route("addreport")]

@@ -1,18 +1,17 @@
 import React from "react";
 import MainUserInfo from "../UserRoute/MainUserInfo";
 
-export default class UserActiveReport extends React.Component {
-  render() {
-    return (
-      <div>
-        <MainUserInfo
-          firstName={this.props.firstName}
-          lastName={this.props.lastName}
-          totalHours={this.props.totalHours}
-          attest={this.props.attest}
-          handleCheckBoxClicked={this.props.handleCheckBoxClicked}
-        />
-      </div>
-    );
-  }
-}
+const userActiveReport = props => {
+  return (
+    <div>
+      <MainUserInfo
+        firstName={props.firstName}
+        lastName={props.lastName}
+        totalHours={props.totalHours}
+        attest={props.attest}
+        handleCheckBoxClicked={props.handleCheckBoxClicked}
+      />
+    </div>
+  );
+};
+export default userActiveReport;

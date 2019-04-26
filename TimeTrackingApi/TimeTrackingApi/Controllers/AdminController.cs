@@ -43,5 +43,33 @@ namespace TimeTrackingApi.Controllers
             }
             return Ok(userViewModels);
         }
+        [HttpPost, Route("getuserhistory")]
+        public IActionResult GetUserHistoryById(UserViewmodel userViewmodel)
+        {
+            var reports = _reportService.GetReportsByUserId(userViewmodel.Id).ToList();
+
+            var date = DateTime.Now;
+            var currentMonth = date.ToString("yyyy-MM");
+
+            var userHistoryViewmodel = new UserHistoryViewmodel
+            {
+                Id = userViewmodel.Id,
+                Firstname = userViewmodel.Firstname,
+                Lastname = userViewmodel.Lastname,
+                Reports = reports,
+            };
+            foreach (var report in reports)
+            {
+                var reportDate = report.Date.ToString("yyyy-MM");
+                if (reportDate == currentMonth)
+                {
+                    _reportService.GetReportById(report.Id);
+                    var sortDeviations = report.DeviationItems.OrderByDescending(x => x.AbsenceDate);
+                    report.DeviationItems = sortDeviations.ToList();
+                    userHistoryViewmodel.report = report;
+                }
+            }
+            return Ok(userHistoryViewmodel);
+        }
     }
 }

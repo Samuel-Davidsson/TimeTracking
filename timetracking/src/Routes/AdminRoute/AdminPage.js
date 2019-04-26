@@ -8,17 +8,55 @@ import HomePageNavBar from "../../HomePageNavbar";
 import DeviationList from "../../Routes/UserRoute/DeviationList";
 import "./Admin.css";
 import UserActiveReport from "./UserActiveReport";
+import UserHistory from "./UserHistory";
 import Userlist from "./Userlist";
 
 export default class AdminPage extends React.Component {
   state = {
     users: [],
+    reports: [],
+    firstName: "",
+    lastName: "",
     report: "",
     isAuthorized: true,
     deviationItems: [],
-    firstName: "",
-    lastName: "",
     totalHours: 0
+  };
+
+  reportHistoryInfo = userHistoryInfo => {
+    axios
+      .post(
+        `${Api_Url}/admin/getuserhistory`,
+        {
+          id: userHistoryInfo.id,
+          firstName: userHistoryInfo.firstName,
+          lastName: userHistoryInfo.lastName
+        },
+        { headers: GenerateHeaderData() }
+      )
+      .then(res => {
+        const data = res.data;
+        if (data.report === null) {
+          this.setState({
+            deviationItems: [],
+            totalHours: 0,
+            reports: data.reports,
+            firstName: data.firstname,
+            lastName: data.lastname
+          });
+        } else {
+          const deviationItems = res.data.report.deviationItems;
+          deviationItems.forEach(element => {
+            element.absenceDate = new Date(element.absenceDate);
+          });
+          this.setState({
+            deviationItems: deviationItems,
+            reports: data.reports,
+            firstName: data.firstname,
+            lastName: data.lastname
+          });
+        }
+      });
   };
 
   reportUserInfo = userInfo => {
@@ -28,12 +66,10 @@ export default class AdminPage extends React.Component {
       })
       .then(res => {
         const deviationItems = res.data.deviationItems;
-        const existingDevitations = [];
         if (deviationItems === undefined) return false;
         if (deviationItems === null) {
           this.setState({
             deviationItems: [],
-            existingDevitations: existingDevitations,
             report: res.data,
             isLoading: false,
             totalHours: 0,
@@ -50,7 +86,6 @@ export default class AdminPage extends React.Component {
           );
           this.setState({
             deviationItems: deviationItems,
-            existingDevitations: existingDevitations,
             report: res.data,
             isLoading: false,
             totalHours: this.totalHours,
@@ -70,6 +105,7 @@ export default class AdminPage extends React.Component {
         });
       });
   };
+
   handleCheckBoxClicked = event => {
     this.setState({ attest: event.target.checked });
   };
@@ -83,11 +119,19 @@ export default class AdminPage extends React.Component {
       <div>
         <HomePageNavBar isAuthorized={this.state.isAuthorized} />
         <Header month={this.month} />
-        <div>
+        <div className="main-div-test">
           <Userlist
             users={this.state.users}
             reportUserInfo={this.reportUserInfo}
+            reportHistoryInfo={this.reportHistoryInfo}
           />
+          <div className="userhistory-div">
+            <UserHistory
+              reports={this.state.reports}
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+            />
+          </div>
           <div className="useractivereport-secondary-div">
             <UserActiveReport
               firstName={this.state.firstName}

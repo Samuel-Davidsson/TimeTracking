@@ -1,5 +1,5 @@
 .deviationlist-hours {
-  margin-left: 0.5%;
+  margin-left: 2.1%;
   margin-bottom: 0.25%;
   width: 10%;
 }
@@ -8,7 +8,7 @@
 }
 .deviationlist-description {
   width: 60%;
-  margin-left: 0.2%;
+  margin-left: 1.1%;
 }
 .deviationlist-description:hover {
   border-color: #61dafb;
@@ -100,7 +100,7 @@
 }
 .deviation-list-titles {
   text-align: center;
-  word-spacing: 61px;
+  word-spacing: 56px;
   font-style: oblique;
 }
 .timereport-main-div {
