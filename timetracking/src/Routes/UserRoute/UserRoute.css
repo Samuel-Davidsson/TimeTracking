@@ -48,7 +48,10 @@
   opacity: 0.9;
   filter: alpha(opacity=60);
   background: gainsboro;
-  color: lightslategray;
+  color:  black;
+}
+.YearNavigation-header {
+  margin-top: 2%;
 }
 .deviationlist-main-div {
   margin: 0% auto;

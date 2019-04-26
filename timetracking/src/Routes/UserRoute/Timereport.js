@@ -13,6 +13,7 @@ import MainUserInfo from "../UserRoute/MainUserInfo";
 import ChangeYearMonthForm from "./ChangeYearMonthForm";
 import DeviationList from "./DeviationList";
 import "./UserRoute.css";
+
 class Timereport extends React.Component {
   state = {
     report: [],
@@ -273,7 +274,9 @@ class Timereport extends React.Component {
     return (
       <div>
         <div className="YearNavigation">
-          <p>Klicka på ett datum för att fylla i datum.</p>
+          <p className="YearNavigation-header">
+            Klicka på ett datum för att fylla i datum.
+          </p>
           <DayPicker
             selectedDays={this.state.deviationItems.map(x => x.absenceDate)}
             onDayClick={this.handleDayClick}

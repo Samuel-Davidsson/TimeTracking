@@ -7,7 +7,7 @@ const toMonth = new Date(currentYear + 0, 0);
 const locale = "sv-se";
 const localeEnglish = "en-us";
 
-const ChangeYearMonthForm = ({ date, localeUtils, onChange }) => {
+const changeYearMonthForm = ({ date, localeUtils, onChange }) => {
   const years = [];
   for (let i = fromMonth.getFullYear(); i <= toMonth.getFullYear(); i += 1) {
     years.push(i);
@@ -86,4 +86,4 @@ const ChangeYearMonthForm = ({ date, localeUtils, onChange }) => {
     </form>
   );
 };
-export default ChangeYearMonthForm;
+export default changeYearMonthForm;
