@@ -37,7 +37,7 @@ namespace TimeTrackingApi.Services
                 Firstname = user.FirstName,
                 Lastname = user.LastName,
                 IsAdmin = user.IsAdmin,
-                ExpirationTime = DateTime.Now.AddMinutes(15)
+                ExpirationTime = DateTime.Now.AddMinutes(60)
             };
         }
         public UserViewmodelList UserViewmodelList(User user)

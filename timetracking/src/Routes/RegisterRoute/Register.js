@@ -62,7 +62,7 @@ export default class Register extends React.Component {
           <RegisterForm
             handleClickOnBackButton={this.handleClickOnBackButton}
             addUser={this.addUser}
-            errormsg={this.state.error}
+            error={this.state.error}
             success={this.state.success}
           />
         </div>

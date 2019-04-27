@@ -31,16 +31,16 @@ namespace TimeTrackingApi.Controllers
         [HttpPost, Route("register")]
         public IActionResult RegisterUser(UserViewmodel userViewModel)
         {
-            var users = _userService.GetAll();
+            var users = _userService.GetAll().ToArray();
 
             if (userViewModel.Password != userViewModel.ConfirmPassword)
             {
-                return BadRequest("Dina password matchar inte.");
+                return BadRequest("Lösenorden matchar inte.");
             }
 
-            foreach (var userLogin in users)
+            for (int i = 0; i < users.Length; i++)
             {
-                if (userLogin.Login.ToLower() == userViewModel.Login.ToLower())
+                if (users[i].Login.ToLower() == userViewModel.Login.ToLower())
                 {
                     return BadRequest("Mailadressen är redan registerad.");
                 }
@@ -56,16 +56,12 @@ namespace TimeTrackingApi.Controllers
         [HttpPost, Route("login")]
         public IActionResult Login(UserViewmodel userViewModel)
         {
-            var users = _userService.GetAll();
-            foreach (var user in users)
+            var users = _userService.GetAll().ToArray();
+            for (int i = 0; i < users.Length; i++)
             {
-                var userLogin = user.Login;
-
-                var userLoginTrimEnd = userLogin.TrimEnd();
-
-                if (userViewModel.Login.ToLower() == userLoginTrimEnd.ToLower())
+                if (users[i].Login.ToLower() == userViewModel.Login.ToLower())
                 {
-                    bool isValid = _hashPassword.Verify(userViewModel.Password, user.Password);
+                    bool isValid = _hashPassword.Verify(userViewModel.Password, users[i].Password);
                     if (isValid == true)
                     {
                         var appSettingsSection = _configuration.GetSection("AppSettings");
@@ -78,13 +74,12 @@ namespace TimeTrackingApi.Controllers
                         var tokenOptions = new JwtSecurityToken(
                             issuer: "samuel",
                             audience: "readers",
-                            expires: DateTime.Now.AddMinutes(15),
+                            expires: DateTime.Now.AddMinutes(60),
                             signingCredentials: signinCredentials
                         );
                         var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                        var AuthUser = Mapper.ModelToViewModelMapping.UserViewmodel(user);
+                        var AuthUser = Mapper.ModelToViewModelMapping.UserViewmodel(users[i]);
                         AuthUser.Token = tokenString;
-
                         return Ok(AuthUser);
                     }
                 }

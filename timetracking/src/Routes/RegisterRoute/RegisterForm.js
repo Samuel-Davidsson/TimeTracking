@@ -133,7 +133,7 @@ export default class RegisterForm extends React.Component {
             </Button>
             <Button color="info">Skicka in</Button>
             <Success success={this.props.success} />
-            <Error errormsg={this.props.errormsg} />
+            <Error error={this.props.error} />
           </div>
         </Form>
       </div>

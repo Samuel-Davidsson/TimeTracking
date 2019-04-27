@@ -9,7 +9,7 @@ const AuthRoute = ({ component: Component, ...rest }) => (
       CheckAuth() ? (
         <Component {...props} />
       ) : (
-        <Redirect to={{ pathname: "/timereport" }} />
+        <Redirect to={{ pathname: "/timetracker/" }} />
       )
     }
   />

@@ -7,6 +7,7 @@ import TotalHoursCount from "../../Helpers/TotalHoursCount";
 import HomePageNavBar from "../../HomePageNavbar";
 import DeviationList from "../../Routes/UserRoute/DeviationList";
 import "./Admin.css";
+import AdminForm from "./AdminForm";
 import UserActiveReport from "./UserActiveReport";
 import UserHistory from "./UserHistory";
 import Userlist from "./Userlist";
@@ -18,6 +19,8 @@ export default class AdminPage extends React.Component {
     firstName: "",
     lastName: "",
     report: "",
+    attest: false,
+    approved: false,
     isAuthorized: true,
     deviationItems: [],
     totalHours: 0
@@ -71,6 +74,7 @@ export default class AdminPage extends React.Component {
           this.setState({
             deviationItems: [],
             report: res.data,
+            reports: [],
             isLoading: false,
             totalHours: 0,
             firstName: res.data.firstName,
@@ -89,6 +93,8 @@ export default class AdminPage extends React.Component {
             report: res.data,
             isLoading: false,
             totalHours: this.totalHours,
+            attest: res.data.attest,
+            approved: res.data.approved,
             firstName: res.data.firstName,
             lastName: res.data.lastName
           });
@@ -106,8 +112,16 @@ export default class AdminPage extends React.Component {
       });
   };
 
-  handleCheckBoxClicked = event => {
+  handleAttestCheckBoxStatus = event => {
     this.setState({ attest: event.target.checked });
+  };
+  handleApprovedCheckBoxStatus = event => {
+    this.setState({ approved: event.target.checked });
+  };
+
+  handleCheckboxesSubmit = event => {
+    event.preventDefault();
+    console.log("💎 nice both are now TRUE if I check them");
   };
 
   currentYear = new Date().getFullYear();
@@ -120,6 +134,13 @@ export default class AdminPage extends React.Component {
         <HomePageNavBar isAuthorized={this.state.isAuthorized} />
         <Header month={this.month} />
         <div className="main-div-test">
+          <AdminForm
+            attest={this.state.attest}
+            approved={this.state.approved}
+            handleAttestCheckBoxStatus={this.handleAttestCheckBoxStatus}
+            handleApprovedCheckBoxStatus={this.handleApprovedCheckBoxStatus}
+            handleCheckboxesSubmit={this.handleCheckboxesSubmit}
+          />
           <Userlist
             users={this.state.users}
             reportUserInfo={this.reportUserInfo}
