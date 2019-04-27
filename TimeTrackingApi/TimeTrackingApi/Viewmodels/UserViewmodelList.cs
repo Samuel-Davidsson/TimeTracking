@@ -6,6 +6,6 @@
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Department { get; set; }
-        public bool Attest { get; set; }
+        //public bool Attest { get; set; }
     }
 }

@@ -20,7 +20,7 @@ export default class AdminPage extends React.Component {
     lastName: "",
     report: "",
     attest: false,
-    approved: false,
+    accepted: false,
     isAuthorized: true,
     deviationItems: [],
     totalHours: 0
@@ -77,6 +77,8 @@ export default class AdminPage extends React.Component {
             reports: [],
             isLoading: false,
             totalHours: 0,
+            attest: res.data.attest,
+            accepted: res.data.accepted,
             firstName: res.data.firstName,
             lastName: res.data.lastName
           });
@@ -94,7 +96,7 @@ export default class AdminPage extends React.Component {
             isLoading: false,
             totalHours: this.totalHours,
             attest: res.data.attest,
-            approved: res.data.approved,
+            accepted: res.data.accepted,
             firstName: res.data.firstName,
             lastName: res.data.lastName
           });
@@ -113,10 +115,13 @@ export default class AdminPage extends React.Component {
   };
 
   handleAttestCheckBoxStatus = event => {
-    this.setState({ attest: event.target.checked });
+    this.setState({
+      attest: event.target.checked
+    });
   };
-  handleApprovedCheckBoxStatus = event => {
-    this.setState({ approved: event.target.checked });
+
+  handleAcceptedCheckBoxStatus = event => {
+    this.setState({ accepted: event.target.checked });
   };
 
   handleCheckboxesSubmit = event => {
@@ -136,9 +141,9 @@ export default class AdminPage extends React.Component {
         <div className="main-div-test">
           <AdminForm
             attest={this.state.attest}
-            approved={this.state.approved}
+            accepted={this.state.accepted}
             handleAttestCheckBoxStatus={this.handleAttestCheckBoxStatus}
-            handleApprovedCheckBoxStatus={this.handleApprovedCheckBoxStatus}
+            handleAcceptedCheckBoxStatus={this.handleAcceptedCheckBoxStatus}
             handleCheckboxesSubmit={this.handleCheckboxesSubmit}
           />
           <Userlist

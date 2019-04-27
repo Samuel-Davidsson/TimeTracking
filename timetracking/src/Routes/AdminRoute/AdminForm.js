@@ -7,7 +7,7 @@ export default class AdminForm extends React.Component {
       <div className="test-main">
         <Form className="test" onSubmit={this.props.handleCheckboxesSubmit}>
           <FormGroup check>
-            <Label check />
+            <Label />
             <Input
               type="checkbox"
               checked={this.props.attest}
@@ -16,11 +16,11 @@ export default class AdminForm extends React.Component {
             Attestera
           </FormGroup>
           <FormGroup check>
-            <Label check />
+            <Label />
             <Input
               type="checkbox"
-              checked={this.props.approved}
-              onChange={this.props.handleApprovedCheckBoxStatus}
+              checked={this.props.accepted}
+              onChange={this.props.handleAcceptedCheckBoxStatus}
             />{" "}
             Låsa upp
           </FormGroup>

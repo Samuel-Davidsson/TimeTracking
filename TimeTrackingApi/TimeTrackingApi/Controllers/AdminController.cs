@@ -24,21 +24,21 @@ namespace TimeTrackingApi.Controllers
         public IActionResult GetUsersByAdminId(int id)
         {
             var adminUser = _userService.GetUserById(id);
-            var users = _userService.GetAll().Where(x => x.Department == adminUser.Department && x.IsAdmin == false);
+            var users = _userService.GetAll().Where(x => x.Department == adminUser.Department && x.IsAdmin == false).ToArray();
 
             var date = DateTime.Now.ToString("yyyy-MM");
             var userViewModels = new List<UserViewmodelList>();
-            foreach (var user in users)
-            {
-                var userViewmodel = Mapper.ModelToViewModelMapping.UserViewmodelList(user);
 
-                var reports = _reportService.GetReportsByUserId(user.Id).Where(x => x.Date.ToString("yyyy-MM") == date);
-                var attest = false;
-                foreach (var report in reports)
-                {
-                    attest = report.Attest;
-                }
-                userViewmodel.Attest = attest;
+            for (int i = 0; i < users.Length; i++)
+            {
+                var userViewmodel = Mapper.ModelToViewModelMapping.UserViewmodelList(users[i]);
+                var reports = _reportService.GetReportsByUserId(users[i].Id).Where(x => x.Date.ToString("yyyy-MM") == date).ToArray();
+                //var attest = false;
+                //for (int r = 0; r < reports.Length; r++)
+                //{
+                //    attest = reports[r].Attest;
+                //}
+                //userViewmodel.Attest = attest;
                 userViewModels.Add(userViewmodel);
             }
             return Ok(userViewModels);
@@ -46,7 +46,7 @@ namespace TimeTrackingApi.Controllers
         [HttpPost, Route("getuserhistory")]
         public IActionResult GetUserHistoryById(UserViewmodel userViewmodel)
         {
-            var reports = _reportService.GetReportsByUserId(userViewmodel.Id).ToList();
+            var reports = _reportService.GetReportsByUserId(userViewmodel.Id).ToArray();
 
             var date = DateTime.Now;
             var currentMonth = date.ToString("yyyy-MM");
@@ -58,15 +58,14 @@ namespace TimeTrackingApi.Controllers
                 Lastname = userViewmodel.Lastname,
                 Reports = reports,
             };
-            foreach (var report in reports)
+            for (int i = 0; i < reports.Length; i++)
             {
-                var reportDate = report.Date.ToString("yyyy-MM");
-                if (reportDate == currentMonth)
+                if (reports[i].Date.ToString("yyyy-MM") == currentMonth)
                 {
-                    _reportService.GetReportById(report.Id);
-                    var sortDeviations = report.DeviationItems.OrderByDescending(x => x.AbsenceDate);
-                    report.DeviationItems = sortDeviations.ToList();
-                    userHistoryViewmodel.report = report;
+                    _reportService.GetReportById(reports[i].Id);
+                    var sortDeviations = reports[i].DeviationItems.OrderByDescending(x => x.AbsenceDate);
+                    reports[i].DeviationItems = sortDeviations.ToList();
+                    userHistoryViewmodel.report = reports[i];
                 }
             }
             return Ok(userHistoryViewmodel);
