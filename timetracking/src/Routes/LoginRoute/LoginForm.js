@@ -40,6 +40,9 @@ class LoginForm extends React.Component {
               className="username-password"
             />
           </FormGroup>
+          <p className="login-comment">
+            Lätt sätt att fylla i sin tidsrapport.
+          </p>
           <div className="login-button-div">
             <Button color="info" type="submit">
               Logga in

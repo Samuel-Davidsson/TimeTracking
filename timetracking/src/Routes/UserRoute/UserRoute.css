@@ -44,7 +44,7 @@
   opacity: 0.9;
   filter: alpha(opacity=60);
   background: gainsboro;
-  color:  black;
+  color: black;
 }
 .YearNavigation-header {
   margin-top: 2%;
@@ -106,4 +106,8 @@
   margin: 0px auto;
   opacity: 0.9;
   filter: alpha(opacity=60);
+}
+.user-comment {
+  color: lightslategray;
+  margin-top: 1%;
 }

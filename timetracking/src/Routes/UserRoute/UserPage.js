@@ -2,14 +2,14 @@ import React from "react";
 import "react-app-polyfill/ie11";
 import "react-day-picker/lib/style.css";
 import Header from "../../Header";
-import HomePageNavBar from "../../HomePageNavbar";
+import HeaderNavbar from "../../HomePageNavbar";
 import Timereport from "./Timereport";
 import "./UserRoute.css";
 
 export default class UserPage extends React.Component {
   state = {
-    subtitle: "Fyll i din frånvaro här senast den sista dagen varje månad",
-    isAuthorized: true
+    isAuthorized: true,
+    title: "Rapport för"
   };
   currentYear = new Date().getFullYear();
   currentMonth = new Date().getMonth();
@@ -18,8 +18,8 @@ export default class UserPage extends React.Component {
   render() {
     return (
       <div>
-        <HomePageNavBar isAuthorized={this.state.isAuthorized} />
-        <Header month={this.month} subtitle={this.state.subtitle} />
+        <HeaderNavbar isAuthorized={this.state.isAuthorized} />
+        <Header title={this.state.title} />
         <Timereport />
       </div>
     );

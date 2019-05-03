@@ -181,8 +181,9 @@ export default class AdminPage extends React.Component {
             lastName={this.state.lastName}
             totalHours={this.state.totalHours}
             attest={this.state.attest}
-            handleCheckBoxClicked={this.handleCheckBoxClicked}
             accepted={this.state.accepted}
+            report={this.state.report}
+            handleCheckBoxClicked={this.handleCheckBoxClicked}
             handleAttestCheckBoxStatus={this.handleAttestCheckBoxStatus}
             handleAcceptedCheckBoxStatus={this.handleAcceptedCheckBoxStatus}
             handleCheckboxesSubmit={this.handleCheckboxesSubmit}

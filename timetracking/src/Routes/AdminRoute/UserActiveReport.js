@@ -1,10 +1,10 @@
 import React from "react";
-import MainUserInfo from "../UserRoute/MainUserInfo";
 import AdminForm from "../AdminRoute/AdminForm";
+import MainUserInfo from "../UserRoute/MainUserInfo";
 
 const userActiveReport = props => {
   return (
-    <div>
+    <div hidden={!props.report}>
       <MainUserInfo
         firstName={props.firstName}
         lastName={props.lastName}

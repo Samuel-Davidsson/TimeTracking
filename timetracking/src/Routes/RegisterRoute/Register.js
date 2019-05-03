@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import Header from "../../Header";
 import Api_Url from "../../Helpers/Api_Url";
-import HomePageNavBar from "../../HomePageNavbar";
+import HeaderPageNavbar from "../../HomePageNavbar";
 import "./Register.css";
 import RegisterForm from "./RegisterForm";
 
@@ -10,9 +10,7 @@ export default class Register extends React.Component {
   state = {
     error: "",
     success: "",
-    title: "Registering",
-    isAuthorized: false,
-    subtitle: "Registera dig för att kunna logga in."
+    title: "Registering"
   };
 
   addUser = userRegisterInfo => {
@@ -52,11 +50,10 @@ export default class Register extends React.Component {
   render() {
     return (
       <div>
-        <HomePageNavBar isAuthorized={this.state.isAuthorized} />
         <div className="register-div">
+          <HeaderPageNavbar />
           <Header
             title={this.state.title}
-            subtitle={this.state.subtitle}
             isAuthorized={this.state.isAuthorized}
           />
           <RegisterForm

@@ -8,21 +8,15 @@ body {
 }
 .navbar-border {
   border-bottom: 2px gainsboro solid;
+  height: 55px;
 }
 .jumbotron-border {
   border-bottom: 2px gainsboro solid;
   opacity: 0.9;
   filter: alpha(opacity=60);
-  height: 25px;
-}
-.header-div {
-  height: 52px;
+  height: 40px;
 }
 .header-title {
-  color: lightslategray;
-  font-style: italic;
-}
-.header-subtitle {
   color: lightslategray;
   font-style: italic;
 }

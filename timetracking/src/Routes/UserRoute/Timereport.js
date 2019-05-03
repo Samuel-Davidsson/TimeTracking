@@ -275,6 +275,9 @@ class Timereport extends React.Component {
           />
         </div>
         <div className="timereport-main-div">
+          <p className="user-comment">
+            Fyll i din frånvaro här senast den sista dagen varje månad!
+          </p>
           <MainUserInfo
             firstName={this.firstName}
             lastName={this.lastName}

@@ -37,6 +37,9 @@ export default class RegisterForm extends React.Component {
     return (
       <div>
         <Form className="register-form" onSubmit={this.handleSubmit}>
+          <p className="register-comment">
+            Registera dig för att kunna logga in.
+          </p>
           <FormGroup className="register-formgroup" row>
             <Label className="register-label" sm={2}>
               Inlogg:

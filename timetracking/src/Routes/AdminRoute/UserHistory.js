@@ -4,7 +4,7 @@ import { Button, Table } from "reactstrap";
 const userhistory = props => {
   return (
     <div>
-      <h3>Rapporter historik</h3>
+      <h3 className="userhistory-title">Rapporter historik</h3>
       <Table striped className="userhistorylist-main">
         <thead>
           <tr>

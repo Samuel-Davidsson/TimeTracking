@@ -12,9 +12,7 @@ import LoginForm from "./LoginForm";
 class Login extends React.Component {
   state = {
     error: "",
-    title: "Välkommen till Timetrackern!",
-    subtitle: "Ett lätt sätt att fylla i månadens tidsrapport.",
-    isAuthorized: false
+    title: "Välkommen till Timetrackern!"
   };
   tryLogin = userLoginInfo => {
     axios
@@ -57,18 +55,15 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <HomePageNavBar isAuthorized={this.state.isAuthorized} />
-        <div>
-          <Header
-            title={this.state.title}
-            subtitle={this.state.subtitle}
-            isAuthorized={this.state.isAuthorized}
-          />
-          <div className="login-div" color="light">
-            <LoginForm tryLogin={this.tryLogin} />
-            <Navigation />
-            <Error error={this.state.error} />
-          </div>
+        <HomePageNavBar />
+        <Header
+          title={this.state.title}
+          isAuthorized={this.state.isAuthorized}
+        />
+        <div className="login-div" color="light">
+          <LoginForm tryLogin={this.tryLogin} />
+          <Navigation />
+          <Error error={this.state.error} />
         </div>
       </div>
     );

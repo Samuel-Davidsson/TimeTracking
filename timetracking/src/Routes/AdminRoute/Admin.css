@@ -2,6 +2,13 @@
   color: lightslategray;
   background: gainsboro;
 }
+.userhistory-title {
+  margin-top: 0.5%;
+  font-style: bold;
+  text-underline-position: below;
+  border-bottom: 1px solid lightslategray;
+  padding-bottom: 0.8%;
+}
 .userlist-main {
   color: lightslategray;
   width: 25%;

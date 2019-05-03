@@ -8,16 +8,18 @@ import Register from "./Routes/RegisterRoute/Register";
 import UserPage from "./Routes/UserRoute/UserPage";
 
 const Router = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route path="/Timetracker" exact component={Login} />
-      <Route path="/Timetracker/login" component={Login} />
-      <Route path="/Timetracker/register" component={Register} />
-      <AuthRoute path="/Timetracker/report" component={UserPage} />
-      <Route path="/Timetracker/admin" component={AdminPage} />
-      <Route component={NotFound} />
-    </Switch>
-  </BrowserRouter>
+  <div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/Timetracker" exact component={Login} />
+        <Route path="/Timetracker/login" component={Login} />
+        <Route path="/Timetracker/register" component={Register} />
+        <AuthRoute path="/Timetracker/report" component={UserPage} />
+        <AuthRoute path="/Timetracker/admin" component={AdminPage} />
+        <Route component={NotFound} />
+      </Switch>
+    </BrowserRouter>
+  </div>
 );
 
 export default Router;
