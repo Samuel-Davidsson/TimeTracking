@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Table } from "reactstrap";
+import { Button, Table } from "reactstrap";
 
 const userhistory = props => {
   return (
@@ -25,15 +24,12 @@ const userhistory = props => {
               <td>{props.lastName}</td>
               <td>
                 {" "}
-                <Link
-                  className="user-link"
-                  to={{
-                    pathname: `/Timetracker/reportdetails/${report.id}`,
-                    state: { linkstate: report.userId }
-                  }}
+                <Button
+                  className="userlist-buttons"
+                  onClick={() => props.handleGetReportByReportId(report.id)}
                 >
                   Rapport
-                </Link>
+                </Button>
               </td>
             </tr>
           ))}

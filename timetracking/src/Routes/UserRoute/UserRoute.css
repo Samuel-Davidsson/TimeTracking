@@ -13,10 +13,6 @@
 .deviationlist-description:hover {
   border-color: #61dafb;
 }
-.DayPicker-Day--today {
-  background-color: salmon;
-  color: white;
-}
 .DayPicker-Day--disabled {
   color: red;
 }
@@ -75,7 +71,7 @@
   opacity: 0.9;
   filter: alpha(opacity=60);
   background: white;
-  margin-top: 1%;
+  margin-bottom: 0.5%;
 }
 .mainInfo-checkbox-status {
   width: 15px;

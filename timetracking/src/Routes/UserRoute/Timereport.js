@@ -178,14 +178,13 @@ class Timereport extends React.Component {
         { headers: GenerateHeaderData() }
       )
       .then(res => {
-        const data = res.data;
-        const deviationItems = data.deviationItems;
+        const deviationItems = res.data.deviationItems;
         const existingDevitations = [];
         if (res.status === 200)
           deviationItems.forEach(element => {
             element.absenceDate = new Date(element.absenceDate);
           });
-        data.deviationItems.forEach(element => {
+        deviationItems.forEach(element => {
           existingDevitations.push({
             reportId: element.reportId,
             id: element.id,
@@ -197,7 +196,7 @@ class Timereport extends React.Component {
         this.setState({
           success: "Uppgifterna har sparats/updaterats.",
           deviationItems: deviationItems,
-          report: data,
+          report: res.data,
           existingDevitations: existingDevitations
         });
         setTimeout(() => {
@@ -221,24 +220,19 @@ class Timereport extends React.Component {
           this.setState({
             isLoading: false
           });
-
-        const data = res.data;
-        this.totalHours = data.hours;
-        const deviationItems = data.deviationItems;
-        const validMonth = data.currentMonth;
+        this.totalHours = res.data.hours;
+        const deviationItems = res.data.deviationItems;
+        const validMonth = res.data.date;
         const parsedValidMonth = new Date(validMonth);
         const isValidMonth = CanSubmit(parsedValidMonth);
-        this.setState({
-          isValidMonth: isValidMonth
-        });
-        debugger;
+
         if (deviationItems === null)
           this.setState({
             deviationItems: []
           });
-        if (deviationItems === null) {
-          return false;
-        }
+
+        if (deviationItems === null) return false;
+
         deviationItems.forEach(element => {
           element.absenceDate = new Date(element.absenceDate);
         });
@@ -246,9 +240,9 @@ class Timereport extends React.Component {
           deviationItems.map(x => Number(x.hours))
         );
         this.setState({
-          report: data,
+          report: res.data,
           deviationItems: deviationItems,
-          isValidMonth: true,
+          isValidMonth: isValidMonth,
           error: ""
         });
       });

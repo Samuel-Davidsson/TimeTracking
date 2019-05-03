@@ -4,8 +4,8 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 export default class AdminForm extends React.Component {
   render() {
     return (
-      <div className="test-main">
-        <Form className="test" onSubmit={this.props.handleCheckboxesSubmit}>
+      <div className="adminform-form">
+        <Form onSubmit={this.props.handleCheckboxesSubmit}>
           <FormGroup check>
             <Label />
             <Input
@@ -24,7 +24,7 @@ export default class AdminForm extends React.Component {
             />{" "}
             Låsa upp
           </FormGroup>
-          <div className="test-button">
+          <div className="adminform-button">
             <Button
               color="info"
               type="submit"

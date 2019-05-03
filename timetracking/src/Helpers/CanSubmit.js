@@ -4,7 +4,6 @@ const canSubmit = props => {
   let activeDate = new Date(Date.now());
   let activeMonth = activeDate.getMonth();
   let activeYear = new Date().getFullYear();
-
   if (selectedMonth !== activeMonth || selectedYear !== activeYear) {
     return (props.isValidMonth = false);
   } else if (selectedMonth === activeMonth) {

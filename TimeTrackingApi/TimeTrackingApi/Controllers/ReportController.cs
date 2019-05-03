@@ -25,6 +25,17 @@ namespace TimeTrackingApi.Controllers
             _deviationService = deviationService;
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetReportById(int id)
+        {
+            var report = _reportService.GetReportById(id);
+            var user = _userService.GetUserById(report.UserId);
+            var reportViewmodel = Mapper.ModelToViewModelMapping.ReportViewmodel(report);
+            reportViewmodel.FirstName = user.FirstName;
+            reportViewmodel.LastName = user.LastName;
+
+            return Ok(reportViewmodel);
+        }
         [HttpPost, Route("getuserreport")]
         public IActionResult GetUserReportByMonth(ReportViewmodel reportViewmodel)
         {
@@ -53,7 +64,6 @@ namespace TimeTrackingApi.Controllers
             var report = _reportService.GetReportById(reportViewmodel.Id);
             if (report == null)
             {
-
                 DateTime currentMonthParsed = DateTime.Parse(reportViewmodel.CurrentMonth);
                 var currentMonth = currentMonthParsed.ToString("yyyy-MM");
                 DateTime finalcurrentMonthParsed = DateTime.Parse(currentMonth);
