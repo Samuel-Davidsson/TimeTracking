@@ -1,8 +1,8 @@
 import axios from "axios";
 import React from "react";
-import Header from "../../Header";
+import Header from "../../Containers/Header";
 import Api_Url from "../../Helpers/Api_Url";
-import HeaderPageNavbar from "../../HomePageNavbar";
+import HeaderPageNavbar from "../../Containers/HomePageNavbar";
 import "./Register.css";
 import RegisterForm from "./RegisterForm";
 

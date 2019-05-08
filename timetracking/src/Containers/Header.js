@@ -1,6 +1,5 @@
 import React from "react";
 import { Jumbotron } from "reactstrap";
-import "./App.css";
 
 const header = props => {
   return (

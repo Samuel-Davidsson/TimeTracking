@@ -12,7 +12,7 @@ import Success from "../../Helpers/Success";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
 import MainUserInfo from "../UserRoute/MainUserInfo";
 import ChangeYearMonthForm from "./ChangeYearMonthForm";
-import DeviationList from "./DeviationList";
+import DeviationList from "./Devations/DeviationList";
 import "./UserRoute.css";
 
 class Timereport extends React.Component {

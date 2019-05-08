@@ -1,8 +1,8 @@
 import React from "react";
 import "react-app-polyfill/ie11";
 import "react-day-picker/lib/style.css";
-import Header from "../../Header";
-import HeaderNavbar from "../../HomePageNavbar";
+import Header from "../../Containers/Header";
+import HeaderNavbar from "../../Containers/HomePageNavbar";
 import Timereport from "./Timereport";
 import "./UserRoute.css";
 

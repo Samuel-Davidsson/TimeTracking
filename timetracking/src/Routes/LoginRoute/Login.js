@@ -1,11 +1,11 @@
 import axios from "axios";
 import React from "react";
 import "../../App.css";
-import Header from "../../Header";
+import Header from "../../Containers/Header";
 import Api_Url from "../../Helpers/Api_Url";
 import Error from "../../Helpers/Error";
-import HomePageNavBar from "../../HomePageNavbar";
-import Navigation from "../../Navigation";
+import HomePageNavBar from "../../Containers/HomePageNavbar";
+import Navigation from "../../Containers/Navigation";
 import "./Login.css";
 import LoginForm from "./LoginForm";
 

@@ -59,8 +59,6 @@ namespace TimeTrackingApi.Controllers
         [HttpPost, Route("addreport")]
         public IActionResult AddReport(ReportViewmodel reportViewmodel)
         {
-            var reports = _reportService.GetReportsByUserId(reportViewmodel.UserId);
-
             var report = _reportService.GetReportById(reportViewmodel.Id);
             if (report == null)
             {

@@ -1,12 +1,12 @@
 import axios from "axios";
 import React from "react";
 import DayPicker from "react-day-picker";
-import Header from "../../Header";
+import Header from "../../Containers/Header";
 import Api_Url from "../../Helpers/Api_Url";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
-import HomePageNavBar from "../../HomePageNavbar";
-import DeviationList from "../../Routes/UserRoute/DeviationList";
+import HomePageNavBar from "../../Containers/HomePageNavbar";
+import DeviationList from "../UserRoute/Devations/DeviationList";
 import "./Admin.css";
 import UserActiveReport from "./UserActiveReport";
 import UserHistory from "./UserHistory";

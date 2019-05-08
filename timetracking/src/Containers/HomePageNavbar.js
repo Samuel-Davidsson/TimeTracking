@@ -11,9 +11,8 @@ import {
   NavLink,
   UncontrolledDropdown
 } from "reactstrap";
-import "./App.css";
-import CountDown from "./Helpers/CountDown";
-import Logout from "./Helpers/Logout";
+import CountDown from "../Helpers/CountDown";
+import Logout from "../Helpers/Logout";
 
 const homePageNavBar = props => {
   return (
