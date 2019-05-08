@@ -1,6 +1,9 @@
 import React from "react";
 
 const deviationsInfo = props => {
+  if (props.deviationItems === undefined) {
+    return null;
+  }
   return (
     <div
       className="deviation-list-header"

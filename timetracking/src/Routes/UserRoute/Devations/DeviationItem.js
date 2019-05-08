@@ -2,6 +2,9 @@ import React from "react";
 import { Button } from "reactstrap";
 
 const deviationItem = props => {
+  if (props.deviationItems === undefined) {
+    return null;
+  }
   return (
     <form onSubmit={props.handleSubmit}>
       {props.deviationItems.map(deviationItem => (
