@@ -33,12 +33,6 @@ namespace TimeTrackingApi.Controllers
             {
                 var userViewmodel = Mapper.ModelToViewModelMapping.UserViewmodelList(users[i]);
                 var reports = _reportService.GetReportsByUserId(users[i].Id).Where(x => x.Date.ToString("yyyy-MM") == date).ToArray();
-                //var attest = false;
-                //for (int r = 0; r < reports.Length; r++)
-                //{
-                //    attest = reports[r].Attest;
-                //}
-                //userViewmodel.Attest = attest;
                 userViewModels.Add(userViewmodel);
             }
             return Ok(userViewModels);
