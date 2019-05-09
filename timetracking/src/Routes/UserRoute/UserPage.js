@@ -7,6 +7,7 @@ import Header from "../../Containers/Header";
 import HeaderNavbar from "../../Containers/HomePageNavbar";
 import Api_Url from "../../Helpers/Api_Url";
 import CanSubmit from "../../Helpers/CanSubmit";
+import ConvertDeviations from "../../Helpers/ConvertDeviations";
 import Error from "../../Helpers/Error";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import Success from "../../Helpers/Success";
@@ -22,6 +23,7 @@ export default class UserPage extends React.Component {
     totalHours: 0,
     month: new Date(),
     isValidMonth: true,
+    isAuthorized: true,
     isAdmin: false,
     success: "Hej",
     error: "Då",
@@ -33,27 +35,23 @@ export default class UserPage extends React.Component {
     axios
       .get(`${Api_Url}/user/` + userId, { headers: GenerateHeaderData() })
       .then(res => {
-        const existingDevitations = [];
-        if (res.data.deviationItems === undefined) return false;
-        res.data.deviationItems.forEach(element => {
-          existingDevitations.push({
-            reportId: element.reportId,
-            id: element.id,
-            hours: element.hours,
-            absenceDate: element.absenceDate,
-            description: element.description
-          });
-        });
-        existingDevitations.forEach(element => {
-          element.absenceDate = new Date(element.absenceDate);
-        });
-        localStorage.setItem("reportId", this.state.report.map(x => x.id));
+        console.log(res.data.deviationItems);
+        if (
+          res.data.deviationItems === undefined ||
+          res.data.deviationItems === null
+        )
+          return false;
+        const existingDevitations = ConvertDeviations(res.data.deviationItems);
+
         res.data.deviationItems.forEach(element => {
           element.absenceDate = new Date(element.absenceDate);
         });
+
         const totalHours = TotalHoursCount(
           res.data.deviationItems.map(x => Number(x.hours))
         );
+
+        localStorage.setItem("reportId", this.state.report.map(x => x.id));
         this.setState({
           deviationItems: res.data.deviationItems,
           existingDevitations: existingDevitations,
@@ -78,6 +76,7 @@ export default class UserPage extends React.Component {
       month: month
     });
   };
+
   getReportForYearAndMonth = data => {
     if (data === null) {
       this.setState({
@@ -129,24 +128,14 @@ export default class UserPage extends React.Component {
         { headers: GenerateHeaderData() }
       )
       .then(res => {
-        const deviationItems = res.data.deviationItems;
-        const existingDevitations = [];
         if (res.status === 200)
-          deviationItems.forEach(element => {
+          res.data.deviationItems.forEach(element => {
             element.absenceDate = new Date(element.absenceDate);
           });
-        deviationItems.forEach(element => {
-          existingDevitations.push({
-            reportId: element.reportId,
-            id: element.id,
-            hours: element.hours,
-            absenceDate: element.absenceDate,
-            description: element.description
-          });
-        });
+        const existingDevitations = ConvertDeviations(res.data.deviationItems);
         this.setState({
           success: "Uppgifterna har sparats/updaterats.",
-          deviationItems: deviationItems,
+          deviationItems: res.data.deviationItems,
           report: res.data,
           existingDevitations: existingDevitations
         });
@@ -162,7 +151,10 @@ export default class UserPage extends React.Component {
       <div>
         <HeaderNavbar isAuthorized={this.state.isAuthorized} />
         <Header title={this.state.title} />
-
+        <div>
+          <Error error={this.state.error} />
+          <Success success={this.state.success} />
+        </div>
         <Report
           deviationItems={this.state.deviationItems}
           report={this.state.report}
@@ -181,10 +173,6 @@ export default class UserPage extends React.Component {
           handleHoursChange={this.handleHoursChange}
           handleSubmit={this.handleSubmit}
         />
-        <div>
-          <Error error={this.state.error} />
-          <Success success={this.state.success} />
-        </div>
       </div>
     );
   }
