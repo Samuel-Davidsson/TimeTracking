@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Table } from "reactstrap";
+import { Button, Table } from "reactstrap";
 
 const userlist = props => {
   const handleReportClick = user => {
@@ -33,7 +33,6 @@ const userlist = props => {
             <th>Avdelning</th>
             <th>Rapport</th>
             <th>Historik</th>
-            <th>Godkänd</th>
           </tr>
         </thead>
         <tbody>
@@ -58,15 +57,6 @@ const userlist = props => {
                 >
                   Historik
                 </Button>
-              </td>
-              <td>
-                <Input
-                  readOnly
-                  checked={user.attest}
-                  style={{
-                    backgroundColor: user.attest ? "DarkSeaGreen" : "IndianRed"
-                  }}
-                />
               </td>
             </tr>
           ))}
