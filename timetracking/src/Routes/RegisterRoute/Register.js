@@ -1,8 +1,8 @@
 import axios from "axios";
 import React from "react";
 import Header from "../../Containers/Header";
-import Api_Url from "../../Helpers/Api_Url";
 import HeaderPageNavbar from "../../Containers/HomePageNavbar";
+import Api_Url from "../../Helpers/Api_Url";
 import "./Register.css";
 import RegisterForm from "./RegisterForm";
 
@@ -14,14 +14,13 @@ export default class Register extends React.Component {
   };
 
   addUser = userRegisterInfo => {
-    console.log(userRegisterInfo);
     axios
       .post(`${Api_Url}/auth/register`, {
         login: userRegisterInfo.login,
         password: userRegisterInfo.password,
         confirmpassword: userRegisterInfo.confirmpassword,
-        firstname: userRegisterInfo.firstname,
-        lastname: userRegisterInfo.lastname,
+        firstname: userRegisterInfo.firstName,
+        lastname: userRegisterInfo.lastName,
         department: userRegisterInfo.department
       })
       .then(res => {

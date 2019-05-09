@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Col,
@@ -12,134 +12,139 @@ import Error from "../../Helpers/Error";
 import Success from "../../Helpers/Success";
 import "./Register.css";
 
-export default class RegisterForm extends React.Component {
-  loginRef = React.createRef();
-  passwordRef = React.createRef();
-  confirmpasswordRef = React.createRef();
-  firstnameRef = React.createRef();
-  lastnameRef = React.createRef();
-  departmentRef = React.createRef();
+const registerForm = props => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmpassword] = useState("");
+  const [department, setDepartment] = useState("");
 
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
     const userRegisterInfo = {
-      login: this.loginRef.current.value,
-      password: this.passwordRef.current.value,
-      confirmpassword: this.confirmpasswordRef.current.value,
-      firstname: this.firstnameRef.current.value,
-      lastname: this.lastnameRef.current.value,
-      department: this.departmentRef.current.value
+      login: login,
+      password: password,
+      confirmpassword: confirmpassword,
+      firstName: firstName,
+      lastName: lastName,
+      department: department
     };
-    this.props.addUser(userRegisterInfo);
+    props.addUser(userRegisterInfo);
   };
 
-  render() {
-    return (
-      <div>
-        <Form className="register-form" onSubmit={this.handleSubmit}>
-          <p className="register-comment">
-            Registera dig för att kunna logga in.
-          </p>
-          <FormGroup className="register-formgroup" row>
-            <Label className="register-label" sm={2}>
-              Inlogg:
-            </Label>
-            <Col md={6}>
-              <Input
-                placeholder="Användarnamn(email).."
-                innerRef={this.loginRef}
-                type="email"
-                required
-                className="register-input"
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup className="register-formgroup" row>
-            <Label className="register-label" sm={2}>
-              Förnamn:
-            </Label>
-            <Col md={6}>
-              <Input
-                placeholder="Förnamn.."
-                innerRef={this.firstnameRef}
-                required
-                className="register-input"
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup className="register-formgroup" row>
-            <Label className="register-label" sm={2}>
-              Efternamn:
-            </Label>
-            <Col md={6}>
-              <Input
-                placeholder="Efternamn.."
-                innerRef={this.lastnameRef}
-                required
-                className="register-input"
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup className="register-formgroup" row>
-            <Label className="register-label" sm={2}>
-              Lösenord:
-            </Label>
-            <Col md={6}>
-              <Input
-                placeholder="Lösenord.."
-                innerRef={this.passwordRef}
-                type="password"
-                required
-                className="register-input"
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup className="register-formgroup" row>
-            <Label className="register-label" sm={2}>
-              Bekräfta:
-            </Label>
-            <Col md={6}>
-              <Input
-                placeholder="Bekräfta lösenord.."
-                innerRef={this.confirmpasswordRef}
-                type="password"
-                className="register-input"
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup className="register-formgroup">
-            <Label className="register-department-label" sm={2}>
-              Avdelning:
-            </Label>
-            <Col sm={4}>
-              <CustomInput
-                type="select"
-                innerRef={this.departmentRef}
-                id="justgottahaveone"
-                required
-                className="register-department-input"
-              >
-                <option>Ekonomi</option>
-                <option>IT</option>
-                <option>Sälj</option>
-                <option>Kundtjänst</option>
-              </CustomInput>
-            </Col>
-          </FormGroup>
-
-          <div>
-            <Button
-              className="button-register-div"
-              onClick={this.props.handleClickOnBackButton}
+  return (
+    <div>
+      <Form className="register-form" onSubmit={handleSubmit}>
+        <p className="register-comment">
+          Registera dig för att kunna logga in.
+        </p>
+        <FormGroup className="register-formgroup" row>
+          <Label className="register-label" sm={2}>
+            Inlogg:
+          </Label>
+          <Col md={6}>
+            <Input
+              placeholder="Användarnamn(email).."
+              value={login}
+              onChange={e => setLogin(e.target.value)}
+              type="email"
+              required
+              className="register-input"
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup className="register-formgroup" row>
+          <Label className="register-label" sm={2}>
+            Förnamn:
+          </Label>
+          <Col md={6}>
+            <Input
+              placeholder="Förnamn.."
+              value={firstName}
+              onChange={e => setFirstName(e.target.value)}
+              required
+              className="register-input"
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup className="register-formgroup" row>
+          <Label className="register-label" sm={2}>
+            Efternamn:
+          </Label>
+          <Col md={6}>
+            <Input
+              placeholder="Efternamn.."
+              value={lastName}
+              onChange={e => setLastName(e.target.value)}
+              required
+              className="register-input"
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup className="register-formgroup" row>
+          <Label className="register-label" sm={2}>
+            Lösenord:
+          </Label>
+          <Col md={6}>
+            <Input
+              placeholder="Lösenord.."
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              type="password"
+              required
+              className="register-input"
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup className="register-formgroup" row>
+          <Label className="register-label" sm={2}>
+            Bekräfta:
+          </Label>
+          <Col md={6}>
+            <Input
+              placeholder="Bekräfta lösenord.."
+              value={confirmpassword}
+              onChange={e => setConfirmpassword(e.target.value)}
+              type="password"
+              className="register-input"
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup className="register-formgroup">
+          <Label className="register-department-label" sm={2}>
+            Avdelning:
+          </Label>
+          <Col sm={4}>
+            <CustomInput
+              type="select"
+              value={department}
+              onChange={e => setDepartment(e.target.value)}
+              id="justgottahaveone"
+              required
+              className="register-department-input"
             >
-              Tillbaka
-            </Button>
-            <Button color="info">Skicka in</Button>
-            <Success success={this.props.success} />
-            <Error error={this.props.error} />
-          </div>
-        </Form>
-      </div>
-    );
-  }
-}
+              <option>Ekonomi</option>
+              <option>IT</option>
+              <option>Sälj</option>
+              <option>Kundtjänst</option>
+            </CustomInput>
+          </Col>
+        </FormGroup>
+
+        <div>
+          <Button
+            className="button-register-div"
+            onClick={props.handleClickOnBackButton}
+          >
+            Tillbaka
+          </Button>
+          <Button color="info">Skicka in</Button>
+          <Success success={props.success} />
+          <Error error={props.error} />
+        </div>
+      </Form>
+    </div>
+  );
+};
+export default registerForm;
