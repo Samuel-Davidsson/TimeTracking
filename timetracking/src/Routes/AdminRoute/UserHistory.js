@@ -5,6 +5,11 @@ const userhistory = props => {
   return (
     <div>
       <h3 className="userhistory-title">Rapporter historik</h3>
+      <div hidden={props.reports.length !== 0}>
+        <h5>
+          Inga rapporter för {props.firstName} {props.lastName}.
+        </h5>
+      </div>
       <Table striped className="userhistorylist-main">
         <thead>
           <tr>

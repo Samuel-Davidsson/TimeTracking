@@ -2,10 +2,10 @@ import axios from "axios";
 import React from "react";
 import DayPicker from "react-day-picker";
 import Header from "../../Containers/Header";
+import HomePageNavBar from "../../Containers/HomePageNavbar";
 import Api_Url from "../../Helpers/Api_Url";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
-import HomePageNavBar from "../../Containers/HomePageNavbar";
 import DeviationList from "../UserRoute/Devations/DeviationList";
 import "./Admin.css";
 import UserActiveReport from "./UserActiveReport";
@@ -75,9 +75,8 @@ export default class AdminPage extends React.Component {
         headers: GenerateHeaderData()
       })
       .then(res => {
-        const deviationItems = res.data.deviationItems;
-        if (deviationItems === undefined) return false;
-        if (deviationItems === null) {
+        if (res.data.deviationItems === undefined) return false;
+        if (res.data.deviationItems === null) {
           this.setState({
             deviationItems: [],
             report: res.data,
@@ -90,21 +89,20 @@ export default class AdminPage extends React.Component {
             lastName: res.data.lastName
           });
         } else {
-          this.totalHours = res.data.hours;
-          deviationItems.forEach(element => {
+          res.data.deviationItems.forEach(element => {
             element.absenceDate = new Date(element.absenceDate);
           });
-          this.totalHours = TotalHoursCount(
-            deviationItems.map(x => Number(x.hours))
+          const totalHours = TotalHoursCount(
+            res.data.deviationItems.map(x => Number(x.hours))
           );
           const month = new Date(res.data.date);
           this.setState({
-            deviationItems: deviationItems,
+            deviationItems: res.data.deviationItems,
             report: res.data,
             isLoading: false,
-            totalHours: this.totalHours,
-            attest: res.data.attest,
+            totalHours: totalHours,
             accepted: res.data.accepted,
+            attest: res.data.attest,
             firstName: res.data.firstName,
             lastName: res.data.lastName,
             month: month
@@ -133,11 +131,10 @@ export default class AdminPage extends React.Component {
         headers: GenerateHeaderData()
       })
       .then(res => {
-        this.totalHours = res.data.hours;
         res.data.deviationItems.forEach(element => {
           element.absenceDate = new Date(element.absenceDate);
         });
-        this.totalHours = TotalHoursCount(
+        const totalHours = TotalHoursCount(
           res.data.deviationItems.map(x => Number(x.hours))
         );
         const month = new Date(res.data.date);
@@ -145,7 +142,7 @@ export default class AdminPage extends React.Component {
           report: res.data,
           deviationItems: res.data.deviationItems,
           isLoading: false,
-          totalHours: this.totalHours,
+          totalHours: totalHours,
           attest: res.data.attest,
           accepted: res.data.accepted,
           firstName: res.data.firstName,
@@ -175,7 +172,10 @@ export default class AdminPage extends React.Component {
             handleGetReportByReportId={this.handleGetReportByReportId}
           />
         </div>
-        <div className="useractivereport-div">
+        <div
+          className="useractivereport-div"
+          hidden={this.state.report.id === 0 || this.state.report === ""}
+        >
           <UserActiveReport
             firstName={this.state.firstName}
             lastName={this.state.lastName}

@@ -13,6 +13,7 @@ const userActiveReport = props => {
         handleCheckBoxClicked={props.handleCheckBoxClicked}
       />
       <AdminForm
+        reportId={props.report.id}
         attest={props.attest}
         accepted={props.accepted}
         handleAttestCheckBoxStatus={props.handleAttestCheckBoxStatus}
