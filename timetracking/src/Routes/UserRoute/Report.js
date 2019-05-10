@@ -4,6 +4,7 @@ import React from "react";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import MomentLocaleUtils from "react-day-picker/moment";
+import { toast, ToastContainer } from "react-toastify";
 import Api_Url from "../../Helpers/Api_Url";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import ChangeYearMonthForm from "./ChangeYearMonthForm";
@@ -87,6 +88,9 @@ const report = props => {
           element.absenceDate = new Date(element.absenceDate);
         });
         props.getReportForYearAndMonth(res.data);
+      })
+      .catch(error => {
+        toast.error(error.response.data);
       });
   };
 
@@ -99,6 +103,7 @@ const report = props => {
         <p className="YearNavigation-header">
           Klicka på ett datum för att fylla i datum.
         </p>
+        <ToastContainer />
         <DayPicker
           selectedDays={props.deviationItems.map(x => x.absenceDate)}
           onDayClick={handleDayClick}
@@ -139,4 +144,4 @@ const report = props => {
     </div>
   );
 };
-export default report;
+export default React.memo(report);

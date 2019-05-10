@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import DayPicker from "react-day-picker";
+import { toast, ToastContainer } from "react-toastify";
 import Header from "../../Containers/Header";
 import HomePageNavBar from "../../Containers/HomePageNavbar";
 import Api_Url from "../../Helpers/Api_Url";
@@ -35,6 +36,9 @@ export default class AdminPage extends React.Component {
         this.setState({
           users: res.data
         });
+      })
+      .catch(error => {
+        toast.error(error.response.data);
       });
   };
 
@@ -66,6 +70,9 @@ export default class AdminPage extends React.Component {
             lastName: data.lastname
           });
         }
+      })
+      .catch(error => {
+        toast.error(error.response.data);
       });
   };
 
@@ -108,8 +115,12 @@ export default class AdminPage extends React.Component {
             month: month
           });
         }
+      })
+      .catch(error => {
+        toast.error(error.response.data);
       });
   };
+
   handleAttestCheckBoxStatus = event => {
     this.setState({
       attest: event.target.checked
@@ -122,7 +133,9 @@ export default class AdminPage extends React.Component {
 
   handleCheckboxesSubmit = event => {
     event.preventDefault();
-    console.log("💎 nice both are now TRUE if I check them");
+    console.log(
+      "💎 Time to build this next remeber to implement success and error handeling"
+    );
   };
 
   handleGetReportByReportId = reportId => {
@@ -149,6 +162,9 @@ export default class AdminPage extends React.Component {
           lastName: res.data.lastName,
           month: month
         });
+      })
+      .catch(error => {
+        toast.error(error.response.data);
       });
   };
 
@@ -157,6 +173,7 @@ export default class AdminPage extends React.Component {
       <div>
         <HomePageNavBar isAuthorized={this.state.isAuthorized} />
         <Header />
+        <ToastContainer position="top-right" autoClose={5000} />
         <div className="userlist-div">
           <Userlist
             users={this.state.users}

@@ -3,14 +3,13 @@ import "moment/locale/sv";
 import React from "react";
 import "react-app-polyfill/ie11";
 import "react-day-picker/lib/style.css";
+import { toast, ToastContainer } from "react-toastify";
 import Header from "../../Containers/Header";
 import HeaderNavbar from "../../Containers/HomePageNavbar";
 import Api_Url from "../../Helpers/Api_Url";
 import CanSubmit from "../../Helpers/CanSubmit";
 import ConvertDeviations from "../../Helpers/ConvertDeviations";
-import Error from "../../Helpers/Error";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
-import Success from "../../Helpers/Success";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
 import Report from "./Report";
 import "./UserRoute.css";
@@ -25,8 +24,6 @@ export default class UserPage extends React.Component {
     isValidMonth: true,
     isAuthorized: true,
     isAdmin: false,
-    success: "Hej",
-    error: "Då",
     locale: "sv"
   };
 
@@ -35,7 +32,6 @@ export default class UserPage extends React.Component {
     axios
       .get(`${Api_Url}/user/` + userId, { headers: GenerateHeaderData() })
       .then(res => {
-        console.log(res.data.deviationItems);
         if (
           res.data.deviationItems === undefined ||
           res.data.deviationItems === null
@@ -46,11 +42,9 @@ export default class UserPage extends React.Component {
         res.data.deviationItems.forEach(element => {
           element.absenceDate = new Date(element.absenceDate);
         });
-
         const totalHours = TotalHoursCount(
           res.data.deviationItems.map(x => Number(x.hours))
         );
-
         localStorage.setItem("reportId", this.state.report.map(x => x.id));
         this.setState({
           deviationItems: res.data.deviationItems,
@@ -60,6 +54,9 @@ export default class UserPage extends React.Component {
           isLoading: false,
           totalHours: totalHours
         });
+      })
+      .catch(error => {
+        toast.error(error.response.data);
       });
   };
 
@@ -76,7 +73,6 @@ export default class UserPage extends React.Component {
       month: month
     });
   };
-
   getReportForYearAndMonth = data => {
     if (data === null) {
       this.setState({
@@ -96,7 +92,6 @@ export default class UserPage extends React.Component {
         report: data,
         deviationItems: data.deviationItems,
         isValidMonth: isValidMonth,
-        error: "",
         totalHours: totalHours
       });
     }
@@ -105,7 +100,6 @@ export default class UserPage extends React.Component {
   handleDescriptionChange = (event, deviationItem) => {
     this.setState([(deviationItem.description = event.target.value)]);
   };
-
   handleHoursChange = (event, deviationItem) => {
     this.setState([(deviationItem.hours = event.target.value)]);
     const totalHours = TotalHoursCount(
@@ -134,16 +128,18 @@ export default class UserPage extends React.Component {
           });
         const existingDevitations = ConvertDeviations(res.data.deviationItems);
         this.setState({
-          success: "Uppgifterna har sparats/updaterats.",
           deviationItems: res.data.deviationItems,
           report: res.data,
           existingDevitations: existingDevitations
         });
-        setTimeout(() => {
-          this.setState({
-            success: ""
-          });
-        }, 5000);
+        toast.success("Uppgifterna har sparats/updaterats.");
+        setTimeout(() => {}, 5000);
+      })
+      .catch(error => {
+        toString.error(
+          "Uppgifterna sparades inte något gick snett.",
+          error.response.data
+        );
       });
   };
   render() {
@@ -151,10 +147,7 @@ export default class UserPage extends React.Component {
       <div>
         <HeaderNavbar isAuthorized={this.state.isAuthorized} />
         <Header title={this.state.title} />
-        <div>
-          <Error error={this.state.error} />
-          <Success success={this.state.success} />
-        </div>
+        <ToastContainer position="top-right" autoClose={5000} />
         <Report
           deviationItems={this.state.deviationItems}
           report={this.state.report}
