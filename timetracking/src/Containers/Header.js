@@ -11,4 +11,4 @@ const header = props => {
     </div>
   );
 };
-export default header;
+export default React.memo(header);

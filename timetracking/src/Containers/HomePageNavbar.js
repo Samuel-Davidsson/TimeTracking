@@ -46,4 +46,4 @@ const homePageNavBar = props => {
     </div>
   );
 };
-export default homePageNavBar;
+export default React.memo(homePageNavBar);

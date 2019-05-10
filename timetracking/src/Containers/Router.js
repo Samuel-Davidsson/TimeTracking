@@ -7,7 +7,7 @@ import NotFound from "../Routes/NotFound";
 import Register from "../Routes/RegisterRoute/Register";
 import UserPage from "../Routes/UserRoute/UserPage";
 
-const Router = () => (
+const router = () => (
   <div>
     <BrowserRouter>
       <Switch>
@@ -22,4 +22,4 @@ const Router = () => (
   </div>
 );
 
-export default Router;
+export default React.memo(router);

@@ -27,4 +27,4 @@ const mainUserInfo = props => {
     </div>
   );
 };
-export default mainUserInfo;
+export default React.memo(mainUserInfo);

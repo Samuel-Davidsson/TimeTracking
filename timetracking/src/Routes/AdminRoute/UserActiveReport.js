@@ -23,4 +23,4 @@ const userActiveReport = props => {
     </div>
   );
 };
-export default userActiveReport;
+export default React.memo(userActiveReport);

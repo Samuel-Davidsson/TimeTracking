@@ -36,4 +36,4 @@ const adminForm = props => {
     </div>
   );
 };
-export default adminForm;
+export default React.memo(adminForm);

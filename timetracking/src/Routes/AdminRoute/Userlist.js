@@ -65,4 +65,4 @@ const userlist = props => {
     </div>
   );
 };
-export default userlist;
+export default React.memo(userlist);

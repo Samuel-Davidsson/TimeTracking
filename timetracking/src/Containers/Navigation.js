@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Navigation = () => {
+const navigation = () => {
   return (
     <div>
       <NavLink
@@ -14,4 +14,4 @@ const Navigation = () => {
     </div>
   );
 };
-export default Navigation;
+export default React.memo(navigation);

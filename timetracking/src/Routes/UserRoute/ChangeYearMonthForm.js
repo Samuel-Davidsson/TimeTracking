@@ -86,4 +86,4 @@ const changeYearMonthForm = ({ date, localeUtils, onChange }) => {
     </form>
   );
 };
-export default changeYearMonthForm;
+export default React.memo(changeYearMonthForm);

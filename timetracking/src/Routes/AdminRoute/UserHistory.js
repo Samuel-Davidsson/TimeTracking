@@ -43,4 +43,4 @@ const userhistory = props => {
     </div>
   );
 };
-export default userhistory;
+export default React.memo(userhistory);

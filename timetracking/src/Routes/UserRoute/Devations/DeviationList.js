@@ -16,4 +16,4 @@ const deviationList = props => {
     </div>
   );
 };
-export default deviationList;
+export default React.memo(deviationList);
