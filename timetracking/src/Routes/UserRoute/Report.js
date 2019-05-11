@@ -34,7 +34,6 @@ const report = props => {
           description: ""
         });
         let sortDeviationItems = props.deviationItems;
-
         let sortedDeviationItems = sortDeviationItems.sort(
           (a, b) => b.absenceDate.getDate() - a.absenceDate.getDate()
         );
@@ -90,7 +89,14 @@ const report = props => {
         props.getReportForYearAndMonth(res.data);
       })
       .catch(error => {
-        toast.error(error.response.data);
+        console.log(error.response);
+        if (error.response.status === 401)
+          return (
+            toast.error("Token has expired logging you out in 5sec..") &
+            setTimeout(() => {
+              window.location.href = "/Timetracker/";
+            }, 5000)
+          );
       });
   };
 
@@ -103,7 +109,7 @@ const report = props => {
         <p className="YearNavigation-header">
           Klicka på ett datum för att fylla i datum.
         </p>
-        <ToastContainer />
+        <ToastContainer position="top-right" autoClose={5000} />
         <DayPicker
           selectedDays={props.deviationItems.map(x => x.absenceDate)}
           onDayClick={handleDayClick}

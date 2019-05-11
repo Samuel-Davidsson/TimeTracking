@@ -8,8 +8,6 @@ import {
   Input,
   Label
 } from "reactstrap";
-import Error from "../../Helpers/Error";
-import Success from "../../Helpers/Success";
 import "./Register.css";
 
 const registerForm = props => {
@@ -140,8 +138,6 @@ const registerForm = props => {
             Tillbaka
           </Button>
           <Button color="info">Skicka in</Button>
-          <Success success={props.success} />
-          <Error error={props.error} />
         </div>
       </Form>
     </div>
