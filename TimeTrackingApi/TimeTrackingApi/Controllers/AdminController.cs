@@ -20,6 +20,18 @@ namespace TimeTrackingApi.Controllers
             _userService = userService;
             _reportService = reportService;
         }
+        [HttpPost, Route("attestorapprovedchanged")]
+        public IActionResult AttestOrApprovedChange(ReportViewmodel reportViewmodel)
+        {
+            var report = _reportService.GetReportById(reportViewmodel.Id);
+            report.Attest = reportViewmodel.Attest;
+            report.Accepted = reportViewmodel.Accepted;
+            _reportService.Update(report);
+            var updatedReportViewmodel = Mapper.ModelToViewModelMapping.ReportViewmodel(report);
+            updatedReportViewmodel.FirstName = reportViewmodel.FirstName;
+            updatedReportViewmodel.LastName = reportViewmodel.LastName;
+            return Ok(updatedReportViewmodel);
+        }
         [HttpGet("{id}")]
         public IActionResult GetUsersByAdminId(int id)
         {

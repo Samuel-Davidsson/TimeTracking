@@ -117,7 +117,7 @@ export default class AdminPage extends React.Component {
         }
       })
       .catch(error => {
-        toast.error(error.response.data);
+        toast.error(error.response.data.response);
       });
   };
 
@@ -132,10 +132,31 @@ export default class AdminPage extends React.Component {
   };
 
   handleCheckboxesSubmit = event => {
+    var updateReport = { ...this.state.report };
+    updateReport.attest = this.state.attest;
+    updateReport.accepted = this.state.accepted;
     event.preventDefault();
-    console.log(
-      "💎 Time to build this next remeber to implement success and error handeling"
-    );
+    axios
+      .post(
+        `${Api_Url}/admin/attestorapprovedchanged`,
+        {
+          id: this.state.report.id,
+          attest: this.state.attest,
+          accepted: this.state.accepted,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName
+        },
+        { headers: GenerateHeaderData() }
+      )
+      .then(res => {
+        if (res === null || undefined) return;
+        this.setState({
+          report: res.data
+        });
+      })
+      .catch(error => {
+        toast.error(error.response.data);
+      });
   };
 
   handleGetReportByReportId = reportId => {
