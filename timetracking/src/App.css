@@ -23,3 +23,6 @@ body {
 .wrapper {
   background: url("Image/office.jpg") center fixed;
 }
+.pointer {
+  cursor: pointer;
+}

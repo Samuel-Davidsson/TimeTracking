@@ -1,15 +1,11 @@
 import React from "react";
 import {
   Collapse,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
   Nav,
   Navbar,
   NavbarBrand,
   NavItem,
-  NavLink,
-  UncontrolledDropdown
+  NavLink
 } from "reactstrap";
 import CountDown from "../Helpers/CountDown";
 import Logout from "../Helpers/Logout";
@@ -25,21 +21,25 @@ const homePageNavBar = props => {
         <Collapse navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
+              <NavLink
+                hidden={!props.isAuthorized === true}
+                href="/timetracker/notfound"
+              >
+                Användare
+              </NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink href="https://github.com/Samuel-Davidsson">
                 GitHub
               </NavLink>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Settings
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Profil</DropdownItem>
-                <DropdownItem>Historik</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={Logout}>Logga ut</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+
+            <NavItem>
+              <NavLink className="pointer" onClick={Logout}>
+                {" "}
+                Logga ut
+              </NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
