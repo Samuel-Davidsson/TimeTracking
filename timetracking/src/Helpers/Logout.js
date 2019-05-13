@@ -1,6 +1,6 @@
-const Logout = () => {
+const logout = () => {
   localStorage.clear();
   window.location.href = "/timetracker";
 };
 
-export default Logout;
+export default logout;

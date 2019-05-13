@@ -1,4 +1,4 @@
-const GenerateHeaderData = () => {
+const generateHeaderData = () => {
   var token = localStorage.getItem("token");
 
   return {
@@ -6,4 +6,4 @@ const GenerateHeaderData = () => {
     authorization: `Bearer ${token}`
   };
 };
-export default GenerateHeaderData;
+export default generateHeaderData;

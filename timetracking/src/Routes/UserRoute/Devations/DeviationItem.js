@@ -47,4 +47,4 @@ const deviationItem = props => {
     </form>
   );
 };
-export default React.memo(deviationItem);
+export default deviationItem;

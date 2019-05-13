@@ -10,6 +10,7 @@ const userActiveReport = props => {
         lastName={props.lastName}
         totalHours={props.totalHours}
         attest={props.attest}
+        accepted={props.accepted}
         handleCheckBoxClicked={props.handleCheckBoxClicked}
       />
       <AdminForm
@@ -23,4 +24,4 @@ const userActiveReport = props => {
     </div>
   );
 };
-export default React.memo(userActiveReport);
+export default userActiveReport;

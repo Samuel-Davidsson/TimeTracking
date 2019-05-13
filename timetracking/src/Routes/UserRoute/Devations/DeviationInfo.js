@@ -16,4 +16,4 @@ const deviationsInfo = props => {
     </div>
   );
 };
-export default React.memo(deviationsInfo);
+export default deviationsInfo;

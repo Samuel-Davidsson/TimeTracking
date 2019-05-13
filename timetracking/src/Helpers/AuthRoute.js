@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import CheckAuth from "./CheckAuth";
 
-const AuthRoute = ({ component: Component, ...rest }) => (
+const authRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
@@ -14,4 +14,4 @@ const AuthRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
-export default AuthRoute;
+export default authRoute;
