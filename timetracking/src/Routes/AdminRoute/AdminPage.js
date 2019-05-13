@@ -1,11 +1,13 @@
 import axios from "axios";
 import React from "react";
 import DayPicker from "react-day-picker";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Header from "../../Containers/Header";
 import HomePageNavBar from "../../Containers/HomePageNavbar";
 import Api_Url from "../../Helpers/Api_Url";
+import errorHandler from "../../Helpers/ErrorHandler";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
+import successHandler from "../../Helpers/SuccessHandler";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
 import DeviationList from "../UserRoute/Devations/DeviationList";
 import "./Admin.css";
@@ -38,7 +40,7 @@ export default class AdminPage extends React.Component {
         });
       })
       .catch(error => {
-        toast.error(error.response.data);
+        errorHandler(error.response.data);
       });
   };
 
@@ -72,7 +74,7 @@ export default class AdminPage extends React.Component {
         }
       })
       .catch(error => {
-        toast.error(error.response.data);
+        errorHandler(error.response.data);
       });
   };
 
@@ -117,7 +119,7 @@ export default class AdminPage extends React.Component {
         }
       })
       .catch(error => {
-        toast.error(error.response.data.response);
+        errorHandler(error.response.data.response);
       });
   };
 
@@ -153,9 +155,10 @@ export default class AdminPage extends React.Component {
         this.setState({
           report: res.data
         });
+        successHandler();
       })
       .catch(error => {
-        toast.error(error.response.data);
+        errorHandler(error.response.data);
       });
   };
 
@@ -185,7 +188,7 @@ export default class AdminPage extends React.Component {
         });
       })
       .catch(error => {
-        toast.error(error.response.data);
+        errorHandler(error.response.data);
       });
   };
 

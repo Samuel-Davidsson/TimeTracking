@@ -1,9 +1,11 @@
 import axios from "axios";
 import React from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Header from "../../Containers/Header";
 import HeaderPageNavbar from "../../Containers/HomePageNavbar";
 import Api_Url from "../../Helpers/Api_Url";
+import errorHandler from "../../Helpers/ErrorHandler";
+import successHandler from "../../Helpers/SuccessHandler";
 import "./Register.css";
 import RegisterForm from "./RegisterForm";
 
@@ -20,14 +22,14 @@ const register = props => {
       })
       .then(res => {
         return (
-          toast.success(res.data) &
+          successHandler(res.data) &
           setTimeout(() => {
             handleClickOnBackButton();
           }, 5000)
         );
       })
       .catch(error => {
-        toast.error(error.response.data);
+        errorHandler(error.response.data);
       });
   };
   const handleClickOnBackButton = userRegisterInfo => {

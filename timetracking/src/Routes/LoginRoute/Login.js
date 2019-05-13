@@ -1,12 +1,13 @@
 import axios from "axios";
 import React from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../App.css";
 import Header from "../../Containers/Header";
 import HomePageNavBar from "../../Containers/HomePageNavbar";
 import Navigation from "../../Containers/Navigation";
 import Api_Url from "../../Helpers/Api_Url";
+import errorHandler from "../../Helpers/ErrorHandler";
 import "./Login.css";
 import LoginForm from "./LoginForm";
 
@@ -34,9 +35,7 @@ const login = props => {
         }
       })
       .catch(error => {
-        if (error.response === undefined)
-          return toast.error("Servern är otillgänglig");
-        toast.error(error.response.data);
+        errorHandler(error.response.data);
       });
   };
   return (

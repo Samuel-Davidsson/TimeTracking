@@ -3,18 +3,20 @@ import "moment/locale/sv";
 import React from "react";
 import "react-app-polyfill/ie11";
 import "react-day-picker/lib/style.css";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Header from "../../Containers/Header";
 import HeaderNavbar from "../../Containers/HomePageNavbar";
 import Api_Url from "../../Helpers/Api_Url";
 import CanSubmit from "../../Helpers/CanSubmit";
 import ConvertDeviations from "../../Helpers/ConvertDeviations";
+import errorHandler from "../../Helpers/ErrorHandler";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
+import successHandler from "../../Helpers/SuccessHandler";
 import TotalHoursCount from "../../Helpers/TotalHoursCount";
 import Report from "./Report";
 import "./UserRoute.css";
 
-export default class UserPage extends React.Component {
+class UserPage extends React.Component {
   state = {
     report: [],
     deviationItems: [],
@@ -38,7 +40,6 @@ export default class UserPage extends React.Component {
         )
           return false;
         const existingDevitations = ConvertDeviations(res.data.deviationItems);
-
         res.data.deviationItems.forEach(element => {
           element.absenceDate = new Date(element.absenceDate);
         });
@@ -56,7 +57,7 @@ export default class UserPage extends React.Component {
         });
       })
       .catch(error => {
-        toast.error(error.response.data);
+        errorHandler(error.response.data);
       });
   };
 
@@ -84,7 +85,7 @@ export default class UserPage extends React.Component {
     } else {
       const validMonth = data.date;
       const parsedValidMonth = new Date(validMonth);
-      const isValidMonth = CanSubmit(parsedValidMonth);
+      let isValidMonth = CanSubmit(parsedValidMonth, data.accepted);
       const totalHours = TotalHoursCount(
         data.deviationItems.map(x => Number(x.hours))
       );
@@ -132,14 +133,10 @@ export default class UserPage extends React.Component {
           report: res.data,
           existingDevitations: existingDevitations
         });
-        toast.success("Uppgifterna har sparats/updaterats.");
-        setTimeout(() => {}, 5000);
+        successHandler();
       })
       .catch(error => {
-        toString.error(
-          "Uppgifterna sparades inte något gick snett.",
-          error.response.data
-        );
+        errorHandler(error.response.data);
       });
   };
   render() {
@@ -156,6 +153,7 @@ export default class UserPage extends React.Component {
           isValidMonth={this.state.isValidMonth}
           totalHours={this.state.totalHours}
           attest={this.state.report.attest}
+          accepted={this.state.report.accepted}
           handleDayClick={this.handleDayClick}
           handleDeviationClicked={this.handleDeviationClicked}
           existingDevitations={this.state.existingDevitations}
@@ -170,3 +168,4 @@ export default class UserPage extends React.Component {
     );
   }
 }
+export default UserPage;

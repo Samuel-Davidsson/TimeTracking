@@ -4,8 +4,9 @@ import React from "react";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import MomentLocaleUtils from "react-day-picker/moment";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Api_Url from "../../Helpers/Api_Url";
+import errorHandler from "../../Helpers/ErrorHandler";
 import GenerateHeaderData from "../../Helpers/GenerateHeaderData";
 import ChangeYearMonthForm from "./ChangeYearMonthForm";
 import DeviationList from "./Devations/DeviationList";
@@ -89,14 +90,7 @@ const report = props => {
         props.getReportForYearAndMonth(res.data);
       })
       .catch(error => {
-        console.log(error.response);
-        if (error.response.status === 401)
-          return (
-            toast.error("Token has expired logging you out in 5sec..") &
-            setTimeout(() => {
-              window.location.href = "/Timetracker/";
-            }, 5000)
-          );
+        errorHandler(error.response.data);
       });
   };
 
@@ -137,6 +131,7 @@ const report = props => {
           lastName={lastName}
           totalHours={props.totalHours}
           attest={props.report.attest}
+          accepted={props.report.accepted}
           handleCheckBoxClicked={props.handleCheckBoxClicked}
         />
         <DeviationList
@@ -150,4 +145,4 @@ const report = props => {
     </div>
   );
 };
-export default React.memo(report);
+export default report;
