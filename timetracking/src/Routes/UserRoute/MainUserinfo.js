@@ -13,7 +13,7 @@ const mainUserInfo = props => {
           Totala timmar: {props.totalHours}
         </ListGroupItem>
         <ListGroupItem className="mainInfo-listgroupitem">
-          Godkänd:
+          Beviljad:
           <input
             className="mainInfo-checkbox-status"
             readOnly
@@ -23,8 +23,19 @@ const mainUserInfo = props => {
             }}
           />
         </ListGroupItem>
+        <ListGroupItem className="mainInfo-listgroupitem">
+          Öppnad:
+          <input
+            className="mainInfo-checkbox-status"
+            readOnly
+            checked={props.accepted}
+            style={{
+              backgroundColor: props.accepted ? "DarkSeaGreen" : "IndianRed"
+            }}
+          />
+        </ListGroupItem>
       </ListGroup>
     </div>
   );
 };
-export default React.memo(mainUserInfo);
+export default mainUserInfo;

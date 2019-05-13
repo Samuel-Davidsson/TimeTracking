@@ -1,8 +1,8 @@
-const CheckAuth = () => {
+const checkAuth = () => {
   const token = localStorage.getItem("token");
   if (!token) {
-    return false;
+    return localStorage.clear()((window.location.href = "/timetracker"));
   }
   return true;
 };
-export default CheckAuth;
+export default checkAuth;
