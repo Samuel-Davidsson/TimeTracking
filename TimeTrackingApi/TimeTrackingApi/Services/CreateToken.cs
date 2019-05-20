@@ -1,0 +1,33 @@
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using TimeTrackingApi.Helpers;
+
+namespace TimeTrackingApi.Services
+{
+    public class CreateToken
+    {
+
+        public string CreateTokenToString(IConfiguration _configuration)
+        {
+            var appSettingsSection = _configuration.GetSection("AppSettings");
+
+            var appSettings = appSettingsSection.Get<Appsettings>();
+
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.Secret));
+            var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+            var tokenOptions = new JwtSecurityToken(
+                issuer: "samuel",
+                audience: "readers",
+                expires: DateTime.Now.AddMinutes(60),
+                signingCredentials: signinCredentials
+            );
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            return tokenString;
+        }
+
+    }
+}
