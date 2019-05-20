@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +18,14 @@ namespace TimeTrackingApi.Controllers
         private readonly IUserService _userService;
         private readonly IReportService _reportService;
         private readonly IDeviationService _deviationService;
+        private readonly GetReportFromMonth _getReportFromMonth;
 
-        public ReportController(IUserService userService, IReportService reportService, IDeviationService deviationService)
+        public ReportController(IUserService userService, IReportService reportService, IDeviationService deviationService, GetReportFromMonth getReportFromMonth)
         {
             _userService = userService;
             _reportService = reportService;
             _deviationService = deviationService;
+            _getReportFromMonth = getReportFromMonth;
         }
 
         [HttpGet("{id}")]
@@ -33,27 +36,17 @@ namespace TimeTrackingApi.Controllers
             var reportViewmodel = Mapper.ModelToViewModelMapping.ReportViewmodel(report);
             reportViewmodel.FirstName = user.FirstName;
             reportViewmodel.LastName = user.LastName;
-
+            reportViewmodel.DeviationItems = report.DeviationItems.OrderByDescending(x =>x.AbsenceDate).ToArray();
             return Ok(reportViewmodel);
         }
         [HttpPost, Route("getuserreport")]
         public IActionResult GetUserReportByMonth(ReportViewmodel reportViewmodel)
         {
-            var reports = _reportService.GetReportsByUserId(reportViewmodel.UserId);
-            DateTime currentMonthParsed = DateTime.Parse(reportViewmodel.CurrentMonth);
-            var currentMonth = currentMonthParsed.ToString("yyyy-MM");
-            foreach (var report in reports)
-            {
-                var reportDate = report.Date.ToString("yyyy-MM");
-                if (reportDate == currentMonth)
-                {
-                    _reportService.GetReportById(report.Id);
-                    var sortDeviations = report.DeviationItems.OrderByDescending(x => x.AbsenceDate);
-                    report.DeviationItems = sortDeviations.ToList();
-                    return Ok(report);
-                }
-            }
-            return Ok(reportViewmodel);
+            var reports = _reportService.GetReportsByUserId(reportViewmodel.UserId).ToArray();
+
+            var report = _getReportFromMonth.GetReportByMonth(reportViewmodel, reports, _reportService);
+
+            return Ok(report);       
         }
 
         [HttpPost, Route("addreport")]
@@ -65,18 +58,18 @@ namespace TimeTrackingApi.Controllers
                 DateTime currentMonthParsed = DateTime.Parse(reportViewmodel.CurrentMonth);
                 var currentMonth = currentMonthParsed.ToString("yyyy-MM");
                 DateTime finalcurrentMonthParsed = DateTime.Parse(currentMonth);
-
+                reportViewmodel.Date = finalcurrentMonthParsed;
                 report = Mapper.ViewModelToModelMapping.ReportViewModelToReport(reportViewmodel);
-                report.Date = finalcurrentMonthParsed;
+                //report.Date = finalcurrentMonthParsed;
                 _reportService.Add(report);
                 return Ok(report);
             }
             else
             {
-                if (report == null)
-                {
-                    report = _reportService.GetReportById(reportViewmodel.Id);
-                }
+                //if (report == null)
+                //{
+                //    report = _reportService.GetReportById(reportViewmodel.Id);
+                //}
                 foreach (var deviation in report.DeviationItems)
                 {
                     _deviationService.Remove(deviation);

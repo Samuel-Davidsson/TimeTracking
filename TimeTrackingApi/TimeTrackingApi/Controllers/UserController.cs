@@ -36,6 +36,7 @@ namespace TimeTrackingApi.Controllers
                 if (report.Date.ToString("yyyy-MM") == date)
                 {
                     var deviations = _deviationService.GetDeviationsByReportId(report.Id);
+                    // Göra en funktion här.
                     report.DeviationItems = deviations.ToList();
                     var sortDeviations = report.DeviationItems.OrderByDescending(x => x.AbsenceDate);
                     report.DeviationItems = sortDeviations.ToList();
@@ -47,6 +48,7 @@ namespace TimeTrackingApi.Controllers
                     return Ok(reportViewmodel);
                 }
             }
+            // Göra en vymodel för User to ReportViewmodelIfReportDoesntExist ish nånting.
             var reportViewmodelIfReportDoesntExit = new ReportViewmodel
             {
                 UserId = user.Id,

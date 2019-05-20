@@ -15,12 +15,12 @@ namespace TimeTrackingApi.Controllers
         private readonly IUserService _userService;
         private readonly IConfiguration _configuration;
         private readonly HashPassword _hashPassword;
-        private readonly MailAdressCheck _mailAdressCheck;
+        private readonly MailAddressCheck _mailAdressCheck;
         private readonly CreateToken _createToken;
         private readonly PasswordCheck _passwordCheck;
 
         public AuthController(IUserService userService, IConfiguration configuration,
-            HashPassword hashPassword, MailAdressCheck mailAdressCheck, CreateToken createToken, PasswordCheck passwordCheck)
+            HashPassword hashPassword, MailAddressCheck mailAdressCheck, CreateToken createToken, PasswordCheck passwordCheck)
         {
             _userService = userService;
             _configuration = configuration;
@@ -38,18 +38,20 @@ namespace TimeTrackingApi.Controllers
             {
                 return BadRequest("Lösenorden matchar inte.");
             }
-
-            bool emailExist = _mailAdressCheck.MailAdressExist(users, userViewModel);
-            if (emailExist == true)
+            for (int i = 0; i < users.Length; i++)
             {
-                return BadRequest("Mailadressen är redan registerad.");
+                bool emailExist = _mailAdressCheck.CheckMailAddress(users[i], userViewModel);
+                if (emailExist == false)
+                {
+                    var user = Mapper.ViewModelToModelMapping.UserViewModelToUser(userViewModel);
+                    user.Password = _hashPassword.Hash(userViewModel.Password);
+                    _userService.Add(user);
+                    return Ok("Användaren har sparats, du skickas till login sidan inom 5 sekunder!");
+
+                }
             }
+            return BadRequest("Mailadressen är redan registerad.");
 
-            var user = Mapper.ViewModelToModelMapping.UserViewModelToUser(userViewModel);
-            user.Password = _hashPassword.Hash(userViewModel.Password);
-
-            _userService.Add(user);
-            return Ok("Användaren har sparats, du skickas till login sidan inom 5 sekunder!");
         }
 
         [HttpPost, Route("login")]
@@ -59,7 +61,7 @@ namespace TimeTrackingApi.Controllers
 
             for (int i = 0; i < users.Length; i++)
             {
-                bool emailExist = _mailAdressCheck.MailAdressMatches(users[i], userViewModel);
+                bool emailExist = _mailAdressCheck.CheckMailAddress(users[i], userViewModel);
                 bool isValid = _passwordCheck.CheckPassword(users[i], userViewModel, _hashPassword);
                 if (isValid == true && emailExist == true)
                 {

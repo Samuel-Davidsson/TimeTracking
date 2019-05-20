@@ -29,6 +29,7 @@ namespace TimeTrackingApi.Controllers
             report.Attest = reportViewmodel.Attest;
             report.Accepted = reportViewmodel.Accepted;
             _reportService.Update(report);
+
             var updatedReportViewmodel = Mapper.ModelToViewModelMapping.ReportViewmodel(report);
             updatedReportViewmodel.FirstName = reportViewmodel.FirstName;
             updatedReportViewmodel.LastName = reportViewmodel.LastName;
