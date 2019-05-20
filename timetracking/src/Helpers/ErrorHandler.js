@@ -1,13 +1,12 @@
 import { toast } from "react-toastify";
 
 const errorHandler = error => {
-  debugger;
   const token = localStorage.getItem("token");
-  if (!token) {
+  if (!token && error === "") {
     return (
       toast.error("Token has expired logging you out in 5sec..") &
       setTimeout(() => {
-        window.location.href = "/Timetracker/";
+        window.location.href = "/timetracker";
       }, 5000)
     );
   } else return toast.error(error);

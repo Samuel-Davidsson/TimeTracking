@@ -46,7 +46,6 @@ class UserPage extends React.Component {
         const totalHours = TotalHoursCount(
           res.data.deviationItems.map(x => Number(x.hours))
         );
-        localStorage.setItem("reportId", this.state.report.map(x => x.id));
         this.setState({
           deviationItems: res.data.deviationItems,
           existingDevitations: existingDevitations,
