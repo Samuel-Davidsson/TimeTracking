@@ -26,7 +26,7 @@ namespace TimeTrackingApi.Services
                 Date = report.Date,
                 DeviationItems = report.DeviationItems,
                 UpdatedDate = report.UpdatedDate,
-                UserId = report.UserId
+                UserId = report.UserId,             
             };
         }
         public UserViewmodel UserViewmodel(User user)

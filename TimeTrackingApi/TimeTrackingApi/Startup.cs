@@ -36,9 +36,10 @@ namespace TimeTrackingApi
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IDeviationService, DeviationService>();
-            services.AddScoped<MailAdressCheck>();
+            services.AddScoped<MailAddressCheck>();
             services.AddScoped<CreateToken>();
             services.AddScoped<PasswordCheck>();
+            services.AddScoped<GetReportFromMonth>();
             services.AddScoped<ConvertUsersToViewModels>();
             services.AddSingleton(Configuration);
             services.AddScoped<HashPassword>();

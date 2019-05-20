@@ -16,7 +16,8 @@ namespace TimeTrackingApi.Services
                 Attest = model.Attest,
                 DeviationItems = model.DeviationItems,
                 CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now
+                UpdatedDate = DateTime.Now,
+                Date = model.Date
             };
         }
         public User UserViewModelToUser(UserViewmodel userViewmodel)
