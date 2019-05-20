@@ -50,5 +50,15 @@ namespace TimeTrackingApi.Services
                 Department = user.Department
             };
         }
+        public UserHistoryViewmodel UserHistoryViewmodel(UserViewmodel userViewmodel, Report[] reports)
+        {
+            return new UserHistoryViewmodel
+            {
+                Id = userViewmodel.Id,
+                Firstname = userViewmodel.Firstname,
+                Lastname = userViewmodel.Lastname,
+                Reports = reports,
+            };
+        }
     }
 }

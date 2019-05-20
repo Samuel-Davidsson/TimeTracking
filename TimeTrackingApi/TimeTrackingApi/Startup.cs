@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using TimeTrackingApi.Helpers;
+using TimeTrackingApi.Services;
 
 namespace TimeTrackingApi
 {
@@ -35,6 +36,10 @@ namespace TimeTrackingApi
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IDeviationService, DeviationService>();
+            services.AddScoped<MailAdressCheck>();
+            services.AddScoped<CreateToken>();
+            services.AddScoped<PasswordCheck>();
+            services.AddScoped<ConvertUsersToViewModels>();
             services.AddSingleton(Configuration);
             services.AddScoped<HashPassword>();
 
