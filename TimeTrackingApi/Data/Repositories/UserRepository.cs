@@ -20,6 +20,12 @@ namespace Data.Repositories
             return user;
         }
 
+        public User GetUserByLogin(string login)
+        {
+            var user = _context.Users.SingleOrDefault(x => x.Login == login);
+            return user;
+        }
+
         public IEnumerable<User> GetAll()
         {
             return _context.Users.ToList();

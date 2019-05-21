@@ -29,6 +29,11 @@ namespace Domain.Services
             return _userRepository.GetUserById(id);
         }
 
+        public User GetUserByLogin(string login)
+        {
+            return _userRepository.GetUserByLogin(login);
+        }
+
         public void Update(User user)
         {
             _userRepository.Update(user);
