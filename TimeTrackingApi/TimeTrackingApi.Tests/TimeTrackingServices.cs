@@ -1,7 +1,9 @@
 using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TimeTrackingApi.Services;
 using TimeTrackingApi.Viewmodels;
 using Xunit;
@@ -15,11 +17,11 @@ namespace TimeTrackingApi.Tests
         {
             //Arrange
             var mailAdressCheck = new AuthControllerServices();
-            var user = UserData();
+            var users = UserData().ToArray();
             var userViewmodel = UserViewModelData();
 
             //Act
-            var actual = mailAdressCheck.CheckMailAddress(user, userViewmodel);
+            var actual = mailAdressCheck.CheckMailAddress(users, userViewmodel);
 
             //Assert
             Assert.True(actual);
@@ -31,11 +33,11 @@ namespace TimeTrackingApi.Tests
             //Arrange
             var checkPassword = new AuthControllerServices();
             var hashPassword = new HashPassword();
-            var user = UserData();
+            var users = UserData().ToArray();
             var userViewmodel = UserViewModelData();
 
             //Act
-            var actual = checkPassword.CheckPassword(user, userViewmodel, hashPassword);
+            var actual = checkPassword.CheckPassword(users, userViewmodel, hashPassword);
 
             //Assert
             Assert.True(actual);
@@ -43,10 +45,17 @@ namespace TimeTrackingApi.Tests
 
 
 
-        public User UserData()
+        public List<User> UserData()
         {
-            var user = new User { Id = 1, Login = "Sam@gg.com", Password= "$HASH$V1$10000$qTt+km4zoMn1HdgAesw6fRHdFki6dHjppnrIER2Zbvm//AmF", FirstName = "Samuel", LastName = "Davidsson" };
-            return user;           
+            var users = new List<User>
+            {
+                new User {Id = 6, FirstName = "John", LastName = "Doe", Login = "John@gg.com", Password= "$HASH$V1$10000$zvl5M7hdC/4tXT8bGHVfH7uiu1UZGawjvzeG8zJERnR+29eg"},
+                new User {Id = 2, FirstName = "Eric", LastName = "Evans", Login = "Eric@gg.com", Password= "$HASH$V1$10000$zvl5M7hdC/4tXT8bGHVfH7uiu1UZGawjvzeG8zJERnR+29eg"},
+                new User {Id = 1, FirstName = "Samuel", LastName = "Davidsson", Login = "Sam@gg.com", Password= "$HASH$V1$10000$qTt+km4zoMn1HdgAesw6fRHdFki6dHjppnrIER2Zbvm//AmF"},
+                new User {Id = 4, FirstName = "Kent", LastName = "Beck", Login = "Kent@gg.com", Password= "$HASH$V1$10000$zvl5M7hdC/4tXT8bGHVfH7uiu1UZGawjvzeG8zJERnR+29eg"},
+                new User {Id = 5, FirstName = "Uncle", LastName = "Bob", Login = "Uncle@gg.com", Password= "$HASH$V1$10000$zvl5M7hdC/4tXT8bGHVfH7uiu1UZGawjvzeG8zJERnR+29eg"}
+            };
+            return users;
         }
 
         public UserViewmodel UserViewModelData()

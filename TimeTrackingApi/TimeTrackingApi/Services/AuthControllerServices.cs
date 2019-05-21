@@ -32,20 +32,26 @@ namespace TimeTrackingApi.Services
             return tokenString;
         }
 
-        public bool CheckMailAddress(User user, UserViewmodel userViewmodel)
+        public bool CheckMailAddress(User[] users, UserViewmodel userViewmodel)
         {
-            if (user.Login.ToLower() == userViewmodel.Login.ToLower())
+            for (int i = 0; i < users.Length; i++)
             {
-                return true;
+                if (users[i].Login.ToLower() == userViewmodel.Login.ToLower())
+                {
+                    return true;
+                }
             }
             return false;
         }
 
-        public bool CheckPassword(User user, UserViewmodel userViewmodel, HashPassword _hashPassword)
+        public bool CheckPassword(User[] users, UserViewmodel userViewmodel, HashPassword _hashPassword)
         {
-            if (_hashPassword.Verify(userViewmodel.Password, user.Password))
+            for (int i = 0; i < users.Length; i++)
             {
-                return true;
+                if (_hashPassword.Verify(userViewmodel.Password, users[i].Password))
+                {
+                    return true;
+                }
             }
             return false;
         }

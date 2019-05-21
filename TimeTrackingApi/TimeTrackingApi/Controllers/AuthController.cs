@@ -35,9 +35,7 @@ namespace TimeTrackingApi.Controllers
             {
                 return BadRequest("Lösenorden matchar inte.");
             }
-            for (int i = 0; i < users.Length; i++)
-            {
-                bool emailExist = _authControllerServices.CheckMailAddress(users[i], userViewModel);
+                bool emailExist = _authControllerServices.CheckMailAddress(users, userViewModel);
                 if (emailExist == false)
                 {
                     var user = Mapper.ViewModelToModelMapping.UserViewModelToUser(userViewModel);
@@ -46,7 +44,6 @@ namespace TimeTrackingApi.Controllers
                     return Ok("Användaren har sparats, du skickas till login sidan inom 5 sekunder!");
 
                 }
-            }
             return BadRequest("Mailadressen är redan registerad.");
 
         }
@@ -56,17 +53,15 @@ namespace TimeTrackingApi.Controllers
         {
             var users = _userService.GetAll().ToArray();
 
-            for (int i = 0; i < users.Length; i++)
+            bool emailExist = _authControllerServices.CheckMailAddress(users, userViewModel);
+            bool isValid = _authControllerServices.CheckPassword(users, userViewModel, _hashPassword);
+            if (isValid == true && emailExist == true)
             {
-                bool emailExist = _authControllerServices.CheckMailAddress(users[i], userViewModel);
-                bool isValid = _authControllerServices.CheckPassword(users[i], userViewModel, _hashPassword);
-                if (isValid == true && emailExist == true)
-                {
-                    var AuthUser = Mapper.ModelToViewModelMapping.UserViewmodel(users[i]);
-                    var tokenString = _authControllerServices.CreateTokenToString(_configuration);
-                    AuthUser.Token = tokenString;
-                    return Ok(AuthUser);
-                }
+                var user = _userService.GetUserByLogin(userViewModel.Login);
+                var AuthUser = Mapper.ModelToViewModelMapping.UserViewmodel(user);
+                var tokenString = _authControllerServices.CreateTokenToString(_configuration);
+                AuthUser.Token = tokenString;
+                return Ok(AuthUser);
             }
             return BadRequest("Användarnamnet eller lösenordet är felaktigt.");
         }
