@@ -30,18 +30,16 @@ namespace TimeTrackingApi
         {
 
             services.AddCors();
+            services.AddSingleton(Configuration);
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<IDeviationRepository, DeviationRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IDeviationService, DeviationService>();
-            services.AddScoped<MailAddressCheck>();
-            services.AddScoped<CreateToken>();
-            services.AddScoped<PasswordCheck>();
-            services.AddScoped<GetReportFromMonth>();
-            services.AddScoped<ConvertUsersToViewModels>();
-            services.AddSingleton(Configuration);
+            services.AddScoped<AdminControllerServices>();
+            services.AddScoped<AuthControllerServices>();
+            services.AddScoped<ReportControllerServices>();
             services.AddScoped<HashPassword>();
 
             var appSettingsSection = Configuration.GetSection("AppSettings");

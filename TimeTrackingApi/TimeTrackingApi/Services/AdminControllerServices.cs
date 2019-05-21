@@ -3,12 +3,12 @@ using Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using TimeTrackingApi.Helpers;
 using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Services
 {
-    public class ConvertUsersToViewModels
+    public class AdminControllerServices
     {
         public List<UserViewmodelList> ConvertUsersToModels(User[] users, IReportService _reportService)
         {

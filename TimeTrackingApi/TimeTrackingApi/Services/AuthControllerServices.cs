@@ -1,13 +1,16 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Domain.Entities;
+using Domain.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using TimeTrackingApi.Helpers;
+using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Services
 {
-    public class CreateToken
+    public class AuthControllerServices
     {
 
         public string CreateTokenToString(IConfiguration _configuration)
@@ -27,6 +30,24 @@ namespace TimeTrackingApi.Services
             );
             var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
             return tokenString;
+        }
+
+        public bool CheckMailAddress(User user, UserViewmodel userViewmodel)
+        {
+            if (user.Login.ToLower() == userViewmodel.Login.ToLower())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool CheckPassword(User user, UserViewmodel userViewmodel, HashPassword _hashPassword)
+        {
+            if (_hashPassword.Verify(userViewmodel.Password, user.Password))
+            {
+                return true;
+            }
+            return false;
         }
 
     }

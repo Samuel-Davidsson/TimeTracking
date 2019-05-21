@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Domain.Interfaces;
 using Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using TimeTrackingApi.Helpers;
 using TimeTrackingApi.Services;
 using TimeTrackingApi.Viewmodels;
 
@@ -15,12 +14,12 @@ namespace TimeTrackingApi.Controllers
     {
         private readonly IUserService _userService;
         private readonly IReportService _reportService;
-        private readonly ConvertUsersToViewModels _convertUsersToUserviewModels;
-        public AdminController(IUserService userService, IReportService reportService, ConvertUsersToViewModels convertUsersToUserviewModels)
+        private readonly AdminControllerServices _adminControllerServices;
+        public AdminController(IUserService userService, IReportService reportService, AdminControllerServices adminControllerServices)
         {
             _userService = userService;
             _reportService = reportService;
-            _convertUsersToUserviewModels = convertUsersToUserviewModels;
+            _adminControllerServices = adminControllerServices;
         }
         [HttpPost, Route("attestorapprovedchanged")]
         public IActionResult AttestOrApprovedChange(ReportViewmodel reportViewmodel)
@@ -41,7 +40,7 @@ namespace TimeTrackingApi.Controllers
             var adminUser = _userService.GetUserById(id);
             var users = _userService.GetAll().Where(x => x.Department == adminUser.Department && x.IsAdmin == false).ToArray();
 
-            var userViewModels = _convertUsersToUserviewModels.ConvertUsersToModels(users, _reportService);
+            var userViewModels = _adminControllerServices.ConvertUsersToModels(users, _reportService);
 
             return Ok(userViewModels);
         }

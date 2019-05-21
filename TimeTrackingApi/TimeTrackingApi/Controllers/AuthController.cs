@@ -3,6 +3,7 @@ using Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
+using TimeTrackingApi.Helpers;
 using TimeTrackingApi.Services;
 using TimeTrackingApi.Viewmodels;
 
@@ -15,19 +16,15 @@ namespace TimeTrackingApi.Controllers
         private readonly IUserService _userService;
         private readonly IConfiguration _configuration;
         private readonly HashPassword _hashPassword;
-        private readonly MailAddressCheck _mailAdressCheck;
-        private readonly CreateToken _createToken;
-        private readonly PasswordCheck _passwordCheck;
+        private readonly AuthControllerServices _authControllerServices;
 
         public AuthController(IUserService userService, IConfiguration configuration,
-            HashPassword hashPassword, MailAddressCheck mailAdressCheck, CreateToken createToken, PasswordCheck passwordCheck)
+            HashPassword hashPassword, AuthControllerServices authControllerServices)
         {
             _userService = userService;
             _configuration = configuration;
             _hashPassword = hashPassword;
-            _mailAdressCheck = mailAdressCheck;
-            _createToken = createToken;
-            _passwordCheck = passwordCheck;
+            _authControllerServices = authControllerServices;
         }
 
         [HttpPost, Route("register")]
@@ -40,7 +37,7 @@ namespace TimeTrackingApi.Controllers
             }
             for (int i = 0; i < users.Length; i++)
             {
-                bool emailExist = _mailAdressCheck.CheckMailAddress(users[i], userViewModel);
+                bool emailExist = _authControllerServices.CheckMailAddress(users[i], userViewModel);
                 if (emailExist == false)
                 {
                     var user = Mapper.ViewModelToModelMapping.UserViewModelToUser(userViewModel);
@@ -61,12 +58,12 @@ namespace TimeTrackingApi.Controllers
 
             for (int i = 0; i < users.Length; i++)
             {
-                bool emailExist = _mailAdressCheck.CheckMailAddress(users[i], userViewModel);
-                bool isValid = _passwordCheck.CheckPassword(users[i], userViewModel, _hashPassword);
+                bool emailExist = _authControllerServices.CheckMailAddress(users[i], userViewModel);
+                bool isValid = _authControllerServices.CheckPassword(users[i], userViewModel, _hashPassword);
                 if (isValid == true && emailExist == true)
                 {
                     var AuthUser = Mapper.ModelToViewModelMapping.UserViewmodel(users[i]);
-                    var tokenString = _createToken.CreateTokenToString(_configuration);
+                    var tokenString = _authControllerServices.CreateTokenToString(_configuration);
                     AuthUser.Token = tokenString;
                     return Ok(AuthUser);
                 }

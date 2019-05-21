@@ -4,6 +4,7 @@ using Domain.Interfaces;
 using Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TimeTrackingApi.Helpers;
 using TimeTrackingApi.Services;
 using TimeTrackingApi.Viewmodels;
 
