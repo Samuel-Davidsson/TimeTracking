@@ -26,7 +26,7 @@ namespace TimeTrackingApi.Helpers
                 Date = report.Date,
                 DeviationItems = report.DeviationItems,
                 UpdatedDate = report.UpdatedDate,
-                UserId = report.UserId,             
+                UserId = report.UserId,
             };
         }
         public UserViewmodel UserViewmodel(User user)
@@ -58,6 +58,16 @@ namespace TimeTrackingApi.Helpers
                 Firstname = userViewmodel.Firstname,
                 Lastname = userViewmodel.Lastname,
                 Reports = reports,
+            };
+        }
+        public ReportViewmodelIfReportDoesntExit ReportViewmodelIfReportDoesntExit(User user)
+        {
+            return new ReportViewmodelIfReportDoesntExit
+            {
+                UserId = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Attest = false,
             };
         }
     }

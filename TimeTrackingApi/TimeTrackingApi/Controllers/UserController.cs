@@ -18,11 +18,14 @@ namespace TimeTrackingApi.Controllers
         private readonly IReportService _reportService;
         private readonly IUserService _userService;
         private readonly IDeviationService _deviationService;
-        public UserController(IReportService reportService, IUserService userService, IDeviationService deviationService)
+        private readonly UserControllerServices _userControllerServices;
+        public UserController(IReportService reportService, IUserService userService, IDeviationService deviationService, 
+            UserControllerServices userControllerServices)
         {
             _reportService = reportService;
             _userService = userService;
             _deviationService = deviationService;
+            _userControllerServices = userControllerServices;
         }
 
         [HttpGet("{id}")]
@@ -36,27 +39,15 @@ namespace TimeTrackingApi.Controllers
             {
                 if (report.Date.ToString("yyyy-MM") == date)
                 {
-                    var deviations = _deviationService.GetDeviationsByReportId(report.Id);
-                    // Göra en funktion här.
-                    report.DeviationItems = deviations.ToList();
-                    var sortDeviations = report.DeviationItems.OrderByDescending(x => x.AbsenceDate);
-                    report.DeviationItems = sortDeviations.ToList();
-                    var reportViewmodel = Mapper.ModelToViewModelMapping.ReportViewmodel(report);
-                    var firstname = user.FirstName;
-                    var lastname = user.LastName;
-                    reportViewmodel.FirstName = firstname;
-                    reportViewmodel.LastName = lastname;
+                    var deviations = _deviationService.GetDeviationsByReportId(report.Id).ToList();
+                    var updatedReport = _userControllerServices.SortReportDeviations(report, deviations);
+                    var reportViewmodel = Mapper.ModelToViewModelMapping.ReportViewmodel(updatedReport);
+                    reportViewmodel.FirstName = user.FirstName;
+                    reportViewmodel.LastName = user.LastName;
                     return Ok(reportViewmodel);
                 }
             }
-            // Göra en vymodel för User to ReportViewmodelIfReportDoesntExist ish nånting.
-            var reportViewmodelIfReportDoesntExit = new ReportViewmodel
-            {
-                UserId = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Attest = false,
-            };
+            var reportViewmodelIfReportDoesntExit = Mapper.ModelToViewModelMapping.ReportViewmodelIfReportDoesntExit(user);
             return Ok(reportViewmodelIfReportDoesntExit);
         }
     }

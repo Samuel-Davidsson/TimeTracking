@@ -40,6 +40,7 @@ namespace TimeTrackingApi
             services.AddScoped<AdminControllerServices>();
             services.AddScoped<AuthControllerServices>();
             services.AddScoped<ReportControllerServices>();
+            services.AddScoped<UserControllerServices>();
             services.AddScoped<HashPassword>();
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
