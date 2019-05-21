@@ -1,4 +1,4 @@
-﻿namespace TimeTrackingApi.Services
+﻿namespace TimeTrackingApi.Helpers
 {
     internal static class Mapper
     {

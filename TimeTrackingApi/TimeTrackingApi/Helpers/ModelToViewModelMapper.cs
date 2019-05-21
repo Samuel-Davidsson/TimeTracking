@@ -2,7 +2,7 @@
 using System;
 using TimeTrackingApi.Viewmodels;
 
-namespace TimeTrackingApi.Services
+namespace TimeTrackingApi.Helpers
 {
     internal class ModelToViewModelMapper
     {
