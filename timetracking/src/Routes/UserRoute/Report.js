@@ -140,6 +140,7 @@ const report = props => {
           handleHoursChange={props.handleHoursChange}
           handleSubmit={props.handleSubmit}
           isValidMonth={props.isValidMonth}
+          accepted={props.accepted}
         />
       </div>
     </div>

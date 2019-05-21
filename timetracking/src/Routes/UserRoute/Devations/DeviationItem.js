@@ -16,6 +16,7 @@ const deviationItem = props => {
           <input
             className="deviationlist-hours"
             type="number"
+            readOnly={!props.isValidMonth && !props.accepted}
             value={deviationItem.hours}
             onChange={e => props.handleHoursChange(e, deviationItem)}
             min={0.5}
@@ -26,6 +27,7 @@ const deviationItem = props => {
           <input
             className="deviationlist-description"
             type="text"
+            readOnly={!props.isValidMonth && !props.accepted}
             value={deviationItem.description}
             onChange={e => props.handleDescriptionChange(e, deviationItem)}
             maxLength={30}

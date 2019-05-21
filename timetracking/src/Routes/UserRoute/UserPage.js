@@ -158,7 +158,6 @@ class UserPage extends React.Component {
           existingDevitations={this.state.existingDevitations}
           handleMonthOrYearClicked={this.handleMonthOrYearClicked}
           getReportForYearAndMonth={this.getReportForYearAndMonth}
-          handleCheckBoxClicked={this.handleCheckBoxClicked}
           handleDescriptionChange={this.handleDescriptionChange}
           handleHoursChange={this.handleHoursChange}
           handleSubmit={this.handleSubmit}

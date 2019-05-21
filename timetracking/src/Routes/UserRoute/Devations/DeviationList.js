@@ -12,6 +12,7 @@ const deviationList = props => {
         handleDescriptionChange={props.handleDescriptionChange}
         deviationItems={props.deviationItems}
         isValidMonth={props.isValidMonth}
+        accepted={props.accepted}
       />
     </div>
   );
