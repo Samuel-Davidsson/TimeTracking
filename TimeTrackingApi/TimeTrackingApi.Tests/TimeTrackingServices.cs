@@ -14,7 +14,7 @@ namespace TimeTrackingApi.Tests
         public void MailAddress_Matches_ShouldReturnTrue()
         {
             //Arrange
-            var mailAdressCheck = new MailAddressCheck();
+            var mailAdressCheck = new AuthControllerServices();
             var user = UserData();
             var userViewmodel = UserViewModelData();
 
@@ -29,7 +29,7 @@ namespace TimeTrackingApi.Tests
         public void CheckPassword_Matches_ShouldReturnTrue()
         {
             //Arrange
-            var checkPassword = new PasswordCheck();
+            var checkPassword = new AuthControllerServices();
             var hashPassword = new HashPassword();
             var user = UserData();
             var userViewmodel = UserViewModelData();

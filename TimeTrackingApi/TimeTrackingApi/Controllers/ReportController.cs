@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using TimeTrackingApi.Helpers;
 using TimeTrackingApi.Services;
 using TimeTrackingApi.Viewmodels;
 
@@ -18,14 +19,15 @@ namespace TimeTrackingApi.Controllers
         private readonly IUserService _userService;
         private readonly IReportService _reportService;
         private readonly IDeviationService _deviationService;
-        private readonly GetReportFromMonth _getReportFromMonth;
+        private readonly ReportControllerServices _reportControllerServices;
 
-        public ReportController(IUserService userService, IReportService reportService, IDeviationService deviationService, GetReportFromMonth getReportFromMonth)
+        public ReportController(IUserService userService, IReportService reportService, IDeviationService deviationService, 
+            ReportControllerServices reportControllerServices)
         {
             _userService = userService;
             _reportService = reportService;
             _deviationService = deviationService;
-            _getReportFromMonth = getReportFromMonth;
+            _reportControllerServices = reportControllerServices;
         }
 
         [HttpGet("{id}")]
@@ -44,7 +46,7 @@ namespace TimeTrackingApi.Controllers
         {
             var reports = _reportService.GetReportsByUserId(reportViewmodel.UserId).ToArray();
 
-            var report = _getReportFromMonth.GetReportByMonth(reportViewmodel, reports, _reportService);
+            var report = _reportControllerServices.GetReportByMonth(reportViewmodel, reports, _reportService);
 
             return Ok(report);       
         }
@@ -55,30 +57,16 @@ namespace TimeTrackingApi.Controllers
             var report = _reportService.GetReportById(reportViewmodel.Id);
             if (report == null)
             {
-                DateTime currentMonthParsed = DateTime.Parse(reportViewmodel.CurrentMonth);
-                var currentMonth = currentMonthParsed.ToString("yyyy-MM");
-                DateTime finalcurrentMonthParsed = DateTime.Parse(currentMonth);
-                reportViewmodel.Date = finalcurrentMonthParsed;
+                reportViewmodel.Date = _reportControllerServices.DateParser(reportViewmodel.CurrentMonth);
                 report = Mapper.ViewModelToModelMapping.ReportViewModelToReport(reportViewmodel);
-                //report.Date = finalcurrentMonthParsed;
                 _reportService.Add(report);
                 return Ok(report);
             }
             else
             {
-                //if (report == null)
-                //{
-                //    report = _reportService.GetReportById(reportViewmodel.Id);
-                //}
-                foreach (var deviation in report.DeviationItems)
-                {
-                    _deviationService.Remove(deviation);
-                }
-                report.DeviationItems = reportViewmodel.DeviationItems;
-                report.UpdatedDate = DateTime.Now;
-                _reportService.Update(report);
-
-                return Ok(report);
+                var updatedReport = _reportControllerServices.UpdateReportDeviations(report, _deviationService, reportViewmodel);
+                _reportService.Update(updatedReport);
+                return Ok(updatedReport);
             }
 
         }
