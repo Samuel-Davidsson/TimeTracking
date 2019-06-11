@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TimeTrackingApi.Helpers;
 using TimeTrackingApi.Services;
-using TimeTrackingApi.Viewmodels;
 
 namespace TimeTrackingApi.Controllers
 {
