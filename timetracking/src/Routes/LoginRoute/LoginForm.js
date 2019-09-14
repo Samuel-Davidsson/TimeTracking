@@ -1,8 +1,11 @@
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import Navigation from "../../Containers/Navigation";
 import "./Login.css";
 
-const loginForm = props => {
+const LoginForm = props => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,41 +17,34 @@ const loginForm = props => {
     };
     props.tryLogin(userLoginInfo);
   };
+
   return (
-    <div className="login-form-div">
-      <Form className="login-form" onSubmit={handleSubmit}>
-        <FormGroup row>
-          <Label className="login-form-label">Användarnamn</Label>
-          <Input
-            name="username"
-            value={login}
-            onChange={e => setLogin(e.target.value)}
-            placeholder="Användarnamn.."
-            type="email"
-            required
-            className="username-username"
-          />
-        </FormGroup>
-        <FormGroup row>
-          <Label className="login-form-label">Lösenord</Label>
-          <Input
-            name="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="Lösenord.."
-            type="password"
-            required
-            className="username-password"
-          />
-        </FormGroup>
-        <p className="login-comment">Ett lätt sätt att fylla i sin rapport.</p>
-        <div className="login-button-div">
-          <Button color="info" type="submit">
+    <Grid className="grid">
+      <form className="test" onSubmit={handleSubmit}>
+        <TextField
+          name="username"
+          label="Användarnamn"
+          value={login}
+          onChange={e => setLogin(e.target.value)}
+          type="email"
+          fullWidth
+        />
+        <TextField
+          name="password"
+          label="Lösenord"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          type="password"
+          fullWidth
+        />
+        <div className="button">
+          <Navigation />
+          <Button color="primary" type="submit" variant="contained">
             Logga in
           </Button>
         </div>
-      </Form>
-    </div>
+      </form>
+    </Grid>
   );
 };
-export default loginForm;
+export default LoginForm;

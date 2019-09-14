@@ -1,16 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const navigation = () => {
   return (
     <div>
-      <NavLink
-        className="login-link"
-        value="Register"
-        to="/Timetracker/register"
-      >
+      <Link className="link" value="Register" to="/Timetracker/register">
         Klicka här för att registera dig!
-      </NavLink>
+      </Link>
     </div>
   );
 };
