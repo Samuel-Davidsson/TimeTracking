@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import "./Register.css";
 
-const registerForm = props => {
+const RegisterForm = props => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [login, setLogin] = useState("");
@@ -143,4 +143,4 @@ const registerForm = props => {
     </div>
   );
 };
-export default registerForm;
+export default RegisterForm;
