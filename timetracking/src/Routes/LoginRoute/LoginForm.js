@@ -41,7 +41,7 @@ const loginForm = props => {
             className="username-password"
           />
         </FormGroup>
-        <p className="login-comment">Lätt sätt att fylla i sin tidsrapport.</p>
+        <p className="login-comment">Ett lätt sätt att fylla i sin rapport.</p>
         <div className="login-button-div">
           <Button color="info" type="submit">
             Logga in

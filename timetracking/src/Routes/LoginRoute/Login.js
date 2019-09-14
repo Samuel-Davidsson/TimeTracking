@@ -27,11 +27,11 @@ const login = props => {
         localStorage.setItem("lastname", lastname);
         localStorage.setItem("expirationTime", expirationTime);
         if (res.status === 200 && res.data.isAdmin === true) {
-          props.history.push("/timetracker/admin");
+          props.history.push("/Timetracker/admin");
           return;
         }
         if (res.status === 200) {
-          props.history.push("/timetracker/report");
+          props.history.push("/Timetracker/report");
         }
       })
       .catch(error => {
@@ -41,7 +41,7 @@ const login = props => {
   return (
     <div>
       <HomePageNavBar />
-      <Header title={"Välkommen till Timetrackern!"} />
+      <Header title={"Välkommen till Tidsrapporten!"} />
       <div className="login-div" color="light">
         <LoginForm tryLogin={tryLogin} />
         <Navigation />

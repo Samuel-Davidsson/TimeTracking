@@ -7,7 +7,7 @@ const navigation = () => {
       <NavLink
         className="login-link"
         value="Register"
-        to="timetracker/register"
+        to="/Timetracker/register"
       >
         Klicka här för att registera dig!
       </NavLink>

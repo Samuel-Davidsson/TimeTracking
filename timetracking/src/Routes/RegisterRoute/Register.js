@@ -34,7 +34,7 @@ const register = props => {
   };
   const handleClickOnBackButton = userRegisterInfo => {
     userRegisterInfo = "";
-    props.history.push("/timetracker");
+    props.history.push("/Timetracker");
   };
   return (
     <div>
