@@ -1,21 +1,45 @@
-.grid {
-  background-color: #e9ecef;
-  width: 28%;
-  opacity: 0.9;
-  border: 2px solid grey;
+.login-div {
+  width: 25%;
   margin: 0px auto;
+  background-color: #e9ecef;
+  border: 2px solid grey;
+  opacity: 0.9;
+  filter: alpha(opacity=60);
+  margin-top: 5%;
+  position: relative;
 }
-.test {
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-top: 2%;
+.login-form {
+  margin: 1%;
+  width: 95%;
 }
-.button {
-  margin-bottom: 2%;
+.login-form-div {
+  margin: 0 auto;
+  width: 55%;
 }
-.link {
-  color: #33c9dc;
+.login-form-label {
+  color: lightslategray;
+  font-style: italic;
+  font-weight: bold;
+  margin-top: 1.2%;
 }
-.link:hover {
-  text-decoration: none;
+.login-input {
+  text-align: center;
+}
+.login-button-div {
+  margin-bottom: 1%;
+}
+.login-link {
+  color: lightslategrey;
+}
+.login-comment {
+  color: lightslategray;
+}
+.navlink-div {
+  margin-top: 0.5%;
+}
+.username-password {
+  text-align: center;
+}
+.username-username {
+  text-align: center;
 }
