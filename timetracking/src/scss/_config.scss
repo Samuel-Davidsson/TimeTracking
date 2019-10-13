@@ -1,0 +1,21 @@
+$primary-color: #444;
+$secondary-color: #17a2b8;
+$third-color: #e0d9d9e3;
+$background-opacity: 0.9;
+$jumbotron-opacity: 0.1;
+$background-image: url(../Image/office.jpg);
+
+@mixin background {
+  #wrapper {
+    background: $background-image;
+    background-size: cover;
+  }
+  &:after {
+    content: "";
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: darken($primary-color, 25);
+  }
+}

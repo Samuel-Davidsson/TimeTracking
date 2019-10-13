@@ -2,16 +2,13 @@ import axios from "axios";
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../App.css";
-import Header from "../../Containers/Header";
 import HomePageNavBar from "../../Containers/HomePageNavbar";
-import Navigation from "../../Containers/Navigation";
 import Api_Url from "../../Helpers/Api_Url";
 import errorHandler from "../../Helpers/ErrorHandler";
-import "./Login.css";
+import "../../scss/main.scss";
 import LoginForm from "./LoginForm";
 
-const login = props => {
+const Login = props => {
   const tryLogin = userLoginInfo => {
     axios
       .post(`${Api_Url}/auth/login`, {
@@ -27,7 +24,7 @@ const login = props => {
         localStorage.setItem("lastname", lastname);
         localStorage.setItem("expirationTime", expirationTime);
         if (res.status === 200 && res.data.isAdmin === true) {
-          props.history.push("/Timetracker/admin");
+          props.history.push("/Tidsrapporten/admin");
           return;
         }
         if (res.status === 200) {
@@ -40,14 +37,10 @@ const login = props => {
   };
   return (
     <div>
-      <HomePageNavBar />
-      <Header title={"Välkommen till Tidsrapporten!"} />
-      <div className="login-div" color="light">
-        <LoginForm tryLogin={tryLogin} />
-        <Navigation />
-        <ToastContainer position="top-right" autoClose={5000} />
-      </div>
+      <HomePageNavBar title={"Tidsrapporten"} />
+      <LoginForm tryLogin={tryLogin} />
+      <ToastContainer position="top-right" autoClose={5000} />
     </div>
   );
 };
-export default login;
+export default Login;

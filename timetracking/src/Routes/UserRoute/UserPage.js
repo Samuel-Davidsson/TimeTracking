@@ -4,7 +4,6 @@ import React from "react";
 import "react-app-polyfill/ie11";
 import "react-day-picker/lib/style.css";
 import { ToastContainer } from "react-toastify";
-import Header from "../../Containers/Header";
 import HeaderNavbar from "../../Containers/HomePageNavbar";
 import Api_Url from "../../Helpers/Api_Url";
 import CanSubmit from "../../Helpers/CanSubmit";
@@ -142,7 +141,6 @@ class UserPage extends React.Component {
     return (
       <div>
         <HeaderNavbar isAuthorized={this.state.isAuthorized} />
-        <Header title={this.state.title} />
         <ToastContainer position="top-right" autoClose={5000} />
         <Report
           deviationItems={this.state.deviationItems}

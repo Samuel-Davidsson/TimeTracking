@@ -7,19 +7,17 @@ import NotFound from "../Routes/NotFound";
 import Register from "../Routes/RegisterRoute/Register";
 import UserPage from "../Routes/UserRoute/UserPage";
 
-const router = () => (
-  <div>
-    <BrowserRouter>
-      <Switch>
-        <Route path="/Timetracker" exact component={Login} />
-        <Route path="/Timetracker/login" component={Login} />
-        <Route path="/Timetracker/register" component={Register} />
-        <AuthRoute path="/Timetracker/report" component={UserPage} />
-        <AuthRoute path="/Timetracker/admin" component={AdminPage} />
-        <Route component={NotFound} />
-      </Switch>
-    </BrowserRouter>
-  </div>
+const Router = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route path="/Tidsrapporten" exact component={Login} />
+      <Route path="/Tidsrapporten/login" component={Login} />
+      <Route path="/Tidsrapporten/registrera" component={Register} />
+      <AuthRoute path="/Tidsrapporten/rapport" component={UserPage} />
+      <AuthRoute path="/Tidsrapporten/admin" component={AdminPage} />
+      <Route component={NotFound} />
+    </Switch>
+  </BrowserRouter>
 );
 
-export default React.memo(router);
+export default React.memo(Router);

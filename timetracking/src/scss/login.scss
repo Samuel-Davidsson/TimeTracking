@@ -1,0 +1,55 @@
+@import "config";
+
+.Form {
+  width: 70vh;
+  height: 40vh;
+  margin: 0px auto;
+  background-color: $third-color;
+  border: 0.2rem solid $primary-color;
+  opacity: 1;
+  margin-top: 15vh;
+  user-select: none;
+
+  .FormGroup {
+    width: 50vh;
+    text-align: center;
+    margin: 0px auto;
+  }
+
+  .Label {
+    color: darken($secondary-color, 10);
+    letter-spacing: 1px;
+    margin-top: 0.5rem;
+  }
+
+  .Input {
+    background-color: darken($third-color, 20);
+  }
+  h1 {
+    color: $secondary-color;
+    letter-spacing: 1px;
+    text-shadow: 0.1rem 0.1rem 0.1rem $primary-color;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+
+  div {
+    margin: 0px auto;
+    margin-top: 1rem;
+  }
+}
+
+.NavLink {
+  color: $secondary-color;
+
+  &:hover {
+    text-decoration: none;
+    color: $primary-color;
+  }
+}
+
+.Button {
+  margin-bottom: 0.6rem;
+}

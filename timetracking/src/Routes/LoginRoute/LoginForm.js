@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import "./Login.css";
+import Navigation from "../../Containers/Navigation";
+import AppIcon from "../../Image/timeglass.png";
+import "../../scss/login.scss";
 
 const LoginForm = props => {
   const [login, setLogin] = useState("");
@@ -15,40 +17,38 @@ const LoginForm = props => {
     props.tryLogin(userLoginInfo);
   };
   return (
-    <div className="login-form-div">
-      <Form className="login-form" onSubmit={handleSubmit}>
-        <FormGroup row>
-          <Label className="login-form-label">Användarnamn</Label>
-          <Input
-            name="username"
-            value={login}
-            onChange={e => setLogin(e.target.value)}
-            placeholder="Användarnamn.."
-            type="email"
-            required
-            className="username-username"
-          />
-        </FormGroup>
-        <FormGroup row>
-          <Label className="login-form-label">Lösenord</Label>
-          <Input
-            name="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="Lösenord.."
-            type="password"
-            required
-            className="username-password"
-          />
-        </FormGroup>
-        <p className="login-comment">Ett lätt sätt att fylla i sin rapport.</p>
-        <div className="login-button-div">
-          <Button color="info" type="submit">
-            Logga in
-          </Button>
-        </div>
-      </Form>
-    </div>
+    <Form className="Form" onSubmit={handleSubmit}>
+      <h1>Välkommen till Tidsrapporten</h1>
+      <img src={AppIcon} alt="Clock" />
+      <FormGroup className="FormGroup" row>
+        <Label className="Label">Användarnamn:</Label>
+        <Input
+          className="Input"
+          name="username"
+          value={login}
+          onChange={e => setLogin(e.target.value)}
+          type="email"
+          required
+        />
+      </FormGroup>
+      <FormGroup className="FormGroup" row>
+        <Label className="Label">Lösenord:</Label>
+        <Input
+          className="Input"
+          name="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          type="password"
+          required
+        />
+      </FormGroup>
+      <div>
+        <Button className="Button" size="lg" color="info" type="submit">
+          Logga in
+        </Button>
+      </div>
+      <Navigation />
+    </Form>
   );
 };
 export default LoginForm;

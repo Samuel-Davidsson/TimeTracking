@@ -1,17 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "../scss/login.scss";
 
-const navigation = () => {
+const Navigation = () => {
   return (
-    <div>
-      <NavLink
-        className="login-link"
-        value="Register"
-        to="/Timetracker/register"
-      >
-        Klicka här för att registera dig!
-      </NavLink>
-    </div>
+    <NavLink
+      className="NavLink"
+      value="Register"
+      to="/Tidsrapporten/registrera"
+    >
+      Klicka här för att registera dig!
+    </NavLink>
   );
 };
-export default React.memo(navigation);
+export default React.memo(Navigation);

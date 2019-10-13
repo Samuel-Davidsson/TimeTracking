@@ -1,49 +1,35 @@
 import React from "react";
-import {
-  Collapse,
-  Nav,
-  Navbar,
-  NavbarBrand,
-  NavItem,
-  NavLink
-} from "reactstrap";
+import { Nav, Navbar, NavbarBrand, NavItem, NavLink } from "reactstrap";
 import CountDown from "../Helpers/CountDown";
 import Logout from "../Helpers/Logout";
 
-const homePageNavBar = props => {
+const HomePageNavBar = props => {
   return (
-    <div>
-      <Navbar className="navbar-border" color="light" light expand="md">
-        <NavbarBrand>Timetracker</NavbarBrand>
-        <NavbarBrand hidden={!props.isAuthorized === true}>
-          <CountDown />
-        </NavbarBrand>
-        <Collapse navbar>
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink
-                hidden={!props.isAuthorized === true}
-                href="/timetracker/notfound"
-              >
-                Användare
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/Samuel-Davidsson">
-                GitHub
-              </NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink className="pointer" onClick={Logout}>
-                {" "}
-                Logga ut
-              </NavLink>
-            </NavItem>
-          </Nav>
-        </Collapse>
-      </Navbar>
-    </div>
+    <Navbar className="Navbar" color="light" light expand="md">
+      <h3>{props.title}</h3>
+      <NavbarBrand hidden={!props.isAuthorized === true}>
+        <CountDown />
+      </NavbarBrand>
+      <Nav className="ml-auto" navbar>
+        <NavItem>
+          <NavLink
+            hidden={!props.isAuthorized === true}
+            href="/timetracker/notfound"
+          >
+            Användare
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="https://github.com/Samuel-Davidsson">Github</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink className="pointer" onClick={Logout}>
+            {" "}
+            Logga ut
+          </NavLink>
+        </NavItem>
+      </Nav>
+    </Navbar>
   );
 };
-export default React.memo(homePageNavBar);
+export default React.memo(HomePageNavBar);

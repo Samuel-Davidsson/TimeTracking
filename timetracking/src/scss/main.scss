@@ -1,0 +1,22 @@
+@import "config";
+
+html,
+body {
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  text-align: center;
+  background: url("../Image/office.jpg");
+}
+
+.Navbar {
+  border-bottom: 0.25rem $third-color solid;
+  height: 6vh;
+
+  h3 {
+    color: $secondary-color;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}

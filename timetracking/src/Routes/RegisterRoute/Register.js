@@ -1,7 +1,6 @@
 import axios from "axios";
 import React from "react";
 import { ToastContainer } from "react-toastify";
-import Header from "../../Containers/Header";
 import HeaderPageNavbar from "../../Containers/HomePageNavbar";
 import Api_Url from "../../Helpers/Api_Url";
 import errorHandler from "../../Helpers/ErrorHandler";
@@ -34,13 +33,12 @@ const register = props => {
   };
   const handleClickOnBackButton = userRegisterInfo => {
     userRegisterInfo = "";
-    props.history.push("/Timetracker");
+    props.history.push("/Tidsrapporten");
   };
   return (
     <div>
       <div className="register-div">
         <HeaderPageNavbar />
-        <Header title={"Registreringssida för dig så att du kan logga in."} />
         <ToastContainer position="top-right" autoClose={5000} />
         <RegisterForm
           handleClickOnBackButton={handleClickOnBackButton}

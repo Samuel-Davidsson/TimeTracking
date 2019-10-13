@@ -2,7 +2,6 @@ import axios from "axios";
 import React from "react";
 import DayPicker from "react-day-picker";
 import { ToastContainer } from "react-toastify";
-import Header from "../../Containers/Header";
 import HomePageNavBar from "../../Containers/HomePageNavbar";
 import Api_Url from "../../Helpers/Api_Url";
 import errorHandler from "../../Helpers/ErrorHandler";
@@ -196,7 +195,6 @@ export default class AdminPage extends React.Component {
     return (
       <div>
         <HomePageNavBar isAuthorized={this.state.isAuthorized} />
-        <Header />
         <ToastContainer position="top-right" autoClose={5000} />
         <div className="userlist-div">
           <Userlist
